@@ -1,0 +1,77 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--background-color); /* Dùng màu be từ index.css */
+}
+
+.mainContent {
+  flex: 1; /* Giúp đẩy Footer xuống dưới */
+  max-width: 1200px;
+  width: 90%;
+  margin: 3rem auto; /* Tự động căn giữa */
+  text-align: center;
+}
+
+.mainContent h1 {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.mainContent h1 span {
+  color: var(--primary-color); /* Màu cam */
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto 3rem auto; /* Căn giữa và tạo khoảng cách */
+}
+
+/* Lưới CSS cho 3 bước */
+.stepsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Tạo 3 cột bằng nhau */
+  gap: 2rem; /* Khoảng cách giữa các cột */
+}
+
+/* CSS cho mỗi thẻ (card) */
+.step {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.step:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.icon {
+  font-size: 3rem; /* Kích thước icon */
+  color: var(--primary-color); /* Màu cam */
+  margin-bottom: 1rem;
+}
+
+.step h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.step p {
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Tùy chỉnh cho màn hình điện thoại (Responsive) */
+@media (max-width: 768px) {
+  .stepsGrid {
+    grid-template-columns: 1fr;
+  }
+}

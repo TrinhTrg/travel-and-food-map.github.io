@@ -1,0 +1,105 @@
+/* Container chính của Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #FFF7ED; /* Màu nền be */
+  border-bottom: 1px solid #eee;
+}
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+
+}
+.logo img {
+  height: 50px; 
+  width: auto;  
+  object-fit: contain;
+}
+
+/* Link điều hướng */
+.navLinks {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: #555;
+  font-weight: 500;
+}
+
+/* Link được active (màu cam) */
+.navLinks a.active,
+.navLinks a:hover {
+  color: #F58634;
+}
+
+/* Khu vực nút hành động */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Nút chung */
+.iconButton, .iconButtonOrange {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  background-color: white;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+/* Nút màu cam */
+.iconButtonOrange {
+  background-color: #F58634;
+  color: white;
+  border: none;
+  padding: 0.5rem; /* Làm nó tròn */
+  border-radius: 50%;
+}
+/* Nhóm bên trái (Logo + Search) */
+.navLeft {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; /* Khoảng cách giữa logo và thanh tìm kiếm */
+}
+
+
+/* Thanh tìm kiếm */
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  width: 300px;
+  border: 1px solid #e0e0e0; /* Thêm viền mỏng */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.03); /* Thêm bóng mờ nhẹ */
+}
+
+.searchBar svg {
+  color: #777;
+  margin-right: 0.5rem;
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  background: transparent;
+  width: 100%;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.searchBar input::placeholder {
+  color: #777;
+}

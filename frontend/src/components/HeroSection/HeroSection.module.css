@@ -1,0 +1,126 @@
+/* Container chính của Hero */
+.heroContainer {
+  position: relative; /* Quan trọng: để làm "mỏ neo" cho các ảnh bay */
+  background-color: #FFF7ED; /* Màu nền be */
+  padding: 5rem 2rem;
+  text-align: center;
+  overflow: hidden; /* Ngăn ảnh bay ra khỏi lề */
+  min-height: 80vh; /* Chiếm gần hết màn hình */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Nội dung chính giữa */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem; /* Khoảng cách giữa các phần tử con */
+  max-width: 600px;
+  z-index: 2; /* Nằm trên các ảnh bay */
+  position: relative;
+}
+
+.content h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.content h1 span {
+  color: #F58634; /* Màu cam */
+}
+
+.content p {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 450px;
+}
+
+/* Thanh tìm kiếm */
+.searchBar {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  gap: 1rem;
+  width: 100%;
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  flex-grow: 1; /* Tự co giãn */
+  font-size: 1rem;
+}
+
+.searchBar svg { /* Style cho các icon */
+  color: #777;
+  font-size: 1.2rem;
+}
+
+/* Nút kêu gọi hành động */
+.ctaButton {
+  background-color: #F58634;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.ctaButton:hover {
+  transform: scale(1.05);
+  color: white;
+}
+
+/* Các tính năng */
+.features {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.featureItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #555;
+  font-weight: 500;
+}
+
+/* --- Kỹ thuật ảnh "bay" --- */
+.floatingImage {
+  position: absolute; /* Bay tự do */
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  z-index: 1; /* Nằm dưới nội dung */
+  width: 150px; /* Kích thước ví dụ */
+}
+
+/* Vị trí cụ thể của từng ảnh */
+.image1 {
+  top: 10%;
+  left: 15%;
+  width: 180px;
+}
+.image2 {
+  top: 15%;
+  right: 12%;
+  width: 200px;
+}
+.image3 {
+  bottom: 15%;
+  left: 20%;
+}
+.image4 {
+  bottom: 25%;
+  right: 18%;
+  width: 170px;
+}

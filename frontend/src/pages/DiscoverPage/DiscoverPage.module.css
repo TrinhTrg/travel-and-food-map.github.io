@@ -1,0 +1,71 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Bố cục 2 cột */
+.mainContent {
+  display: flex;
+  flex: 1;
+}
+
+/* Cột 1: Sidebar */
+.sidebar {
+  width: 450px; /* Cố định chiều rộng */
+  padding: 1.5rem;
+  background-color: #f9f9f9;
+  overflow-y: auto; /* Cho phép cuộn nếu quá dài */
+  height: calc(100vh - 70px); /* Chiều cao trừ đi Navbar */
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 20px;
+  background-color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+.tab.active {
+  background-color: #F58634;
+  color: white;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+/* Cột 2: Map */
+.mapContainer {
+  flex: 1; /* Chiếm hết phần còn lại */
+  position: relative;
+}
+
+.mapPlaceholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: calc(100vh - 70px); /* Chiều cao trừ đi Navbar */
+  background-color: #e0e0e0;
+  color: #777;
+  font-size: 1.5rem;
+}

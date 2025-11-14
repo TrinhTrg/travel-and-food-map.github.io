@@ -1,0 +1,46 @@
+/* 1. Reset CSS cơ bản */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+/* 2. Định nghĩa các biến màu (CSS Variables) toàn cục */
+:root {
+  /* Màu sắc từ UI FoodGo của bạn */
+  --primary-color: #F58634;    /* Màu cam chính */
+  --background-color: #FFF7ED; /* Màu be nhạt */
+  --text-color: #333;         /* Màu chữ chính */
+  --text-light: #555;        /* Màu chữ phụ */
+  
+  /* Font chữ - Bạn có thể đổi sau nếu import Google Fonts */
+  /* (Giữ nguyên font-family của Vite là tốt) */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: var(--text-color);
+  background-color: var(--background-color);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 3. Áp dụng style cho body */
+body {
+  /* Xóa hết 'display: flex', 'place-items: center' */
+  /* Chỉ giữ lại margin: 0 (đã có ở reset) và min-height */
+  min-height: 100vh;
+}
+
+/* 4. Style link chung (nếu muốn) */
+a {
+  font-weight: 500;
+  color: var(--text-light);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--primary-color);
+}
