@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "root",
+    "password": "trinh147@ttt",
+    "database": "FoodGo_db",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "root",
+    "password": "trinh147@ttt",
+    "database": "FoodGo_db_test",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "root",
+    "password": "trinh147@ttt",
+    "database": "FoodGo_db_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}
