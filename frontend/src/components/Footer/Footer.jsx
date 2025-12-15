@@ -14,7 +14,7 @@
               <img src={logo} alt="FoodGo Logo" /> 
             </div>
             <p>
-              Ứng dụng giao đồ ăn hàng đầu Việt Nam. Mang đến cho bạn những trải
+              Ứng dụng tìm hiểu và khám phá ẩm thực đầu tiên tại Việt Nam. Mang đến cho bạn những trải
               nghiệm ẩm thực tuyệt vời nhất.
             </p>
           {/*2: Icon mạng xã hội */}
@@ -27,35 +27,34 @@
           </div>
           
           <div className={styles.secondColumn}>
-            <h4>Về FoodGo</h4>
+            <h4>About FoodGo</h4>
             <ul>
-              <li><NavLink to="/about">Giới thiệu</NavLink></li>
-              <li><NavLink to="/story">Câu chuyện của chúng tôi</NavLink></li>
-              <li><NavLink to="/careers">Nghề nghiệp</NavLink></li>
-              <li><NavLink to="/news">Tin tức</NavLink></li>
-              <li><NavLink to="/partners">Đối tác</NavLink></li>
+              <li><NavLink to="/">Home</NavLink></li>
+              <li><NavLink to="/kham-pha">Discover</NavLink></li>
+              <li><NavLink to="/how-it-works">How It Works</NavLink></li>
+              <li><NavLink to="/contact">Contact Us</NavLink></li>
+              <li><NavLink to="/partners">Partners</NavLink></li>
             </ul>
           </div>
 
           <div className={styles.thirdColumn}>
-            <h4>Hỗ trợ</h4>
+            <h4>Support</h4>
             <ul>
-              <li><NavLink to="/contact">Liên hệ</NavLink></li>
-              <li><NavLink to="/help-center">Trung tâm trợ giúp</NavLink></li>
-              <li><NavLink to="/faq">Câu hỏi thường gặp</NavLink></li>
-              <li><NavLink to="/report">Báo cáo sự cố</NavLink></li>
-              <li><NavLink to="/feedback">Phản hồi</NavLink></li>
+              <li><NavLink to="/contact">Contact Us</NavLink></li>
+              <li><NavLink to="/help-center">Help Center</NavLink></li>
+              <li><NavLink to="/faq">FAQ</NavLink></li>
+              <li><NavLink to="/report">Report</NavLink></li>
+              <li><NavLink to="/feedback">Feedback</NavLink></li>
             </ul>
           </div>
 
           <div className={styles.fourthColumn}>
-            <h4>Chính sách</h4>
+            <h4>Policies</h4>
             <ul>
-              <li><NavLink to="/privacy">Chính sách bảo mật</NavLink></li>
-              <li><NavLink to="/terms">Điều khoản sử dụng</NavLink></li>
-              <li><NavLink to="/refund">Chính sách hoàn tiền</NavLink></li>
-              <li><NavLink to="/shipping">Chính sách giao hàng</NavLink></li>
-              <li><NavLink to="/food-safety">Chính sách an toàn thực phẩm</NavLink></li>
+              <li><NavLink to="/privacy">Privacy Policy</NavLink></li>
+              <li><NavLink to="/terms">Terms of Service</NavLink></li>
+              <li><NavLink to="/shipping">Shipping Policy</NavLink></li>
+              <li><NavLink to="/food-safety">Food Safety Policy</NavLink></li>
             </ul>
           </div>
           </div>
@@ -65,8 +64,8 @@
               © 2025 FoodGo. All rights reserved.
             </span>
             <div className={styles.subLinks}>
-              <a href="/chinh-sach">Chính sách bảo mật</a>
-              <a href="/dieu-khoan">Điều khoản</a>
+              <a href="/privacy">Privacy Policy</a>
+              <a href="/terms">Terms of Service</a>
               <a href="/cookies">Cookies</a>
             </div>
           </div>

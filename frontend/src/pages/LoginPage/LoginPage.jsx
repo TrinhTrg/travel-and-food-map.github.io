@@ -69,6 +69,12 @@ const LoginPage = () => {
                 disabled={loading}
               />
             </div>
+            
+            <div className={styles.forgotPasswordLink}>
+              <Link to="/quen-mat-khau" className={styles.forgotLink}>
+                Quên mật khẩu?
+              </Link>
+            </div>
 
             <button
               type="submit"

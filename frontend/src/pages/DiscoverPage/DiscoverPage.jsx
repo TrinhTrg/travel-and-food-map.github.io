@@ -1,92 +1,526 @@
-import React from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import styles from './DiscoverPage.module.css';
-import Navbar from '../../components/Navbar/Navbar'; // Dùng lại Navbar
-import Footer from '../../components/Footer/Footer'; // Dùng lại Footer
+import Navbar from '../../components/Navbar/Navbar';
+import Footer from '../../components/Footer/Footer';
 import RestaurantCard from '../../components/RestaurantCard/RestaurantCard';
 import TopRestaurantCard from '../../components/TopRestaurantCard/TopRestaurantCard';
-import { FaFire, FaStar } from 'react-icons/fa';
+import {
+  FaFire,
+  FaStar,
+  FaArrowLeft,
+  FaMapMarkerAlt,
+} from 'react-icons/fa';
+import { FiFilter } from 'react-icons/fi';
+import MapView from "../../components/Map/MapView";
 
-import imgPhoBo from '../../assets/phobo.png';
-import imgSushi from '../../assets/sushi.png';
-// --- Dữ liệu giả (dummy data) để hiển thị UI ---
-const nearbyRestaurants = [
+const DEFAULT_CITY_CENTER = { lat: 16.0544, lng: 108.2022 };
+
+const FILTERS = [
   {
-    id: 1,
-    name: "Phở Bò 24",
-    image: imgPhoBo,
-    rating: 4.8,
-    reviews: 1234,
-    address: "123 Street, Thanh Khê, Đà Nẵng",
-    status: "Đang mở cửa",
-    tags: ["Phở", "Món Việt"],
-    price: "$$"
+    key: 'popular',
+    label: 'Phổ biến',
+    Icon: FaFire,
+    sortFn: (a, b) => b.reviews - a.reviews,
   },
   {
-    id: 2,
-    name: "Sushi Tokyo Bay",
-    image: imgSushi,
-    rating: 4.9,
-    reviews: 897,
-    address: "ABC Street, Sơn Trà, Đà Nẵng",
-    status: "Đang mở cửa",
-    tags: ["Sushi", "Nhật Bản"],
-    price: "$$$"
+    key: 'topRated',
+    label: 'Đánh giá cao',
+    Icon: FaStar,
+    sortFn: (a, b) => b.rating - a.rating,
   },
 ];
 
-const topRestaurants = [
-  { id: 1, rank: 1, name: "La Maison Fine Dining", category: "Pháp", price: "$$$", rating: 4.9, image: "" },
-  { id: 2, rank: 2, name: "Thai Orchid Garden", category: "Thái", price: "$$", rating: 4.8, image: "" },
+const ADVANCED_FILTERS = [
+  {
+    key: 'distance',
+    label: 'Gần bạn',
+  },
+  {
+    key: 'price',
+    label: 'Giá tối đa',
+  },
 ];
-// --- Hết dữ liệu giả ---
 
+const priceLabelToScore = (price) => {
+  if (!price) return 2;
+  if (typeof price === 'number') return price;
+  const matches = `${price}`.match(/\$/g);
+  return matches ? matches.length : 2;
+};
+
+const parseCoordinate = (value) => {
+  if (typeof value === 'number') return value;
+  const parsed = parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
+
+const toRad = (deg) => (deg * Math.PI) / 180;
+
+const haversineDistanceKm = (lat1, lon1, lat2, lon2) => {
+  const R = 6371; // km
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(toRad(lat1)) *
+      Math.cos(toRad(lat2)) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+};
+
+const distanceFromPoint = (baseLat, baseLng, restaurant) => {
+  const lat = parseCoordinate(restaurant.latitude);
+  const lng = parseCoordinate(restaurant.longitude);
+  if (lat === null || lng === null || baseLat == null || baseLng == null) {
+    return Number.MAX_VALUE;
+  }
+  return haversineDistanceKm(baseLat, baseLng, lat, lng);
+};
 
 const DiscoverPage = () => {
+  // --- GIỮ NGUYÊN LOGIC CŨ ---
+  const [activeFilter, setActiveFilter] = useState(FILTERS[0].key);
+  const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
+  const [restaurants, setRestaurants] = useState([]);
+  const [userPosition, setUserPosition] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // --- THÊM STATE MỚI CHO UI ---
+  // viewMode: 'overview' | 'nearby' | 'topRated' | 'all'
+  const [viewMode, setViewMode] = useState('overview'); 
+  const [advancedFilters, setAdvancedFilters] = useState([]);
+  const [maxPrice, setMaxPrice] = useState(10000000);
+  const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
+  const filterDropdownRef = useRef(null);
+
+  const API_BASE_URL =
+    import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+
+  // Đóng dropdown khi click ra ngoài
+  // Lấy vị trí hiện tại của user cho filter "Gần bạn"
+  useEffect(() => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setUserPosition({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
+      },
+      () => {
+        // Nếu không lấy được vị trí, fallback về tâm Đà Nẵng
+        setUserPosition({ ...DEFAULT_CITY_CENTER });
+      }
+    );
+  }, []);
+
+  useEffect(() => {
+    if (!isFilterDropdownOpen) return;
+
+    const handleClickOutside = (event) => {
+      if (
+        filterDropdownRef.current &&
+        !filterDropdownRef.current.contains(event.target)
+      ) {
+        setIsFilterDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isFilterDropdownOpen]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [categoryRes, restaurantRes] = await Promise.all([
+          fetch(`${API_BASE_URL}/categories`, { signal: controller.signal }),
+          fetch(`${API_BASE_URL}/restaurants`, { signal: controller.signal }),
+        ]);
+
+        if (!categoryRes.ok) throw new Error('Không thể lấy danh sách categories');
+        if (!restaurantRes.ok) throw new Error('Không thể lấy danh sách nhà hàng');
+
+        const categoryJson = await categoryRes.json();
+        const restaurantJson = await restaurantRes.json();
+        const restaurantData = Array.isArray(restaurantJson.data) ? restaurantJson.data : [];
+
+        setCategories(Array.isArray(categoryJson.data) ? categoryJson.data : []);
+        setRestaurants(restaurantData);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error(err);
+          setError(err.message || 'Đã có lỗi xảy ra');
+        }
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+    return () => controller.abort();
+  }, []);
+
+  const filteredNearbyRestaurants = useMemo(() => {
+    const currentFilter = FILTERS.find((filter) => filter.key === activeFilter);
+    if (!currentFilter) return restaurants;
+    return [...restaurants].sort(currentFilter.sortFn);
+  }, [activeFilter, restaurants]);
+
+  const sortedNearbyRestaurants = useMemo(() => {
+    let list = filteredNearbyRestaurants.map((restaurant) => {
+      // Gắn thêm khoảng cách từ user để dùng cho sort + hiển thị
+      const distanceKm = userPosition
+        ? distanceFromPoint(
+            userPosition.lat,
+            userPosition.lng,
+            restaurant
+          )
+        : null;
+      return { ...restaurant, distanceKm };
+    });
+    const hasDistance = advancedFilters.includes('distance');
+    const hasPrice = advancedFilters.includes('price');
+
+    // Nếu chọn lọc theo giá, sắp xếp theo mức giá (cao -> thấp)
+    if (hasPrice) {
+      list = list.sort(
+        (a, b) => priceLabelToScore(b.price) - priceLabelToScore(a.price)
+      );
+    }
+
+    // Nếu chọn lọc theo khoảng cách, ưu tiên gần hơn
+    if (hasDistance) {
+      list = list.sort(
+        (a, b) => (a.distanceKm ?? Number.MAX_VALUE) - (b.distanceKm ?? Number.MAX_VALUE)
+      );
+    }
+
+    return list;
+  }, [filteredNearbyRestaurants, advancedFilters, userPosition]);
+
+  const mapRestaurants = useMemo(() => restaurants, [restaurants]);
+
+  const topRestaurants = useMemo(() => {
+    return [...restaurants]
+      .sort((a, b) => {
+        if (b.rating === a.rating) {
+          return (b.reviews || 0) - (a.reviews || 0);
+        }
+        return b.rating - a.rating;
+      })
+      // Bỏ slice(0, 3) cứng ở đây, để UI quyết định hiển thị bao nhiêu
+      .map((restaurant, index) => ({
+        ...restaurant,
+        rank: index + 1,
+        image: restaurant.image || restaurant.image_url || restaurant.bannerImage,
+        price: restaurant.price || '$$',
+      }));
+  }, [restaurants]);
+
+  const handleRestaurantSelect = (restaurantOrId) => {
+    if (!restaurantOrId) {
+      setSelectedRestaurantId(null);
+      return;
+    }
+    const id = typeof restaurantOrId === "string" ? restaurantOrId : restaurantOrId.id;
+    setSelectedRestaurantId(id);
+  };
+
+  const renderRestaurantList = (list) =>
+    list.map((restaurant) => (
+      <RestaurantCard
+        key={restaurant.id}
+        restaurant={restaurant}
+        onSelect={handleRestaurantSelect}
+        isActive={selectedRestaurantId === restaurant.id}
+      />
+    ));
+
+  // --- UI HELPER FUNCTIONS ---
+
+  // Component Nút Quay lại
+  const BackButton = () => (
+    <button 
+      className={styles.backButton} 
+      onClick={() => setViewMode('overview')}
+    >
+      <FaArrowLeft /> Quay lại
+    </button>
+  );
+
+  // Component Header của Section (có nút Xem tất cả)
+  const SectionHeader = ({ title, targetMode }) => (
+    <div className={styles.sectionHeader}>
+      <h2 className={styles.title}>{title}</h2>
+      <button
+        className={styles.viewAllLink}
+        onClick={() => setViewMode(targetMode)}
+      >
+        Xem tất cả
+      </button>
+    </div>
+  );
+
+  const FilterDropdown = () => (
+    <div className={styles.filterToggleWrapper} ref={filterDropdownRef}>
+      <button
+        type="button"
+        className={`${styles.filterToggleButton} ${
+          isFilterDropdownOpen ? styles.filterToggleButtonActive : ''
+        }`}
+        onClick={() => setIsFilterDropdownOpen((open) => !open)}
+        aria-haspopup="true"
+        aria-expanded={isFilterDropdownOpen}
+        aria-label="Bộ lọc nâng cao"
+      >
+        <FiFilter />
+      </button>
+
+      {isFilterDropdownOpen && (
+        <div className={styles.filterDropdown}>
+          {ADVANCED_FILTERS.map(({ key, label }) => {
+            const checked = advancedFilters.includes(key);
+            const isPrice = key === 'price';
+            return (
+              <div key={key} className={styles.filterOption}>
+                <button
+                  type="button"
+                  className={styles.filterOptionButton}
+                  onClick={() => {
+                    setAdvancedFilters((prev) =>
+                      checked
+                        ? prev.filter((item) => item !== key)
+                        : [...prev, key]
+                    );
+                  }}
+                >
+                  <span
+                    className={`${styles.filterCheckbox} ${
+                      checked ? styles.filterCheckboxChecked : ''
+                    }`}
+                  >
+                    {checked && <span className={styles.filterCheckboxDot} />}
+                  </span>
+                  <span className={styles.filterLabel}>{label}</span>
+                </button>
+                {isPrice && (
+                  <div className={styles.filterSliderRow}>
+                    <input
+                      type="range"
+                      min={0}
+                      max={10000000}
+                      step={500000}
+                      value={maxPrice}
+                      onChange={(event) =>
+                        setMaxPrice(Number(event.target.value))
+                      }
+                      className={styles.filterSlider}
+                    />
+                    <span className={styles.filterPriceValue}>
+                      {maxPrice.toLocaleString('vi-VN')} đ
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+
+  if (loading) {
+    return (
+      <div className={styles.pageContainer}>
+        <Navbar />
+        <main className={styles.mainContent}>
+          <div className={styles.sidebar}><p>Đang tải dữ liệu...</p></div>
+          <section className={styles.mapContainer}><div className={styles.mapPlaceholder}>Loading map...</div></section>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={styles.pageContainer}>
+        <Navbar />
+        <main className={styles.mainContent}>
+          <div className={styles.sidebar}>
+            <p className={styles.errorText}>{error}</p>
+            <button className={styles.retryButton} onClick={() => window.location.reload()}>Thử lại</button>
+          </div>
+          <section className={styles.mapContainer}><div className={styles.mapPlaceholder}>Không thể tải bản đồ</div></section>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className={styles.pageContainer}>
-      <Navbar /> 
+      <Navbar />
 
       <main className={styles.mainContent}>
         {/* Cột 1: Sidebar danh sách */}
         <aside className={styles.sidebar}>
-          <h2 className={styles.title}>Nhà hàng gần bạn</h2>
           
-          {/* Tabs */}
-          <div className={styles.tabs}>
-            <button className={`${styles.tab} ${styles.active}`}>
-              <FaFire /> Phổ biến
-            </button>
-            <button className={styles.tab}>
-              <FaStar /> Đánh giá cao
-            </button>
-          </div>
+          {/* --- VIEW: TỔNG QUAN (OVERVIEW) --- */}
+          {viewMode === 'overview' && (
+            <>
+              {/* Section 1: Nhà hàng gần bạn */}
+              <section className={styles.section}>
+                <SectionHeader title="Nhà hàng gần bạn" targetMode="nearby" />
+                
+                {/* Hàng: Tabs phổ biến/đánh giá cao + nút Filter (góc phải) */}
+                <div className={styles.tabsRow}>
+                  <div className={styles.tabs}>
+                    {FILTERS.map(({ key, label, Icon }) => (
+                      <button
+                        key={key}
+                        type="button"
+                        className={`${styles.tab} ${
+                          activeFilter === key ? styles.active : ""
+                        }`}
+                        onClick={() => setActiveFilter(key)}
+                      >
+                        <Icon /> {label}
+                      </button>
+                    ))}
+                  </div>
+                  <FilterDropdown />
+                </div>
 
-          {/* Danh sách nhà hàng */}
-          <div className={styles.restaurantList}>
-            {nearbyRestaurants.map(restaurant => (
-              <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-            ))}
-          </div>
+                <div className={styles.restaurantList}>
+                  {/* Chỉ hiển thị 3 items */}
+                  {renderRestaurantList(sortedNearbyRestaurants.slice(0, 3))}
+                </div>
+              </section>
 
-          <hr className={styles.divider} />
+              <hr className={styles.divider} />
 
-          {/* Top nhà hàng */}
-          <h2 className={styles.title}>Top Nhà Hàng Được Đánh Giá Cao 🏆</h2>
-          <div className={styles.topRestaurantList}>
-            {topRestaurants.map(restaurant => (
-              <TopRestaurantCard key={restaurant.id} restaurant={restaurant} />
-            ))}
-          </div>
+              {/* Section 2: Top Rated */}
+              <section className={styles.section}>
+                <SectionHeader title="Top Đánh Giá Cao 🏆" targetMode="topRated" />
+                <div className={styles.topRestaurantList}>
+                  {/* Chỉ hiển thị 3 items */}
+                  {topRestaurants.slice(0, 3).map((restaurant) => (
+                    <TopRestaurantCard
+                      key={restaurant.id}
+                      restaurant={restaurant}
+                      onSelect={handleRestaurantSelect}
+                      isActive={selectedRestaurantId === restaurant.id}
+                    />
+                  ))}
+                </div>
+              </section>
+
+              <hr className={styles.divider} />
+
+              {/* Section 3: Tất cả */}
+              <section className={styles.section}>
+                <SectionHeader title="Tất cả nhà hàng" targetMode="all" />
+                <div className={styles.restaurantList}>
+                   {/* Chỉ hiển thị 3 items */}
+                  {renderRestaurantList(restaurants.slice(0, 3))}
+                </div>
+              </section>
+            </>
+          )}
+
+          {/* --- VIEW: CHI TIẾT NHÀ HÀNG GẦN BẠN --- */}
+          {viewMode === 'nearby' && (
+            <section className={styles.sectionFull}>
+              <div className={styles.detailHeader}>
+                <BackButton />
+                <h2 className={styles.title}>Nhà hàng gần bạn</h2>
+              </div>
+              
+              <p className={styles.subtitle}>
+                {categories.length} loại hình ẩm thực · {restaurants.length} điểm đến
+              </p>
+
+              {/* Hàng: Tabs phổ biến/đánh giá cao + nút Filter (góc phải) */}
+              <div className={styles.tabsRow}>
+                <div className={styles.tabs}>
+                  {FILTERS.map(({ key, label, Icon }) => (
+                    <button
+                      key={key}
+                      type="button"
+                      className={`${styles.tab} ${
+                        activeFilter === key ? styles.active : ""
+                      }`}
+                      onClick={() => setActiveFilter(key)}
+                    >
+                      <Icon /> {label}
+                    </button>
+                  ))}
+                </div>
+                <FilterDropdown />
+              </div>
+
+              <div className={styles.restaurantList}>
+                {/* Hiển thị Full list */}
+                {renderRestaurantList(sortedNearbyRestaurants)}
+              </div>
+            </section>
+          )}
+
+          {/* --- VIEW: CHI TIẾT TOP RATED --- */}
+          {viewMode === 'topRated' && (
+            <section className={styles.sectionFull}>
+              <div className={styles.detailHeader}>
+                <BackButton />
+                <h2 className={styles.title}>Top Đánh Giá Cao 🏆</h2>
+              </div>
+              <div className={styles.topRestaurantList}>
+                {/* Hiển thị Full list */}
+                {topRestaurants.map((restaurant) => (
+                  <TopRestaurantCard
+                    key={restaurant.id}
+                    restaurant={restaurant}
+                    onSelect={handleRestaurantSelect}
+                    isActive={selectedRestaurantId === restaurant.id}
+                  />
+                ))}
+              </div>
+            </section>
+          )}
+
+          {/* --- VIEW: CHI TIẾT TẤT CẢ --- */}
+          {viewMode === 'all' && (
+            <section className={styles.sectionFull}>
+              <div className={styles.detailHeader}>
+                <BackButton />
+                <h2 className={styles.title}>Tất cả nhà hàng</h2>
+              </div>
+              <div className={styles.restaurantList}>
+                {/* Hiển thị Full list */}
+                {renderRestaurantList(restaurants)}
+              </div>
+            </section>
+          )}
+
         </aside>
 
         {/* Cột 2: Bản đồ */}
         <section className={styles.mapContainer}>
-          <div className={styles.mapPlaceholder}>
-            Bản đồ sẽ hiển thị ở đây
-          </div>
+          <MapView
+            restaurants={mapRestaurants}
+            selectedRestaurantId={selectedRestaurantId}
+            onRestaurantSelect={handleRestaurantSelect}
+          />
         </section>
+
       </main>
-    <Footer /> 
+      <Footer />
     </div>
   );
 };

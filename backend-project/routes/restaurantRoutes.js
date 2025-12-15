@@ -1,0 +1,19 @@
+const express = require('express');
+const router = express.Router();
+const restaurantController = require('../controllers/restaurantController');
+const { requireAuth } = require('../middleware/auth');
+
+// GET /api/restaurants
+router.get('/', restaurantController.getAllRestaurants);
+
+// GET /api/restaurants/:id
+router.get('/:id', restaurantController.getRestaurantById);
+
+// GET /api/restaurants/by-category/:category_id
+router.get('/by-category/:category_id', restaurantController.getRestaurantsByCategory);
+
+// POST /api/restaurants
+router.post('/', requireAuth, restaurantController.createRestaurant);
+
+module.exports = router;
+

@@ -6,6 +6,7 @@
   padding: 1rem 2rem;
   background-color: #FFF7ED; /* Màu nền be */
   border-bottom: 1px solid #eee;
+  position: relative;
 }
 /* Logo */
 .logo {
@@ -65,6 +66,19 @@
   border: none;
   padding: 0.5rem; /* Làm nó tròn */
   border-radius: 50%;
+}
+
+.iconButtonActive {
+  border-color: #F58634;
+  color: #F58634;
+  background-color: rgba(245, 134, 52, 0.08);
+}
+
+.localeButton {
+  border-color: #F58634;
+  color: #F58634;
+  background-color: #fff;
+  white-space: nowrap;
 }
 /* Nhóm bên trái (Logo + Search) */
 .navLeft {
@@ -259,6 +273,42 @@
   margin-top: 0.25rem;
 }
 
+/* User Menu Items */
+.userMenuItems {
+  display: flex;
+  flex-direction: column;
+}
+
+.userMenuItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: left;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.userMenuItem:last-child {
+  border-bottom: none;
+}
+
+.userMenuItem:hover {
+  background-color: #f5f5f5;
+}
+
+.userMenuItem svg {
+  font-size: 1rem;
+  color: #666;
+}
+
 /* Logout Button */
 .logoutButton {
   display: flex;
@@ -277,4 +327,13 @@
 
 .logoutButton:hover {
   background-color: #fee;
+}
+
+.locationError {
+  position: absolute;
+  top: 100%;
+  right: 2rem;
+  margin-top: 0.25rem;
+  color: #c2410c;
+  font-size: 0.8rem;
 }

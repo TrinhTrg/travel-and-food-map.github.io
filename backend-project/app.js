@@ -11,7 +11,10 @@ var { createDatabase, createUsersTable } = require('./config/database');
 
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/userRoutes');
+var userRoutes = require('./routes/userRoutes');
+var categoryRoutes = require('./routes/categoryRoutes');
+var restaurantRoutes = require('./routes/restaurantRoutes');
+var adminRoutes = require('./routes/adminRoutes');
 
 var app = express();
 
@@ -48,10 +51,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-console.log(`🚀 API server chuẩn bị phục vụ tại http://${appHost}:${appPort}`);
+console.log(`🚀 API server chuẩn bị phục vụ tại http://${appHost}:${appPort}/api`);
 
 // Routes
-app.use('/api/users', usersRouter);
+app.use('/api/users', userRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/restaurants', restaurantRoutes);
+app.use('/api/admin', adminRoutes);
 app.use('/api', indexRouter);
 
 // Health check route

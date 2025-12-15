@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styles from './Navbar.module.css';
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
+import { FaTachometerAlt } from 'react-icons/fa';
 import LoginModal from '../LoginModal/LoginModal';
 
 // 1. TÁCH IMPORT ICON: Thêm import cho FiSearch
@@ -15,11 +16,13 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationError, setLocationError] = useState(null);
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const userMenuRef = useRef(null);
   const userButtonRef = useRef(null);
-  const { isAuthenticated, user, logout } = useAuth();
+  const { isAuthenticated, user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   // Đóng dropdown khi click bên ngoài
@@ -66,15 +69,53 @@ const Navbar = () => {
     }
     
     // Nếu đã đăng nhập thì thực hiện action
-    console.log(`Selected: ${action}`);
-    // Có thể thêm logic xử lý cho từng option ở đây
-    // Ví dụ: navigate đến trang tạo địa điểm, v.v.
+    if (action === 'create-place') {
+      navigate('/create-location');
+      return;
+    }
+
+    if (action === 'write-comment') {
+      navigate('/kham-pha');
+      return;
+    }
   };
 
   const handleLogout = async () => {
     await logout();
     setIsUserMenuOpen(false);
     navigate('/');
+  };
+
+  const handleLocateClick = () => {
+    if (isLocating) return;
+
+    if (!navigator.geolocation) {
+      setLocationError("Thiết bị của bạn không hỗ trợ định vị.");
+      return;
+    }
+
+    setIsLocating(true);
+    setLocationError(null);
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setIsLocating(false);
+        const detail = {
+          latitude: pos.coords.latitude,
+          longitude: pos.coords.longitude,
+        };
+        window.dispatchEvent(new CustomEvent("app:center-map-user", { detail }));
+      },
+      (error) => {
+        console.error("Không thể lấy vị trí hiện tại:", error);
+        setIsLocating(false);
+        setLocationError("Không thể lấy vị trí hiện tại. Vui lòng thử lại.");
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+      }
+    );
   };
 
   return (
@@ -144,8 +185,16 @@ const Navbar = () => {
 
       {/* 3: Các nút hành động */}
       <div className={styles.actions}>
-        <button className={styles.iconButton}>
-          <FaMapMarkerAlt /> Vị trí hiện tại
+        <button
+          className={`${styles.iconButton} ${isLocating ? styles.iconButtonActive : ""}`}
+          onClick={handleLocateClick}
+          type="button"
+        >
+          <FaMapMarkerAlt />
+          {isLocating ? "Đang tìm vị trí..." : "Vị trí hiện tại"}
+        </button>
+        <button className={`${styles.iconButton} ${styles.localeButton}`}>
+          <FaMapMarkerAlt /> Địa phương – Đà Nẵng
         </button>
         <div className={styles.dropdownContainer}>
           <button 
@@ -203,21 +252,45 @@ const Navbar = () => {
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
             >
               <FaUser />
-              <span>{user?.username}</span>
+              <span>{user?.name || user?.email}</span>
             </button>
             {isUserMenuOpen && (
               <div ref={userMenuRef} className={styles.userMenu}>
                 <div className={styles.userInfo}>
                   <FaUser className={styles.userIcon} />
                   <div>
-                    <div className={styles.userName}>{user?.username}</div>
-                    <div className={styles.userEmail}>Tài khoản của bạn</div>
+                    <div className={styles.userName}>{user?.name || user?.username}</div>
+                    <div className={styles.userEmail}>{user?.email || 'Tài khoản của bạn'}</div>
                   </div>
                 </div>
-                <button className={styles.logoutButton} onClick={handleLogout}>
-                  <FaSignOutAlt />
-                  Đăng xuất
-                </button>
+                <div className={styles.userMenuItems}>
+                  <button 
+                    className={styles.userMenuItem} 
+                    onClick={() => {
+                      setIsUserMenuOpen(false);
+                      
+                    }}
+                  >
+                    <FaUser />
+                    Hồ sơ
+                  </button>
+                  {isAdmin && (
+                    <button 
+                      className={styles.userMenuItem} 
+                      onClick={() => {
+                        setIsUserMenuOpen(false);
+                        navigate('/admin/dashboard');
+                      }}
+                    >
+                      <FaTachometerAlt />
+                      Dashboard
+                    </button>
+                  )}
+                  <button className={styles.userMenuItem} onClick={handleLogout}>
+                    <FaSignOutAlt />
+                    Đăng xuất
+                  </button>
+                </div>
               </div>
             )}
           </div>
@@ -227,6 +300,12 @@ const Navbar = () => {
           </NavLink>
         )}
       </div>
+
+      {locationError && (
+        <div className={styles.locationError} role="alert">
+          {locationError}
+        </div>
+      )}
       
       {/* Login Modal */}
       <LoginModal 

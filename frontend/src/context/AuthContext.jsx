@@ -72,6 +72,20 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const forgotPassword = async (email, newPassword) => {
+  try {
+    const response = await authAPI.forgotPassword(email, newPassword);
+    if (response.success) {
+      return { success: true };
+    }
+  } catch (error) {
+    return { 
+      success: false, 
+      message: error.message || 'Đặt lại mật khẩu thất bại' 
+    };
+  }
+};
+
   const logout = async () => {
     try {
       await authAPI.logout();
@@ -84,12 +98,19 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Helper để kiểm tra role
+  const isAdmin = user?.role === 'admin';
+  const isOwner = user?.role === 'owner';
+
   const value = {
     user,
     isAuthenticated,
     loading,
+    isAdmin,
+    isOwner,
     login,
     register,
+    forgotPassword,
     logout,
   };
 

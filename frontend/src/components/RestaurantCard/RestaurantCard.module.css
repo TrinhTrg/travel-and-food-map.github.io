@@ -1,18 +1,60 @@
+.cardButton {
+  width: 100%;
+  border: none;
+  background: transparent;
+  padding: 0;
+  text-align: left;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.cardButton:focus-visible {
+  outline: 2px solid #F58634;
+  outline-offset: 4px;
+}
+
+.cardButton:hover {
+  transform: translateY(-2px);
+}
+
+.cardActive {
+  transform: translateY(-2px);
+}
+
+.cardActive .card {
+  border: 2px solid #F58634;
+  box-shadow: 0 8px 20px rgba(245, 134, 52, 0.15);
+}
+
 .card {
   display: flex;
   background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin-bottom: 1rem;
   overflow: hidden;
 }
 
 .cardImage {
   width: 120px;
   height: 120px;
+  min-width: 120px;
+  min-height: 120px;
   object-fit: cover;
   border-radius: 12px;
   margin: 1rem;
+  flex-shrink: 0;
+}
+
+.cardImagePlaceholder {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  min-height: 120px;
+  border-radius: 12px;
+  margin: 1rem;
+  flex-shrink: 0;
+  background-color: #f5f5f5;
 }
 
 .cardContent {
@@ -60,16 +102,30 @@
   color: #777;
 }
 
+.addressRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
 .address {
   display: flex;
   align-items: center;
   color: #777;
   font-size: 0.9rem;
-  margin-bottom: 0.5rem;
+  flex: 1;
 }
 
 .address svg {
   margin-right: 0.25rem;
+}
+
+.distance {
+  font-size: 0.8rem;
+  color: #4b5563;
+  white-space: nowrap;
 }
 
 .info {

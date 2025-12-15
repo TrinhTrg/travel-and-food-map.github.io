@@ -48,6 +48,12 @@ export const authAPI = {
       body: { email, password }, // Dùng email thay vì username
     });
   },
+  forgotPassword: async (email, newPassword) => {
+    return apiCall('/users/forgot-password', {
+      method: 'POST',
+      body: { email, newPassword },
+    });
+  },
 
   logout: async () => {
     return apiCall('/users/logout', {
@@ -58,6 +64,46 @@ export const authAPI = {
   getProfile: async () => {
     return apiCall('/users/profile', {
       method: 'GET',
+    });
+  },
+};
+
+// Admin API
+export const adminAPI = {
+  getStats: async () => {
+    return apiCall('/admin/stats', {
+      method: 'GET',
+    });
+  },
+
+  getPendingRestaurants: async () => {
+    return apiCall('/admin/restaurants/pending', {
+      method: 'GET',
+    });
+  },
+
+  approveRestaurant: async (id) => {
+    return apiCall(`/admin/restaurants/${id}/approve`, {
+      method: 'PUT',
+    });
+  },
+
+  rejectRestaurant: async (id) => {
+    return apiCall(`/admin/restaurants/${id}/reject`, {
+      method: 'DELETE',
+    });
+  },
+
+  getUsers: async () => {
+    return apiCall('/admin/users', {
+      method: 'GET',
+    });
+  },
+
+  updateUserRole: async (id, role) => {
+    return apiCall(`/admin/users/${id}/role`, {
+      method: 'PUT',
+      body: { role },
     });
   },
 };
