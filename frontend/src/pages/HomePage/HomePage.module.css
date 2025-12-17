@@ -1,0 +1,227 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Section How It Works */
+.howItWorksSection {
+  padding: 5rem 0;
+  background-color: var(--background-color);
+  width: 100%;
+}
+
+.howItWorksContent {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto 4rem auto;
+  padding: 0 2rem;
+  text-align: center;
+}
+
+.howItWorksTitle {
+  font-size: 2.8rem;
+  font-weight: bold;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+}
+
+.howItWorksTitle span {
+  color: var(--primary-color);
+}
+
+.howItWorksSubtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Step Section Styles */
+.stepSection {
+  padding: 5rem 2rem;
+  width: 100%;
+}
+
+.stepSection1,
+.stepSection3 {
+  background-color: var(--background-color);
+}
+
+.stepSection2 {
+  background-color: #ffffff;
+}
+
+.stepContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rem;
+}
+
+.stepSection2 .stepContainer {
+  flex-direction: row-reverse; /* Đảo ngược: content (text) sẽ ở phải, visual (icon) sẽ ở trái */
+}
+
+.stepContent {
+  flex: 1;
+  text-align: left;
+}
+
+.stepSection2 .stepContent {
+  text-align: right;
+}
+
+.stepNumber {
+  font-size: 6rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.stepTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 1.5rem;
+  margin-top: -1rem;
+}
+
+.stepDescription {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.8;
+  max-width: 550px;
+}
+
+.stepSection2 .stepDescription {
+  margin-left: auto;
+}
+
+.stepVisual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+}
+
+.stepIcon {
+  font-size: 12rem;
+  color: var(--primary-color);
+  opacity: 0.8;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.stepSection:hover .stepIcon {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+/* Styles cho animation từ Canva */
+.stepAnimation {
+  max-width: 100%;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.stepAnimation[src] {
+  /* Styles cho img (GIF) */
+  filter: drop-shadow(0 4px 12px rgba(245, 134, 52, 0.2));
+}
+
+.stepAnimation video,
+.stepAnimation[src$=".mp4"],
+.stepAnimation[src$=".webm"] {
+  /* Styles cho video */
+  filter: drop-shadow(0 4px 12px rgba(245, 134, 52, 0.2));
+}
+
+.stepSection:hover .stepAnimation {
+  transform: scale(1.05);
+}
+
+/* Responsive cho màn hình nhỏ */
+@media (max-width: 968px) {
+  .howItWorksSection {
+    padding: 3rem 0;
+  }
+
+  .howItWorksContent {
+    margin-bottom: 3rem;
+    padding: 0 1.5rem;
+  }
+
+  .howItWorksTitle {
+    font-size: 2.2rem;
+  }
+
+  .howItWorksSubtitle {
+    font-size: 1rem;
+  }
+
+  .stepSection {
+    padding: 3rem 1.5rem;
+  }
+
+  .stepContainer {
+    flex-direction: column !important;
+    gap: 2rem;
+  }
+
+  .stepContent {
+    text-align: center !important;
+  }
+
+  .stepDescription {
+    max-width: 100%;
+    margin-left: auto !important;
+    margin-right: auto;
+  }
+
+  .stepNumber {
+    font-size: 4rem;
+  }
+
+  .stepTitle {
+    font-size: 2rem;
+    margin-top: 0;
+  }
+
+  .stepIcon {
+    font-size: 8rem;
+  }
+
+  .stepVisual {
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .howItWorksTitle {
+    font-size: 1.8rem;
+  }
+
+  .stepNumber {
+    font-size: 3rem;
+  }
+
+  .stepTitle {
+    font-size: 1.6rem;
+  }
+
+  .stepDescription {
+    font-size: 1rem;
+  }
+
+  .stepIcon {
+    font-size: 6rem;
+  }
+}
