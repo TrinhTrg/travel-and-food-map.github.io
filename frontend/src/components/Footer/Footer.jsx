@@ -23,7 +23,7 @@
               <a href="http://facebook.com/chin1407"><FaTwitter /></a>
               <a href="http://facebook.com/chin1407"><FaInstagram /></a>
               <a href="http://facebook.com/chin1407"><FaYoutube /></a>
-            </div>
+            </div> 
           </div>
           
           <div className={styles.secondColumn}>
