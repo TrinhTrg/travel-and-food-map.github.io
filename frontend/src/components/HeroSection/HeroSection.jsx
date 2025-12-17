@@ -24,13 +24,6 @@ const HeroSection = () => {
         <h1>Khám phá món ngon <span>gần bạn</span></h1>
         <p>Tìm quán ăn yêu thích, xem đánh giá thực tế, và chia sẻ trải nghiệm ẩm thực.</p>
 
-        {/* Thanh tìm kiếm */}
-        <div className={styles.searchBar}>
-          <FiSearch />
-          <input type="text" placeholder="Tìm món ăn hoặc quán ăn..." />
-          <FiMapPin />
-          <FiSliders />
-        </div>
         
         <Link to="/kham-pha" className={styles.ctaButton}>
           Khám phá ngay &rarr;

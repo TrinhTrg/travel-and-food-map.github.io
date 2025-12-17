@@ -5,6 +5,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 import { FaTachometerAlt } from 'react-icons/fa';
 import LoginModal from '../LoginModal/LoginModal';
+import { searchAPI } from '../../services/api';
 
 // 1. TÁCH IMPORT ICON: Thêm import cho FiSearch
 import { FaMapMarkerAlt, FaPlus, FaUser, FaComment, FaList, FaSignOutAlt } from 'react-icons/fa'; // Icon từ Font Awesome
@@ -18,10 +19,19 @@ const Navbar = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
+  
+  // Search states
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchSuggestions, setSearchSuggestions] = useState({ restaurants: [], categories: [] });
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [isSearching, setIsSearching] = useState(false);
+  
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const userMenuRef = useRef(null);
   const userButtonRef = useRef(null);
+  const searchRef = useRef(null);
+  const searchInputRef = useRef(null);
   const { isAuthenticated, user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
 
@@ -44,16 +54,50 @@ const Navbar = () => {
       ) {
         setIsUserMenuOpen(false);
       }
+      // Close search suggestions when clicking outside
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target)
+      ) {
+        setShowSuggestions(false);
+      }
     };
 
-    if (isDropdownOpen || isUserMenuOpen) {
+    if (isDropdownOpen || isUserMenuOpen || showSuggestions) {
       document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isDropdownOpen, isUserMenuOpen]);
+  }, [isDropdownOpen, isUserMenuOpen, showSuggestions]);
+
+  // Search autocomplete với debounce
+  useEffect(() => {
+    if (!searchQuery.trim()) {
+      setSearchSuggestions({ restaurants: [], categories: [] });
+      setShowSuggestions(false);
+      return;
+    }
+
+    const timeoutId = setTimeout(async () => {
+      try {
+        setIsSearching(true);
+        const response = await searchAPI.autocomplete(searchQuery, 10);
+        if (response.success) {
+          setSearchSuggestions(response.data);
+          setShowSuggestions(true);
+        }
+      } catch (error) {
+        console.error('Search error:', error);
+        setSearchSuggestions({ restaurants: [], categories: [] });
+      } finally {
+        setIsSearching(false);
+      }
+    }, 300); // Debounce 300ms
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -118,6 +162,51 @@ const Navbar = () => {
     );
   };
 
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const handleSearchFocus = () => {
+    if (searchQuery.trim() && (searchSuggestions.restaurants.length > 0 || searchSuggestions.categories.length > 0)) {
+      setShowSuggestions(true);
+    }
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      navigate(`/kham-pha?q=${encodeURIComponent(searchQuery.trim())}`);
+      setShowSuggestions(false);
+      setSearchQuery('');
+    }
+  };
+
+  const handleSuggestionClick = (restaurant) => {
+    // Dispatch event để zoom map vào restaurant (nếu đang ở DiscoverPage)
+    if (restaurant.latitude && restaurant.longitude) {
+      window.dispatchEvent(
+        new CustomEvent('app:center-map-restaurant', {
+          detail: {
+            latitude: restaurant.latitude,
+            longitude: restaurant.longitude,
+            restaurantId: restaurant.id,
+          },
+        })
+      );
+    }
+    
+    // Navigate đến DiscoverPage với restaurant id
+    navigate(`/kham-pha?restaurant=${restaurant.id}`);
+    setShowSuggestions(false);
+    setSearchQuery('');
+  };
+
+  const handleCategoryClick = (category) => {
+    navigate(`/kham-pha?category=${category.id}`);
+    setShowSuggestions(false);
+    setSearchQuery('');
+  };
+
   return (
     <nav className={styles.navbar}>
 
@@ -132,9 +221,96 @@ const Navbar = () => {
         </div>
 
         {/* Thanh tìm kiếm */}
-        <div className={styles.searchBar}>
-          <FiSearch />
-          <input type="text" placeholder="Tìm kiếm địa điểm, món ăn..." />
+        <div ref={searchRef} className={styles.searchBarContainer}>
+          <form className={styles.searchBar} onSubmit={handleSearchSubmit}>
+            <FiSearch />
+            <input
+              ref={searchInputRef}
+              type="text"
+              placeholder="Tìm kiếm địa điểm, món ăn..."
+              value={searchQuery}
+              onChange={handleSearchChange}
+              onFocus={handleSearchFocus}
+            />
+          </form>
+          
+          {/* Suggestions Dropdown */}
+          {showSuggestions && (
+            <div className={styles.searchSuggestions}>
+              {/* Categories Section */}
+              {searchSuggestions.categories.length > 0 && (
+                <div className={styles.suggestionSection}>
+                  <div className={styles.suggestionHeader}>
+                    <FiSearch className={styles.suggestionIcon} />
+                    <span>Tìm theo danh mục</span>
+                  </div>
+                  {searchSuggestions.categories.map((category) => (
+                    <div
+                      key={category.id}
+                      className={styles.suggestionItem}
+                      onClick={() => handleCategoryClick(category)}
+                    >
+                      {category.name}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Restaurants Section */}
+              {searchSuggestions.restaurants.length > 0 && (
+                <div className={styles.suggestionSection}>
+                  {searchSuggestions.categories.length === 0 && (
+                    <div className={styles.suggestionHeader}>
+                      <FiSearch className={styles.suggestionIcon} />
+                      <span>Kết quả tìm kiếm</span>
+                    </div>
+                  )}
+                  {searchSuggestions.restaurants.map((restaurant) => (
+                    <div
+                      key={restaurant.id}
+                      className={styles.suggestionItem}
+                      onClick={() => handleSuggestionClick(restaurant)}
+                    >
+                      <div className={styles.suggestionItemContent}>
+                        {restaurant.image && (
+                          <img
+                            src={restaurant.image}
+                            alt={restaurant.name}
+                            className={styles.suggestionImage}
+                            onError={(e) => {
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        )}
+                        <div className={styles.suggestionText}>
+                          <div className={styles.suggestionTitle}>{restaurant.name}</div>
+                          {restaurant.address && (
+                            <div className={styles.suggestionSubtitle}>{restaurant.address}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* No results */}
+              {searchSuggestions.restaurants.length === 0 &&
+                searchSuggestions.categories.length === 0 &&
+                !isSearching && (
+                  <div className={styles.suggestionSection}>
+                    <div className={styles.noResults}>Không tìm thấy kết quả</div>
+                  </div>
+                )}
+
+              {/* Loading */}
+              {isSearching && (
+                <div className={styles.suggestionSection}>
+                  <div className={styles.loadingText}>Đang tìm kiếm...</div>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
       

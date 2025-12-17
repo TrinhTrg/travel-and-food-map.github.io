@@ -88,6 +88,11 @@
 }
 
 
+/* Search Container */
+.searchBarContainer {
+  position: relative;
+}
+
 /* Thanh tìm kiếm */
 .searchBar {
   display: flex;
@@ -103,6 +108,7 @@
 .searchBar svg {
   color: #777;
   margin-right: 0.5rem;
+  flex-shrink: 0;
 }
 
 .searchBar input {
@@ -116,6 +122,107 @@
 
 .searchBar input::placeholder {
   color: #777;
+}
+
+/* Search Suggestions Dropdown */
+.searchSuggestions {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  width: 100%;
+  min-width: 350px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid #e0e0e0;
+}
+
+.suggestionSection {
+  padding: 0.5rem 0;
+}
+
+.suggestionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: #666;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.suggestionIcon {
+  font-size: 1rem;
+  color: #777;
+}
+
+.suggestionItem {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.suggestionItem:hover {
+  background-color: #f8f8f8;
+}
+
+.suggestionItem:last-child {
+  border-bottom: none;
+}
+
+.suggestionItemContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.suggestionImage {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.suggestionText {
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestionTitle {
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.suggestionSubtitle {
+  font-size: 0.85rem;
+  color: #777;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.noResults,
+.loadingText {
+  padding: 1rem;
+  text-align: center;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.loadingText {
+  color: var(--primary-color);
 }
 
 /* Dropdown Container */

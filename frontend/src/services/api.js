@@ -108,4 +108,30 @@ export const adminAPI = {
   },
 };
 
+// Contact API
+export const contactAPI = {
+  sendContact: async (contactData) => {
+    return apiCall('/contact', {
+      method: 'POST',
+      body: contactData,
+    });
+  },
+};
+
+// Search API
+export const searchAPI = {
+  autocomplete: async (query, limit = 10) => {
+    return apiCall(`/search/autocomplete?q=${encodeURIComponent(query)}&limit=${limit}`, {
+      method: 'GET',
+    });
+  },
+
+  search: async (query, options = {}) => {
+    const params = new URLSearchParams({ q: query, ...options });
+    return apiCall(`/search?${params.toString()}`, {
+      method: 'GET',
+    });
+  },
+};
+
 export default apiCall;

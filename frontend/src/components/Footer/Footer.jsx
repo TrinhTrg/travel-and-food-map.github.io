@@ -19,10 +19,10 @@
             </p>
           {/*2: Icon mạng xã hội */}
             <div className={styles.socialIcons}>
-              <a href="#"><FaFacebookF /></a>
-              <a href="#"><FaTwitter /></a>
-              <a href="#"><FaInstagram /></a>
-              <a href="#"><FaYoutube /></a>
+              <a href="http://facebook.com/chin1407"><FaFacebookF /></a>
+              <a href="http://facebook.com/chin1407"><FaTwitter /></a>
+              <a href="http://facebook.com/chin1407"><FaInstagram /></a>
+              <a href="http://facebook.com/chin1407"><FaYoutube /></a>
             </div>
           </div>
           
