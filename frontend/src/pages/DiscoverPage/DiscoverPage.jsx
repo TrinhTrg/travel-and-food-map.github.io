@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import styles from './DiscoverPage.module.css';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
@@ -80,6 +81,8 @@ const distanceFromPoint = (baseLat, baseLng, restaurant) => {
 };
 
 const DiscoverPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   // --- GIỮ NGUYÊN LOGIC CŨ ---
   const [activeFilter, setActiveFilter] = useState(FILTERS[0].key);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
@@ -164,6 +167,97 @@ const DiscoverPage = () => {
     };
     fetchData();
     return () => controller.abort();
+  }, []);
+
+  // Xử lý query parameter restaurant từ URL
+  useEffect(() => {
+    const restaurantId = searchParams.get('restaurant');
+    if (restaurantId) {
+      setSelectedRestaurantId(restaurantId);
+      // Xóa query param sau khi đã set
+      searchParams.delete('restaurant');
+      setSearchParams(searchParams, { replace: true });
+    }
+  }, [searchParams, setSearchParams]);
+
+  // Fetch restaurant detail nếu không có trong list
+  useEffect(() => {
+    if (!selectedRestaurantId || loading || restaurants.length === 0) {
+      return;
+    }
+
+    // Kiểm tra xem restaurant đã có trong list chưa (so sánh cả string và number)
+    const restaurantExists = restaurants.some(
+      (r) => String(r.id) === String(selectedRestaurantId) || r.id === selectedRestaurantId
+    );
+
+    // Nếu không có, fetch từ API
+    if (!restaurantExists) {
+      const fetchRestaurantDetail = async () => {
+        try {
+          const res = await fetch(`${API_BASE_URL}/restaurants/${selectedRestaurantId}`);
+          if (!res.ok) {
+            console.error('Không thể lấy thông tin nhà hàng');
+            return;
+          }
+
+          const json = await res.json();
+          if (json.success && json.data) {
+            // API trả về data với format khác một chút, cần format lại
+            const restaurantData = json.data;
+            
+            // Format lại để phù hợp với format từ getAllRestaurants
+            const formattedRestaurant = {
+              id: restaurantData.id,
+              name: restaurantData.name,
+              image: restaurantData.image,
+              bannerImage: restaurantData.bannerImage || restaurantData.image,
+              rating: restaurantData.rating || 0,
+              reviews: restaurantData.reviews || 0,
+              address: restaurantData.address,
+              // API trả về openStatus, nhưng frontend dùng status
+              status: restaurantData.openStatus || (restaurantData.isOpen ? 'Đang mở cửa' : 'Đã đóng cửa'),
+              isOpen: restaurantData.isOpen !== undefined ? restaurantData.isOpen : true,
+              tags: Array.isArray(restaurantData.tags) ? restaurantData.tags : [],
+              category: restaurantData.category || 'Khác',
+              description: restaurantData.description || 'Thông tin đang được cập nhật.',
+              price: restaurantData.price || '$$',
+              latitude: parseCoordinate(restaurantData.latitude),
+              longitude: parseCoordinate(restaurantData.longitude),
+            };
+
+            // Thêm restaurant vào list
+            setRestaurants((prev) => {
+              // Kiểm tra lại để tránh duplicate (so sánh cả string và number)
+              const exists = prev.some(
+                (r) => String(r.id) === String(formattedRestaurant.id) || r.id === formattedRestaurant.id
+              );
+              if (exists) return prev;
+              return [...prev, formattedRestaurant];
+            });
+          }
+        } catch (err) {
+          console.error('Error fetching restaurant detail:', err);
+        }
+      };
+
+      fetchRestaurantDetail();
+    }
+  }, [selectedRestaurantId, restaurants, loading, API_BASE_URL]);
+
+  // Lắng nghe event để ping map đến restaurant location
+  useEffect(() => {
+    const handleCenterOnRestaurant = (event) => {
+      const { restaurantId } = event.detail || {};
+      if (restaurantId) {
+        setSelectedRestaurantId(restaurantId);
+      }
+    };
+
+    window.addEventListener('app:center-map-restaurant', handleCenterOnRestaurant);
+    return () => {
+      window.removeEventListener('app:center-map-restaurant', handleCenterOnRestaurant);
+    };
   }, []);
 
   const filteredNearbyRestaurants = useMemo(() => {

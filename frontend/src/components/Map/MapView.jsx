@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./MapView.module.css";
 import L from "leaflet";
@@ -15,6 +15,13 @@ L.Icon.Default.mergeOptions({
 
 const DEFAULT_CENTER = [16.0628, 108.215];
 const MARKER_ZOOM = 17;
+
+// Helper function to parse coordinate
+const parseCoordinate = (value) => {
+  if (typeof value === "number") return value;
+  const parsed = parseFloat(value);
+  return Number.isFinite(parsed) ? parsed : null;
+};
 
 const fallbackRestaurants = [
   {
@@ -83,6 +90,61 @@ const MapInstanceRegistrar = ({ onReady }) => {
 
 const noop = () => {};
 
+// Component để control popup của marker
+const MarkerWithPopupControl = ({ restaurant, onSelect, mapRef, markerRefs }) => {
+  const markerRef = useRef(null);
+  const lat = parseCoordinate(restaurant.latitude);
+  const lng = parseCoordinate(restaurant.longitude);
+
+  // Lưu marker ref vào markerRefs object
+  useEffect(() => {
+    if (markerRef.current) {
+      markerRefs.current[restaurant.id] = markerRef.current;
+    }
+    return () => {
+      delete markerRefs.current[restaurant.id];
+    };
+  }, [restaurant.id, markerRefs]);
+
+  if (lat === null || lng === null) {
+    return null;
+  }
+
+  const position = [lat, lng];
+
+  return (
+    <Marker
+      ref={markerRef}
+      position={position}
+      icon={getMarkerIcon(restaurant)}
+      eventHandlers={{
+        click: () => {
+          onSelect(restaurant.id);
+          // Zoom is handled by useEffect, but we can also do it here for immediate feedback
+          if (mapRef.current) {
+            mapRef.current.flyTo(position, MARKER_ZOOM, {
+              duration: 0.8,
+            });
+          }
+        },
+      }}
+    >
+      {/* Tooltip hiển thị khi hover vào marker */}
+      <Tooltip 
+        permanent={false}
+        direction="top"
+        offset={[0, -35]}
+        opacity={0.9}
+        className="restaurant-tooltip"
+      >
+        {restaurant.name}
+      </Tooltip>
+      {/* Popup hiển thị khi click vào marker */}
+      <Popup>{restaurant.name}</Popup>
+    </Marker>
+  );
+};
+
 const MapView = ({
   restaurants = [],
   selectedRestaurantId,
@@ -90,6 +152,7 @@ const MapView = ({
 }) => {
   const [userPosition, setUserPosition] = useState(null);
   const mapRef = useRef(null);
+  const markerRefs = useRef({}); // Store refs for all markers
   const handleMapReady = useCallback((mapInstance) => {
     mapRef.current = mapInstance;
   }, []);
@@ -119,14 +182,21 @@ const MapView = ({
 
   const selectedRestaurant = useMemo(() => {
     if (!effectiveSelectedId) return null;
+    // So sánh ID cả string và number để đảm bảo tìm được
     return (
-      restaurantMarkers.find((item) => item.id === effectiveSelectedId) || null
+      restaurantMarkers.find(
+        (item) => String(item.id) === String(effectiveSelectedId) || item.id === effectiveSelectedId
+      ) || null
     );
   }, [restaurantMarkers, effectiveSelectedId]);
 
   const handleDirectionsRequest = () => {
     if (!selectedRestaurant) return;
-    const destination = `${selectedRestaurant.latitude},${selectedRestaurant.longitude}`;
+    const lat = parseCoordinate(selectedRestaurant.latitude);
+    const lng = parseCoordinate(selectedRestaurant.longitude);
+    if (lat === null || lng === null) return;
+    
+    const destination = `${lat},${lng}`;
     const origin = userPosition ? `${userPosition[0]},${userPosition[1]}` : "My+Location";
     const directionsUrl = `https://www.google.com/maps/dir/${encodeURIComponent(origin)}/${destination}`;
     window.open(directionsUrl, "_blank");
@@ -171,24 +241,59 @@ const MapView = ({
       }
     };
 
-    window.addEventListener("app:center-map-user", handleCenterOnUser);
-    return () => window.removeEventListener("app:center-map-user", handleCenterOnUser);
-  }, []);
+    const handleCenterOnRestaurant = (event) => {
+      const { latitude, longitude, restaurantId } = event.detail || {};
+      if (typeof latitude !== "number" || typeof longitude !== "number") return;
+      const position = [latitude, longitude];
+      
+      // Ping map to restaurant location
+      if (mapRef.current) {
+        mapRef.current.flyTo(position, MARKER_ZOOM, {
+          duration: 0.8,
+        });
+      }
+      
+      // If restaurantId is provided, select that restaurant
+      if (restaurantId) {
+        selectRestaurant(restaurantId);
+      }
+    };
 
+    window.addEventListener("app:center-map-user", handleCenterOnUser);
+    window.addEventListener("app:center-map-restaurant", handleCenterOnRestaurant);
+    return () => {
+      window.removeEventListener("app:center-map-user", handleCenterOnUser);
+      window.removeEventListener("app:center-map-restaurant", handleCenterOnRestaurant);
+    };
+  }, [selectRestaurant]);
+
+  // Zoom to selected restaurant when selectedRestaurantId changes and open popup
   useEffect(() => {
-    if (
-      selectedRestaurant &&
-      typeof selectedRestaurant.latitude === "number" &&
-      typeof selectedRestaurant.longitude === "number" &&
-      mapRef.current
-    ) {
-      mapRef.current.flyTo(
-        [selectedRestaurant.latitude, selectedRestaurant.longitude],
-        MARKER_ZOOM,
-        { duration: 0.8 }
-      );
+    if (!effectiveSelectedId || !selectedRestaurant || !mapRef.current) {
+      return;
     }
-  }, [selectedRestaurant]);
+
+    const lat = parseCoordinate(selectedRestaurant.latitude);
+    const lng = parseCoordinate(selectedRestaurant.longitude);
+
+    if (lat !== null && lng !== null) {
+      const position = [lat, lng];
+      mapRef.current.flyTo(position, MARKER_ZOOM, {
+        duration: 0.8,
+      });
+
+      // Mở popup sau khi map đã flyTo xong
+      setTimeout(() => {
+        const markerRef = markerRefs.current[effectiveSelectedId];
+        if (markerRef) {
+          const leafletMarker = markerRef?.leafletElement || markerRef;
+          if (leafletMarker && typeof leafletMarker.openPopup === 'function') {
+            leafletMarker.openPopup();
+          }
+        }
+      }, 900); // Sau khi flyTo hoàn thành (duration 0.8s + buffer 0.1s)
+    }
+  }, [effectiveSelectedId, selectedRestaurant]);
 
   return (
     <div className={styles.mapWrapper}>
@@ -209,28 +314,15 @@ const MapView = ({
         )}
 
         {/* Marker các quán ăn */}
-        {restaurantMarkers.map((restaurant) => {
-          const position = [restaurant.latitude, restaurant.longitude];
-          return (
-            <Marker
-              key={restaurant.id}
-              position={position}
-              icon={getMarkerIcon(restaurant)}
-              eventHandlers={{
-                click: () => {
-                  selectRestaurant(restaurant.id);
-                  if (mapRef.current) {
-                    mapRef.current.flyTo(position, MARKER_ZOOM, {
-                      duration: 0.8,
-                    });
-                  }
-                },
-              }}
-            >
-            <Popup>{restaurant.name}</Popup>
-          </Marker>
-          );
-        })}
+        {restaurantMarkers.map((restaurant) => (
+          <MarkerWithPopupControl
+            key={restaurant.id}
+            restaurant={restaurant}
+            onSelect={selectRestaurant}
+            mapRef={mapRef}
+            markerRefs={markerRefs}
+          />
+        ))}
       </MapContainer>
       {selectedRestaurant && (
         <div className={styles.detailPopupWrapper}>

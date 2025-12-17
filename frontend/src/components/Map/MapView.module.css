@@ -20,3 +20,20 @@
 .detailPopupWrapper > * {
   pointer-events: auto;
 }
+
+/* Custom style cho tooltip của restaurant markers */
+.mapWrapper :global(.restaurant-tooltip) {
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mapWrapper :global(.restaurant-tooltip .leaflet-tooltip-arrow) {
+  border-top-color: rgba(0, 0, 0, 0.85);
+}
