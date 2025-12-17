@@ -12,7 +12,8 @@ module.exports = {
       { id: 7, name: 'Seafood', createdAt: new Date(), updatedAt: new Date() },
       { id: 8, name: 'Italian', createdAt: new Date(), updatedAt: new Date() },
       { id: 9, name: 'Korean', createdAt: new Date(), updatedAt: new Date() },
-      { id: 10, name: 'Chinese', createdAt: new Date(), updatedAt: new Date() }
+      { id: 10, name: 'Chinese', createdAt: new Date(), updatedAt: new Date() },
+      { id: 11, name: 'Chè', createdAt: new Date(), updatedAt: new Date() }
     ];
 
     await queryInterface.bulkInsert('categories', categories, {});

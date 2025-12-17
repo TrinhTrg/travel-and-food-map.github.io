@@ -40,18 +40,20 @@ const fallbackRestaurants = [
   },
 ];
 
-const foodIcon = L.icon({
+// Icon cho cafe/dessert/chè
+const cafeIcon = L.icon({
   iconUrl:
-    "https://cdn-icons-png.flaticon.com/512/1046/1046784.png", // fork & knife
-  iconSize: [30, 30],
+    "https://cdn-icons-png.flaticon.com/512/7561/7561235.png", // cafe icon
+  iconSize: [40, 40],
   iconAnchor: [15, 30],
   popupAnchor: [0, -28],
 });
 
-const drinkIcon = L.icon({
+// Icon cho các quán ăn/restaurant (mặc định cho tất cả category khác)
+const foodIcon = L.icon({
   iconUrl:
-    "https://cdn-icons-png.flaticon.com/512/1046/1046786.png", // drink cup
-  iconSize: [30, 30],
+    "https://cdn-icons-png.flaticon.com/512/2702/2702446.png", // fork & knife icon
+  iconSize: [40, 40],
   iconAnchor: [15, 30],
   popupAnchor: [0, -28],
 });
@@ -61,18 +63,18 @@ const getMarkerIcon = (restaurant) => {
     restaurant.category ||
     (Array.isArray(restaurant.tags) ? restaurant.tags[0] : "") ||
     "";
-  const category = rawCategory.toLowerCase();
+  const category = rawCategory.toLowerCase().trim();
 
+  // Cafe, Dessert, Chè dùng cafeIcon
   if (
-    category.includes("cafe") ||
-    category.includes("coffee") ||
-    category.includes("drink") ||
-    category.includes("dessert") ||
-    category.includes("kem")
+    category === "cafe" ||
+    category === "dessert" ||
+    category === "chè"
   ) {
-    return drinkIcon;
+    return cafeIcon;
   }
 
+  // Tất cả category khác dùng foodIcon
   return foodIcon;
 };
 
