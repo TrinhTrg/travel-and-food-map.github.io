@@ -15,6 +15,7 @@ var userRoutes = require('./routes/userRoutes');
 var categoryRoutes = require('./routes/categoryRoutes');
 var restaurantRoutes = require('./routes/restaurantRoutes');
 var adminRoutes = require('./routes/adminRoutes');
+var contactRoutes = require('./routes/contactRoutes');
 
 var app = express();
 
@@ -58,6 +59,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/contact', contactRoutes);
 app.use('/api', indexRouter);
 
 // Health check route
