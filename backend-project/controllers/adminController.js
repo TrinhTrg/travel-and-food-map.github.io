@@ -1,5 +1,6 @@
 const db = require('../models');
 const { Restaurant, User, Category } = db;
+const { sendOwnerPromotionEmail, sendRoleDemotionEmail } = require('../services/emailService');
 
 // Lấy thống kê tổng quan
 const getStats = async (req, res) => {
@@ -197,17 +198,33 @@ const updateUserRole = async (req, res) => {
       });
     }
 
+    // Lưu lại old role để gửi email phù hợp
+    const oldRole = user.role;
+
     await user.update({ role });
+
+    // Gửi email thông báo
+    let emailResult = { success: false };
+    if (role === 'owner' && oldRole !== 'owner') {
+      // Phong làm Owner
+      console.log(`📧 Sending owner promotion email to ${user.email}`);
+      emailResult = await sendOwnerPromotionEmail(user.email, user.name);
+    } else if (oldRole === 'owner' && role !== 'owner') {
+      // Hạ cấp từ Owner xuống role khác
+      console.log(`📧 Sending role change email to ${user.email}`);
+      emailResult = await sendRoleDemotionEmail(user.email, user.name, role);
+    }
 
     res.json({
       success: true,
-      message: 'Cập nhật role thành công',
+      message: `Cập nhật role thành công${emailResult.success ? ' và đã gửi email thông báo' : ''}`,
       data: {
         id: user.id,
         name: user.name,
         email: user.email,
         role: user.role
-      }
+      },
+      emailSent: emailResult.success
     });
   } catch (error) {
     console.error('Error updating user role:', error);

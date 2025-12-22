@@ -606,7 +606,7 @@ module.exports = {
     "updatedAt": "2025-12-12T07:08:38.734Z"
   },
   {
-    "name": "Boulevard",
+    "name": "Boulevard Gelato&Coffee",
     "category_id": 2,
     "address": "77 Trần Quốc Toản, Đà Nẵng",
     "description": "Một địa điểm tuyệt vời tại Đà Nẵng (cafe)",
@@ -1064,21 +1064,6 @@ module.exports = {
     "longitude": 108.2093349,
     "average_rating": "4.2",
     "review_count": 94,
-    "is_open": true,
-    "status": "approved",
-    "image_url": null,
-    "createdAt": "2025-12-12T07:08:38.735Z",
-    "updatedAt": "2025-12-12T07:08:38.735Z"
-  },
-  {
-    "name": "Sàn giao dịch bất động sản ĐẤT LÀNH",
-    "category_id": 2,
-    "address": "267 Dương Đình Nghệ, Đà Nẵng",
-    "description": "Một địa điểm tuyệt vời tại Đà Nẵng (cafe)",
-    "latitude": 16.0697237,
-    "longitude": 108.2356103,
-    "average_rating": "4.2",
-    "review_count": 52,
     "is_open": true,
     "status": "approved",
     "image_url": null,
@@ -1739,7 +1724,7 @@ module.exports = {
     "longitude": 108.2209029,
     "average_rating": "3.8",
     "review_count": 100,
-    "is_open": true,
+    "is_open": false,
     "status": "approved",
     "image_url": null,
     "createdAt": "2025-12-12T07:08:38.736Z",
@@ -2886,7 +2871,7 @@ module.exports = {
     "updatedAt": "2025-12-12T07:08:38.738Z"
   },
   {
-    "name": "BACAMA",
+    "name": "BACAMA Coffee&More",
     "category_id": 2,
     "address": "Kiệt 322 Đường Hải Phòng, Đà Nẵng",
     "description": "Một địa điểm tuyệt vời tại Đà Nẵng (cafe)",
@@ -3194,7 +3179,7 @@ module.exports = {
     "longitude": 108.2210351,
     "average_rating": "3.9",
     "review_count": 100,
-    "is_open": true,
+    "is_open": true  ,
     "status": "approved",
     "image_url": null,
     "createdAt": "2025-12-12T07:08:38.738Z",

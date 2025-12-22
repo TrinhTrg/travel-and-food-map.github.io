@@ -26,6 +26,23 @@ const RestaurantCard = ({ restaurant, onSelect, isActive = false }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // Xác định màu status: xanh cho "Đang mở cửa", đỏ cho "Đã đóng cửa"
+  // Ưu tiên sử dụng openStatus từ API, nếu không có thì tính từ isOpen
+  const statusLabel = restaurant.openStatus || 
+    (restaurant.isOpen !== undefined 
+      ? (restaurant.isOpen ? "Đang mở cửa" : "Đã đóng cửa")
+      : "Đang cập nhật");
+  
+  const isOpen = restaurant.isOpen !== undefined 
+    ? restaurant.isOpen 
+    : (statusLabel.toLowerCase().includes("mở") && !statusLabel.toLowerCase().includes("đóng"));
+  const statusClass = isOpen ? styles.statusOpen : styles.statusClosed;
+
+  // Lọc tags để loại bỏ những tag chứa "$$"
+  const filteredTags = restaurant.tags 
+    ? restaurant.tags.filter(tag => !tag.includes("$$"))
+    : [];
+
   return (
     <button
       type="button"
@@ -67,14 +84,13 @@ const RestaurantCard = ({ restaurant, onSelect, isActive = false }) => {
           </div>
 
           <div className={styles.info}>
-            <span>{restaurant.status}</span>
+            <span className={statusClass}>{statusLabel}</span>
             <div className={styles.tags}>
-              {restaurant.tags.map((tag) => (
+              {filteredTags.map((tag) => (
                 <span key={tag} className={styles.tag}>
                   {tag}
                 </span>
               ))}
-              <span className={styles.price}>{restaurant.price}</span>
             </div>
           </div>
         </div>

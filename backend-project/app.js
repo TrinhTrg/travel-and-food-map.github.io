@@ -17,6 +17,9 @@ var restaurantRoutes = require('./routes/restaurantRoutes');
 var adminRoutes = require('./routes/adminRoutes');
 var contactRoutes = require('./routes/contactRoutes');
 var searchRoutes = require('./routes/searchRoutes');
+var favoriteRoutes = require('./routes/favoriteRoutes');
+var reviewRoutes = require('./routes/reviewRoutes');
+var menuItemRoutes = require('./routes/menuItemRoutes');
 
 var app = express();
 
@@ -41,7 +44,7 @@ const appHost = process.env.HOST || 'localhost';
 app.use(cors({
   origin: process.env.FRONTEND_URL || 'http://localhost:5173',
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
 
@@ -62,6 +65,9 @@ app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/search', searchRoutes);
+app.use('/api/favorites', favoriteRoutes);
+app.use('/api/reviews', reviewRoutes);
+app.use('/api/menu-items', menuItemRoutes);
 app.use('/api', indexRouter);
 
 // Health check route
@@ -75,12 +81,12 @@ app.get('/api/health', (req, res) => {
 
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

@@ -31,7 +31,7 @@
             <ul>
               <li><NavLink to="/">Home</NavLink></li>
               <li><NavLink to="/kham-pha">Discover</NavLink></li>
-              <li><NavLink to="/how-it-works">How It Works</NavLink></li>
+              <li><NavLink to="/about-us">About Us</NavLink></li>
               <li><NavLink to="/contact">Contact Us</NavLink></li>
               <li><NavLink to="/partners">Partners</NavLink></li>
             </ul>

@@ -46,6 +46,7 @@ const searchAutocomplete = async (req, res) => {
         'image_url',
         'latitude',
         'longitude',
+        'owner_id',
       ],
       limit: searchLimit,
       order: [
@@ -76,6 +77,7 @@ const searchAutocomplete = async (req, res) => {
         category: restaurantData.category?.name || '',
         latitude: parseFloat(restaurantData.latitude),
         longitude: parseFloat(restaurantData.longitude),
+        owner_id: restaurantData.owner_id,
       };
     });
 
@@ -145,6 +147,7 @@ const searchRestaurants = async (req, res) => {
         'latitude',
         'longitude',
         'is_open',
+        'owner_id',
       ],
       limit: parseInt(limit),
       offset: parseInt(offset),
@@ -173,6 +176,7 @@ const searchRestaurants = async (req, res) => {
         price: '$$',
         latitude: parseFloat(restaurantData.latitude),
         longitude: parseFloat(restaurantData.longitude),
+        owner_id: restaurantData.owner_id,
       };
     });
 

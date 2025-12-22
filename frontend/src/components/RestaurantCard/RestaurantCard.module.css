@@ -133,7 +133,16 @@
   justify-content: space-between;
   align-items: center;
   font-size: 0.9rem;
-  color: #008000; /* Màu xanh "Đang mở cửa" */
+}
+
+.statusOpen {
+  color: #008000; /* Màu xanh cho "Đang mở cửa" */
+  font-weight: 600;
+}
+
+.statusClosed {
+  color: #dc2626; /* Màu đỏ cho "Đã đóng cửa" */
+  font-weight: 600;
 }
 
 .tags {

@@ -6,6 +6,9 @@ const { requireAuth } = require('../middleware/auth');
 // GET /api/restaurants
 router.get('/', restaurantController.getAllRestaurants);
 
+// GET /api/restaurants/owner - Đặt trước /:id
+router.get('/owner', requireAuth, restaurantController.getOwnerRestaurants);
+
 // GET /api/restaurants/:id
 router.get('/:id', restaurantController.getRestaurantById);
 

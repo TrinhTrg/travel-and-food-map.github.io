@@ -28,18 +28,18 @@ const HeroSection = () => {
         <Link to="/kham-pha" className={styles.ctaButton}>
           Khám phá ngay &rarr;
         </Link>
+      </div>
 
-        {/* Các tính năng */}
-        <div className={styles.features}>
-          <div className={styles.featureItem}>
-            <FiStar /> Rating thật từ người dùng
-          </div>
-          <div className={styles.featureItem}>
-            <FiImage /> Hình ảnh món ăn thực tế
-          </div>
-          <div className={styles.featureItem}>
-            <FiMap /> Bản đồ trực quan
-          </div>
+      {/* Các tính năng - đặt ở dưới cùng */}
+      <div className={styles.features}>
+        <div className={`${styles.featureItem} ${styles.featureLeft}`}>
+          <FiStar /> Rating thật từ người dùng
+        </div>
+        <div className={`${styles.featureItem} ${styles.featureCenter}`}>
+          <FiImage /> Hình ảnh món ăn thực tế
+        </div>
+        <div className={`${styles.featureItem} ${styles.featureRight}`}>
+          <FiMap /> Bản đồ trực quan
         </div>
       </div>
     </main>

@@ -80,11 +80,18 @@
   color: white;
 }
 
-/* Các tính năng */
+/* Các tính năng - đặt ở dưới cùng màn hình */
 .features {
+  position: absolute;
+  bottom: 2rem;
+  left: 0;
+  right: 0;
+  width: 100%;
   display: flex;
-  gap: 2rem;
-  margin-top: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
+  z-index: 2;
 }
 
 .featureItem {
@@ -93,6 +100,20 @@
   gap: 0.5rem;
   color: #555;
   font-weight: 500;
+}
+
+.featureLeft {
+  margin-left: 5rem; /* Đẩy vào trong */
+}
+
+.featureCenter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.featureRight {
+  margin-right: 5rem; /* Đẩy vào trong */
 }
 
 /* --- Kỹ thuật ảnh "bay" --- */
@@ -123,4 +144,39 @@
   bottom: 25%;
   right: 18%;
   width: 170px;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    bottom: 1rem;
+    padding: 0 1rem;
+  }
+
+  .featureLeft,
+  .featureRight {
+    position: static;
+    margin: 0;
+  }
+
+  .featureCenter {
+    position: static;
+    transform: none;
+  }
+
+  .heroContainer {
+    padding: 3rem 1rem;
+    min-height: 70vh;
+  }
+
+  .content h1 {
+    font-size: 2rem;
+  }
+
+  .content p {
+    font-size: 0.9rem;
+  }
 }

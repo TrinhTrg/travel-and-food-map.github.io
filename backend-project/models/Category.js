@@ -4,9 +4,18 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Category extends Model {
     static associate(models) {
+      // Giữ lại hasMany để backward compatibility
       Category.hasMany(models.Restaurant, {
         foreignKey: 'category_id',
         as: 'restaurants'
+      });
+      
+      // Many-to-many relationship với restaurants
+      Category.belongsToMany(models.Restaurant, {
+        through: 'restaurant_categories',
+        foreignKey: 'category_id',
+        otherKey: 'restaurant_id',
+        as: 'restaurantsMany'
       });
     }
   }

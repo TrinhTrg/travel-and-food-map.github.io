@@ -4,19 +4,22 @@
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #FFF7ED; /* Màu nền be */
+  background-color: #FFF7ED;
+  /* Màu nền be */
   border-bottom: 1px solid #eee;
   position: relative;
 }
+
 /* Logo */
 .logo {
   display: flex;
   align-items: center;
 
 }
+
 .logo img {
-  height: 50px; 
-  width: auto;  
+  height: 50px;
+  width: auto;
   object-fit: contain;
 }
 
@@ -47,7 +50,8 @@
 }
 
 /* Nút chung */
-.iconButton, .iconButtonOrange {
+.iconButton,
+.iconButtonOrange {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -64,7 +68,8 @@
   background-color: #F58634;
   color: white;
   border: none;
-  padding: 0.5rem; /* Làm nó tròn */
+  padding: 0.5rem;
+  /* Làm nó tròn */
   border-radius: 50%;
 }
 
@@ -80,11 +85,13 @@
   background-color: #fff;
   white-space: nowrap;
 }
+
 /* Nhóm bên trái (Logo + Search) */
 .navLeft {
   display: flex;
   align-items: center;
-  gap: 2.5rem; /* Khoảng cách giữa logo và thanh tìm kiếm */
+  gap: 2.5rem;
+  /* Khoảng cách giữa logo và thanh tìm kiếm */
 }
 
 
@@ -101,8 +108,10 @@
   border-radius: 20px;
   padding: 0.5rem 1rem;
   width: 300px;
-  border: 1px solid #e0e0e0; /* Thêm viền mỏng */
-  box-shadow: 0 2px 4px rgba(0,0,0,0.03); /* Thêm bóng mờ nhẹ */
+  border: 1px solid #e0e0e0;
+  /* Thêm viền mỏng */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  /* Thêm bóng mờ nhẹ */
 }
 
 .searchBar svg {
@@ -134,7 +143,8 @@
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  z-index: 1000;
+  z-index: 10000;
+  /* Tăng lên để hiển thị trên popup restaurant */
   max-height: 400px;
   overflow-y: auto;
   border: 1px solid #e0e0e0;
@@ -239,7 +249,8 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 320px;
-  z-index: 1000;
+  z-index: 10000;
+  /* Tăng lên để hiển thị trên popup restaurant */
   overflow: hidden;
 }
 
@@ -347,7 +358,8 @@
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   min-width: 220px;
-  z-index: 1000;
+  z-index: 10000;
+  /* Tăng lên để hiển thị trên popup restaurant */
   overflow: hidden;
 }
 

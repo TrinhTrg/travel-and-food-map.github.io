@@ -27,6 +27,12 @@ const getAllRestaurants = async (req, res) => {
           model: Category,
           as: 'category',
           attributes: ['id', 'name']
+        },
+        {
+          model: Category,
+          as: 'categories',
+          attributes: ['id', 'name'],
+          through: { attributes: [] }
         }
       ],
       attributes: [
@@ -40,7 +46,8 @@ const getAllRestaurants = async (req, res) => {
         'is_open',
         'review_count',
         'image_url',
-        'status'
+        'status',
+        'owner_id'
       ],
       order: [['average_rating', 'DESC'], ['review_count', 'DESC']]
     });
@@ -48,6 +55,16 @@ const getAllRestaurants = async (req, res) => {
     // Format response để phù hợp với frontend
     const formattedRestaurants = restaurants.map(restaurant => {
       const restaurantData = restaurant.toJSON();
+      const openStatus = restaurantData.is_open ? 'Đang mở cửa' : 'Đã đóng cửa';
+      const moderationStatus = restaurantData.status === 'approved' ? 'Đã duyệt' : 'Chờ duyệt';
+
+      // Lấy categories từ many-to-many hoặc fallback về category cũ
+      const categoriesList = restaurantData.categories && restaurantData.categories.length > 0
+        ? restaurantData.categories
+        : (restaurantData.category ? [restaurantData.category] : []);
+
+      const categoryNames = categoriesList.map(cat => cat.name);
+
       return {
         id: restaurantData.id,
         name: restaurantData.name,
@@ -56,14 +73,17 @@ const getAllRestaurants = async (req, res) => {
         rating: parseFloat(restaurantData.average_rating),
         reviews: restaurantData.review_count,
         address: restaurantData.address,
-        status: restaurantData.is_open ? 'Đang mở cửa' : 'Đã đóng cửa',
+        openStatus,
+        status: moderationStatus,
         isOpen: restaurantData.is_open,
-        tags: restaurantData.category ? [restaurantData.category.name] : [],
-        category: restaurantData.category ? restaurantData.category.name : 'Khác',
+        tags: categoryNames,
+        category: categoryNames[0] || 'Khác',
+        categories: categoryNames, // Thêm field mới
         description: restaurantData.description || 'Thông tin đang được cập nhật.',
         price: '$$', // Placeholder, có thể thêm field sau
         latitude: parseFloat(restaurantData.latitude),
         longitude: parseFloat(restaurantData.longitude),
+        owner_id: restaurantData.owner_id,
         // Placeholder data cho popup detail
         reviewsList: [],
         userReview: null
@@ -95,6 +115,12 @@ const getRestaurantById = async (req, res) => {
           model: Category,
           as: 'category',
           attributes: ['id', 'name']
+        },
+        {
+          model: Category,
+          as: 'categories',
+          attributes: ['id', 'name'],
+          through: { attributes: [] }
         }
       ],
       attributes: [
@@ -108,7 +134,8 @@ const getRestaurantById = async (req, res) => {
         'is_open',
         'review_count',
         'image_url',
-        'status'
+        'status',
+        'owner_id'
       ]
     });
 
@@ -122,6 +149,16 @@ const getRestaurantById = async (req, res) => {
     const restaurantData = restaurant.toJSON();
 
     // Format response để phù hợp với popup detail
+    const openStatus = restaurantData.is_open ? 'Đang mở cửa' : 'Đã đóng cửa';
+    const moderationStatus = restaurantData.status === 'approved' ? 'Đã duyệt' : 'Chờ duyệt';
+
+    // Lấy categories từ many-to-many hoặc fallback về category cũ
+    const categoriesList = restaurantData.categories && restaurantData.categories.length > 0
+      ? restaurantData.categories
+      : (restaurantData.category ? [restaurantData.category] : []);
+
+    const categoryNames = categoriesList.map(cat => cat.name);
+
     const formattedRestaurant = {
       id: restaurantData.id,
       name: restaurantData.name,
@@ -130,14 +167,17 @@ const getRestaurantById = async (req, res) => {
       rating: parseFloat(restaurantData.average_rating),
       reviews: restaurantData.review_count,
       address: restaurantData.address,
-      status: restaurantData.is_open ? 'Đang mở cửa' : 'Đã đóng cửa',
+      openStatus,
+      status: moderationStatus,
       isOpen: restaurantData.is_open,
-      tags: restaurantData.category ? [restaurantData.category.name] : [],
-      category: restaurantData.category ? restaurantData.category.name : 'Khác',
+      tags: categoryNames,
+      category: categoryNames[0] || 'Khác',
+      categories: categoryNames, // Thêm field mới
       description: restaurantData.description || 'Thông tin đang được cập nhật.',
       price: '$$',
       latitude: parseFloat(restaurantData.latitude),
       longitude: parseFloat(restaurantData.longitude),
+      owner_id: restaurantData.owner_id,
       // Placeholder reviews - có thể thêm API riêng sau
       reviewsList: [
         {
@@ -176,7 +216,6 @@ const getRestaurantsByCategory = async (req, res) => {
 
     const restaurants = await Restaurant.findAll({
       where: {
-        category_id: category_id,
         status: 'approved'
       },
       include: [
@@ -184,6 +223,13 @@ const getRestaurantsByCategory = async (req, res) => {
           model: Category,
           as: 'category',
           attributes: ['id', 'name']
+        },
+        {
+          model: Category,
+          as: 'categories',
+          attributes: ['id', 'name'],
+          through: { attributes: [] },
+          where: { id: category_id } // Filter by category trong many-to-many
         }
       ],
       attributes: [
@@ -204,6 +250,16 @@ const getRestaurantsByCategory = async (req, res) => {
 
     const formattedRestaurants = restaurants.map(restaurant => {
       const restaurantData = restaurant.toJSON();
+      const openStatus = restaurantData.is_open ? 'Đang mở cửa' : 'Đã đóng cửa';
+      const moderationStatus = restaurantData.status === 'approved' ? 'Đã duyệt' : 'Chờ duyệt';
+
+      // Lấy categories từ many-to-many hoặc fallback về category cũ
+      const categoriesList = restaurantData.categories && restaurantData.categories.length > 0
+        ? restaurantData.categories
+        : (restaurantData.category ? [restaurantData.category] : []);
+
+      const categoryNames = categoriesList.map(cat => cat.name);
+
       return {
         id: restaurantData.id,
         name: restaurantData.name,
@@ -212,14 +268,17 @@ const getRestaurantsByCategory = async (req, res) => {
         rating: parseFloat(restaurantData.average_rating),
         reviews: restaurantData.review_count,
         address: restaurantData.address,
-        status: restaurantData.is_open ? 'Đang mở cửa' : 'Đã đóng cửa',
+        openStatus,
+        status: moderationStatus,
         isOpen: restaurantData.is_open,
-        tags: restaurantData.category ? [restaurantData.category.name] : [],
-        category: restaurantData.category ? restaurantData.category.name : 'Khác',
+        tags: categoryNames,
+        category: categoryNames[0] || 'Khác',
+        categories: categoryNames, // Thêm field mới
         description: restaurantData.description || 'Thông tin đang được cập nhật.',
         price: '$$',
         latitude: parseFloat(restaurantData.latitude),
         longitude: parseFloat(restaurantData.longitude),
+        owner_id: restaurantData.owner_id,
         reviewsList: [],
         userReview: null
       };
@@ -267,14 +326,18 @@ const createRestaurant = async (req, res) => {
       });
     }
 
-    const ownerId = req.userId || null;
+    const ownerId = req.userId;
+
+    if (!ownerId) {
+      console.warn('Warning: Creating restaurant without owner_id');
+    }
 
     const restaurant = await Restaurant.create({
       category_id,
       name,
       address,
       description: description || null,
-      owner_id: ownerId,
+      owner_id: ownerId ? parseInt(ownerId) : null,
       average_rating: 0,
       latitude,
       longitude,
@@ -309,10 +372,43 @@ const createRestaurant = async (req, res) => {
   }
 };
 
+const getOwnerRestaurants = async (req, res) => {
+  try {
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Không tìm thấy thông tin user',
+      });
+    }
+
+    const restaurants = await Restaurant.findAll({
+      where: {
+        owner_id: parseInt(userId)
+      },
+      attributes: ['id', 'name', 'address', 'status', 'image_url']
+    });
+
+    res.json({
+      success: true,
+      data: restaurants
+    });
+  } catch (error) {
+    console.error('Error fetching owner restaurants:', error);
+    res.status(500).json({
+      success: false,
+      message: 'Lỗi khi lấy danh sách nhà hàng của owner',
+      error: error.message
+    });
+  }
+};
+
 module.exports = {
   getAllRestaurants,
   getRestaurantById,
   getRestaurantsByCategory,
   createRestaurant,
+  getOwnerRestaurants
 };
 

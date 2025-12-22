@@ -1627,28 +1627,6 @@
     {
       "type": "Feature",
       "properties": {
-        "@id": "node/4854309123",
-        "addr:housenumber": "267",
-        "addr:street": "Dương Đình Nghệ",
-        "amenity": "cafe",
-        "internet_access": "wlan",
-        "name": "Sàn giao dịch bất động sản ĐẤT LÀNH",
-        "name:en": "DAT LANH co...",
-        "opening_hours": "24/7",
-        "phone": "0905211211"
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          108.2356103,
-          16.0697237
-        ]
-      },
-      "id": "node/4854309123"
-    },
-    {
-      "type": "Feature",
-      "properties": {
         "@id": "node/4854342521",
         "addr:housenumber": "103",
         "addr:street": "Nguyễn Xuân Khoát",
@@ -1657,7 +1635,7 @@
         "name": "Coffee TRÚC NGUYÊN",
         "name:en": "TRUC NGUYEN",
         "opening_hours": "24/7",
-        "operator": "Bất động sản Đất Lành",
+        "operator": "Truc Nguyen Nguyen",
         "phone": "0903434649"
       },
       "geometry": {

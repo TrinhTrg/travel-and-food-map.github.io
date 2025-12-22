@@ -2,52 +2,61 @@ import React from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import styles from './HowItWorksPage.module.css';
-import { FiSearch, FiEye, FiEdit3 } from 'react-icons/fi'; // Import các icon
+import { FiUsers, FiTarget, FiHeart, FiAward } from 'react-icons/fi'; // Import các icon
 
-const HowItWorksPage = () => {
+const AboutUsPage = () => {
   return (
     <div className={styles.pageContainer}>
       <Navbar />
 
       <main className={styles.mainContent}>
-        <h1>Nó hoạt động <span>như thế nào?</span></h1>
+        <h1>Về <span>Chúng Tôi</span></h1>
         <p className={styles.subtitle}>
-          Khám phá, trải nghiệm và chia sẻ ẩm thực chưa bao giờ dễ dàng hơn thế.
-          Chỉ với 3 bước đơn giản!
+          FoodGo - Ứng dụng tìm hiểu và khám phá ẩm thực đầu tiên tại Việt Nam.
+          Mang đến cho bạn những trải nghiệm ẩm thực tuyệt vời nhất.
         </p>
 
-        {/* Lưới 3 bước */}
+        {/* Lưới 4 phần giới thiệu */}
         <div className={styles.stepsGrid}>
-          {/* Bước 1 */}
+          {/* Phần 1 */}
           <div className={styles.step}>
-            <FiSearch className={styles.icon} />
-            <h2>1. Khám Phá</h2>
+            <FiUsers className={styles.icon} />
+            <h2>Sứ Mệnh</h2>
             <p>
-              Sử dụng thanh tìm kiếm thông minh hoặc bản đồ trực quan để
-              tìm thấy chính xác món ăn, nhà hàng, hoặc xu hướng ẩm thực
-              quanh bạn.
+              Chúng tôi kết nối những người yêu ẩm thực, tạo ra một cộng đồng
+              nơi mọi người có thể khám phá, chia sẻ và trải nghiệm những món ăn
+              tuyệt vời nhất.
             </p>
           </div>
 
-          {/* Bước 2 */}
+          {/* Phần 2 */}
           <div className={styles.step}>
-            <FiEye className={styles.icon} />
-            <h2>2. Xem Đánh Giá</h2>
+            <FiTarget className={styles.icon} />
+            <h2>Tầm Nhìn</h2>
             <p>
-              Đọc hàng ngàn đánh giá có tâm, xem hình ảnh món ăn thực tế
-              do cộng đồng chụp để có quyết định khách quan nhất
-              trước khi đi.
+              Trở thành nền tảng hàng đầu về ẩm thực tại Việt Nam, giúp mọi người
+              dễ dàng tìm thấy những địa điểm ăn uống phù hợp và chia sẻ trải nghiệm
+              của mình với cộng đồng.
             </p>
           </div>
 
-          {/* Bước 3 */}
+          {/* Phần 3 */}
           <div className={styles.step}>
-            <FiEdit3 className={styles.icon} />
-            <h2>3. Chia Sẻ</h2>
+            <FiHeart className={styles.icon} />
+            <h2>Giá Trị Cốt Lõi</h2>
             <p>
-              Đăng tải trải nghiệm của bạn! Viết review, chấm điểm,
-              upload ảnh món ăn của bạn để giúp đỡ cộng đồng và
-              trở thành một "reviewer" uy tín.
+              Chúng tôi tin vào sự minh bạch, chân thực và cộng đồng. Mọi đánh giá
+              và chia sẻ đều được tạo ra từ trải nghiệm thực tế của người dùng.
+            </p>
+          </div>
+
+          {/* Phần 4 */}
+          <div className={styles.step}>
+            <FiAward className={styles.icon} />
+            <h2>Cam Kết</h2>
+            <p>
+              FoodGo cam kết mang đến trải nghiệm tốt nhất cho người dùng, với
+              dữ liệu chính xác, giao diện thân thiện và cộng đồng tích cực.
             </p>
           </div>
         </div>
@@ -58,4 +67,4 @@ const HowItWorksPage = () => {
   );
 };
 
-export default HowItWorksPage;
+export default AboutUsPage;

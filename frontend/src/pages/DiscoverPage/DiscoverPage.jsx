@@ -64,9 +64,9 @@ const haversineDistanceKm = (lat1, lon1, lat2, lon2) => {
   const a =
     Math.sin(dLat / 2) * Math.sin(dLat / 2) +
     Math.cos(toRad(lat1)) *
-      Math.cos(toRad(lat2)) *
-      Math.sin(dLon / 2) *
-      Math.sin(dLon / 2);
+    Math.cos(toRad(lat2)) *
+    Math.sin(dLon / 2) *
+    Math.sin(dLon / 2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 };
@@ -82,7 +82,7 @@ const distanceFromPoint = (baseLat, baseLng, restaurant) => {
 
 const DiscoverPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  
+
   // --- GIỮ NGUYÊN LOGIC CŨ ---
   const [activeFilter, setActiveFilter] = useState(FILTERS[0].key);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
@@ -94,7 +94,7 @@ const DiscoverPage = () => {
 
   // --- THÊM STATE MỚI CHO UI ---
   // viewMode: 'overview' | 'nearby' | 'topRated' | 'all'
-  const [viewMode, setViewMode] = useState('overview'); 
+  const [viewMode, setViewMode] = useState('overview');
   const [advancedFilters, setAdvancedFilters] = useState([]);
   const [maxPrice, setMaxPrice] = useState(10000000);
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
@@ -102,6 +102,12 @@ const DiscoverPage = () => {
 
   const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+
+  // Luôn scroll window lên top khi component mount hoặc searchParams thay đổi
+  // Scroll trong popup là riêng biệt và không ảnh hưởng đến window scroll
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [searchParams]); // Chạy mỗi khi searchParams thay đổi
 
   // Đóng dropdown khi click ra ngoài
   // Lấy vị trí hiện tại của user cho filter "Gần bạn"
@@ -205,7 +211,7 @@ const DiscoverPage = () => {
           if (json.success && json.data) {
             // API trả về data với format khác một chút, cần format lại
             const restaurantData = json.data;
-            
+
             // Format lại để phù hợp với format từ getAllRestaurants
             const formattedRestaurant = {
               id: restaurantData.id,
@@ -215,8 +221,9 @@ const DiscoverPage = () => {
               rating: restaurantData.rating || 0,
               reviews: restaurantData.reviews || 0,
               address: restaurantData.address,
-              // API trả về openStatus, nhưng frontend dùng status
-              status: restaurantData.openStatus || (restaurantData.isOpen ? 'Đang mở cửa' : 'Đã đóng cửa'),
+              // Sử dụng openStatus từ API (Đang mở cửa / Đã đóng cửa)
+              openStatus: restaurantData.openStatus || (restaurantData.isOpen ? 'Đang mở cửa' : 'Đã đóng cửa'),
+              status: restaurantData.openStatus || (restaurantData.isOpen ? 'Đang mở cửa' : 'Đã đóng cửa'), // Giữ để backward compatibility
               isOpen: restaurantData.isOpen !== undefined ? restaurantData.isOpen : true,
               tags: Array.isArray(restaurantData.tags) ? restaurantData.tags : [],
               category: restaurantData.category || 'Khác',
@@ -271,10 +278,10 @@ const DiscoverPage = () => {
       // Gắn thêm khoảng cách từ user để dùng cho sort + hiển thị
       const distanceKm = userPosition
         ? distanceFromPoint(
-            userPosition.lat,
-            userPosition.lng,
-            restaurant
-          )
+          userPosition.lat,
+          userPosition.lng,
+          restaurant
+        )
         : null;
       return { ...restaurant, distanceKm };
     });
@@ -340,8 +347,8 @@ const DiscoverPage = () => {
 
   // Component Nút Quay lại
   const BackButton = () => (
-    <button 
-      className={styles.backButton} 
+    <button
+      className={styles.backButton}
       onClick={() => setViewMode('overview')}
     >
       <FaArrowLeft /> Quay lại
@@ -365,9 +372,8 @@ const DiscoverPage = () => {
     <div className={styles.filterToggleWrapper} ref={filterDropdownRef}>
       <button
         type="button"
-        className={`${styles.filterToggleButton} ${
-          isFilterDropdownOpen ? styles.filterToggleButtonActive : ''
-        }`}
+        className={`${styles.filterToggleButton} ${isFilterDropdownOpen ? styles.filterToggleButtonActive : ''
+          }`}
         onClick={() => setIsFilterDropdownOpen((open) => !open)}
         aria-haspopup="true"
         aria-expanded={isFilterDropdownOpen}
@@ -395,9 +401,8 @@ const DiscoverPage = () => {
                   }}
                 >
                   <span
-                    className={`${styles.filterCheckbox} ${
-                      checked ? styles.filterCheckboxChecked : ''
-                    }`}
+                    className={`${styles.filterCheckbox} ${checked ? styles.filterCheckboxChecked : ''
+                      }`}
                   >
                     {checked && <span className={styles.filterCheckboxDot} />}
                   </span>
@@ -465,14 +470,14 @@ const DiscoverPage = () => {
       <main className={styles.mainContent}>
         {/* Cột 1: Sidebar danh sách */}
         <aside className={styles.sidebar}>
-          
+
           {/* --- VIEW: TỔNG QUAN (OVERVIEW) --- */}
           {viewMode === 'overview' && (
             <>
               {/* Section 1: Nhà hàng gần bạn */}
               <section className={styles.section}>
                 <SectionHeader title="Nhà hàng gần bạn" targetMode="nearby" />
-                
+
                 {/* Hàng: Tabs phổ biến/đánh giá cao + nút Filter (góc phải) */}
                 <div className={styles.tabsRow}>
                   <div className={styles.tabs}>
@@ -480,9 +485,8 @@ const DiscoverPage = () => {
                       <button
                         key={key}
                         type="button"
-                        className={`${styles.tab} ${
-                          activeFilter === key ? styles.active : ""
-                        }`}
+                        className={`${styles.tab} ${activeFilter === key ? styles.active : ""
+                          }`}
                         onClick={() => setActiveFilter(key)}
                       >
                         <Icon /> {label}
@@ -522,7 +526,7 @@ const DiscoverPage = () => {
               <section className={styles.section}>
                 <SectionHeader title="Tất cả nhà hàng" targetMode="all" />
                 <div className={styles.restaurantList}>
-                   {/* Chỉ hiển thị 3 items */}
+                  {/* Chỉ hiển thị 3 items */}
                   {renderRestaurantList(restaurants.slice(0, 3))}
                 </div>
               </section>
@@ -536,7 +540,7 @@ const DiscoverPage = () => {
                 <BackButton />
                 <h2 className={styles.title}>Nhà hàng gần bạn</h2>
               </div>
-              
+
               <p className={styles.subtitle}>
                 {categories.length} loại hình ẩm thực · {restaurants.length} điểm đến
               </p>
@@ -548,9 +552,8 @@ const DiscoverPage = () => {
                     <button
                       key={key}
                       type="button"
-                      className={`${styles.tab} ${
-                        activeFilter === key ? styles.active : ""
-                      }`}
+                      className={`${styles.tab} ${activeFilter === key ? styles.active : ""
+                        }`}
                       onClick={() => setActiveFilter(key)}
                     >
                       <Icon /> {label}

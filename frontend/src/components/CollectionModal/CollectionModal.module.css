@@ -1,0 +1,400 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+}
+
+.modal {
+    background: #fff;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 520px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+    animation: slideUp 0.3s ease-out;
+    overflow: hidden;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #111827;
+}
+
+.closeButton {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    background: #f3f4f6;
+    color: #374151;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.2s ease;
+}
+
+.closeButton:hover {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+/* Tabs */
+.tabs {
+    display: flex;
+    padding: 0.75rem 1rem;
+    gap: 0.5rem;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tab:hover {
+    background: #f0f0f0;
+    color: #374151;
+}
+
+.tabActive {
+    background: linear-gradient(135deg, #f97316, #fb923c);
+    color: white;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.tabActive:hover {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    color: white;
+}
+
+.badge {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0.15rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+.tabActive .badge {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* Content */
+.content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    scrollbar-width: thin;
+}
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    gap: 1rem;
+    color: #6b7280;
+}
+
+.spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #f97316;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.emptyState {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+}
+
+.emptyIcon {
+    font-size: 3rem;
+    color: #d1d5db;
+    margin-bottom: 1rem;
+}
+
+.emptyState h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #374151;
+}
+
+.emptyState p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #6b7280;
+    line-height: 1.5;
+}
+
+/* Recent Header */
+.recentHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding: 0 0.25rem;
+}
+
+.recentHeader span {
+    font-size: 0.85rem;
+    color: #6b7280;
+}
+
+.clearButton {
+    background: none;
+    border: none;
+    color: #ef4444;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+.clearButton:hover {
+    background: #fef2f2;
+}
+
+/* Location List */
+.locationList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.locationItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.locationItem:hover {
+    background: #f3f4f6;
+    transform: translateY(-1px);
+}
+
+.locationImage {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #e5e7eb;
+}
+
+.locationImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.imagePlaceholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #fef3e7, #fff7ed);
+    color: #f97316;
+    font-size: 1.5rem;
+}
+
+.locationInfo {
+    flex: 1;
+    min-width: 0;
+}
+
+.locationName {
+    margin: 0 0 0.25rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #111827;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 2rem;
+}
+
+.locationAddress {
+    margin: 0 0 0.35rem;
+    font-size: 0.8rem;
+    color: #6b7280;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.locationMeta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.ratingRow {
+    display: flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: 0.7rem;
+}
+
+.starActive {
+    color: #fbbf24;
+}
+
+.starInactive {
+    color: #d1d5db;
+}
+
+.ratingValue {
+    margin-left: 0.25rem;
+    font-weight: 600;
+    color: #374151;
+    font-size: 0.8rem;
+}
+
+.category {
+    display: inline-flex;
+    padding: 0.15rem 0.5rem;
+    background: #fff7ed;
+    color: #f97316;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border-radius: 999px;
+}
+
+.viewedAt {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0.35rem 0 0;
+    font-size: 0.75rem;
+    color: #9ca3af;
+}
+
+.removeButton {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    color: #9ca3af;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.removeButton:hover {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .modal {
+        max-height: 90vh;
+        border-radius: 16px 16px 0 0;
+        margin-top: auto;
+    }
+
+    .header {
+        padding: 1rem 1.25rem;
+    }
+
+    .tabs {
+        padding: 0.5rem 0.75rem;
+    }
+
+    .tab {
+        padding: 0.65rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    .content {
+        padding: 0.75rem;
+    }
+
+    .locationImage {
+        width: 60px;
+        height: 60px;
+    }
+}

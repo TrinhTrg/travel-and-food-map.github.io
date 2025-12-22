@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap, useMapEvents } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import styles from "./MapView.module.css";
 import L from "leaflet";
@@ -59,18 +59,36 @@ const foodIcon = L.icon({
 });
 
 const getMarkerIcon = (restaurant) => {
-  const rawCategory =
-    restaurant.category ||
-    (Array.isArray(restaurant.tags) ? restaurant.tags[0] : "") ||
-    "";
-  const category = rawCategory.toLowerCase().trim();
+  // Ưu tiên kiểm tra mảng categories (many-to-many)
+  let categories = [];
+
+  if (restaurant.categories && Array.isArray(restaurant.categories) && restaurant.categories.length > 0) {
+    // Nếu có mảng categories, lấy tên từ đó
+    categories = restaurant.categories.map(cat =>
+      typeof cat === 'string' ? cat : (cat.name || '')
+    );
+  } else if (restaurant.category) {
+    // Fallback về category cũ (string)
+    categories = [restaurant.category];
+  } else if (Array.isArray(restaurant.tags) && restaurant.tags.length > 0) {
+    // Fallback về tags
+    categories = restaurant.tags;
+  }
+
+  // Kiểm tra xem có category nào là cafe, dessert, hoặc chè không
+  const categoryLower = categories.map(cat => (cat || '').toLowerCase().trim());
+
+  const isCafeCategory = categoryLower.some(cat =>
+    cat === "cafe" ||
+    cat === "dessert" ||
+    cat === "chè" ||
+    cat === "che" ||
+    cat.includes("chè") || // Bao gồm cả "Chè đậu", "Chè thái"
+    cat.includes("che")
+  );
 
   // Cafe, Dessert, Chè dùng cafeIcon
-  if (
-    category === "cafe" ||
-    category === "dessert" ||
-    category === "chè"
-  ) {
+  if (isCafeCategory) {
     return cafeIcon;
   }
 
@@ -90,7 +108,21 @@ const MapInstanceRegistrar = ({ onReady }) => {
   return null;
 };
 
-const noop = () => {};
+// Component để đóng popup khi click vào map
+const MapClickHandler = ({ onMapClick }) => {
+  useMapEvents({
+    click: (e) => {
+      // Chỉ đóng popup nếu click vào map, không phải vào marker
+      // e.originalEvent.target sẽ là map tile nếu click vào map
+      if (onMapClick) {
+        onMapClick(e);
+      }
+    },
+  });
+  return null;
+};
+
+const noop = () => { };
 
 // Component để control popup của marker
 const MarkerWithPopupControl = ({ restaurant, onSelect, mapRef, markerRefs }) => {
@@ -132,7 +164,7 @@ const MarkerWithPopupControl = ({ restaurant, onSelect, mapRef, markerRefs }) =>
       }}
     >
       {/* Tooltip hiển thị khi hover vào marker */}
-      <Tooltip 
+      <Tooltip
         permanent={false}
         direction="top"
         offset={[0, -35]}
@@ -159,6 +191,7 @@ const MapView = ({
     mapRef.current = mapInstance;
   }, []);
   const [fallbackSelectedId, setFallbackSelectedId] = useState(null);
+  const [scrollToReview, setScrollToReview] = useState(false);
 
   const isControlled = typeof selectedRestaurantId !== "undefined";
 
@@ -197,12 +230,20 @@ const MapView = ({
     const lat = parseCoordinate(selectedRestaurant.latitude);
     const lng = parseCoordinate(selectedRestaurant.longitude);
     if (lat === null || lng === null) return;
-    
+
     const destination = `${lat},${lng}`;
     const origin = userPosition ? `${userPosition[0]},${userPosition[1]}` : "My+Location";
     const directionsUrl = `https://www.google.com/maps/dir/${encodeURIComponent(origin)}/${destination}`;
     window.open(directionsUrl, "_blank");
   };
+
+  // Handler để đóng popup khi click vào map
+  const handleMapClick = useCallback(() => {
+    if (effectiveSelectedId) {
+      selectRestaurant(null);
+      setScrollToReview(false);
+    }
+  }, [effectiveSelectedId, selectRestaurant]);
 
   // Lấy vị trí hiện tại của user và focus map vào vị trí đó
   useEffect(() => {
@@ -244,28 +285,40 @@ const MapView = ({
     };
 
     const handleCenterOnRestaurant = (event) => {
-      const { latitude, longitude, restaurantId } = event.detail || {};
+      const { latitude, longitude, restaurantId, scrollToReview: shouldScrollToReview } = event.detail || {};
       if (typeof latitude !== "number" || typeof longitude !== "number") return;
       const position = [latitude, longitude];
-      
+
       // Ping map to restaurant location
       if (mapRef.current) {
         mapRef.current.flyTo(position, MARKER_ZOOM, {
           duration: 0.8,
         });
       }
-      
+
       // If restaurantId is provided, select that restaurant
       if (restaurantId) {
         selectRestaurant(restaurantId);
+        // Set scrollToReview flag nếu có
+        if (shouldScrollToReview) {
+          setScrollToReview(true);
+        }
       }
+    };
+
+    // Event để đóng popup (từ navbar dropdown hoặc click map)
+    const handleClosePopup = () => {
+      selectRestaurant(null);
+      setScrollToReview(false);
     };
 
     window.addEventListener("app:center-map-user", handleCenterOnUser);
     window.addEventListener("app:center-map-restaurant", handleCenterOnRestaurant);
+    window.addEventListener("app:close-restaurant-popup", handleClosePopup);
     return () => {
       window.removeEventListener("app:center-map-user", handleCenterOnUser);
       window.removeEventListener("app:center-map-restaurant", handleCenterOnRestaurant);
+      window.removeEventListener("app:close-restaurant-popup", handleClosePopup);
     };
   }, [selectRestaurant]);
 
@@ -306,6 +359,7 @@ const MapView = ({
         className={styles.map}
       >
         <MapInstanceRegistrar onReady={handleMapReady} />
+        <MapClickHandler onMapClick={handleMapClick} />
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         {/* Marker vị trí người dùng */}
@@ -331,7 +385,11 @@ const MapView = ({
           <RestaurantDetailPopup
             restaurant={selectedRestaurant}
             onRequestDirections={handleDirectionsRequest}
-            onClose={() => selectRestaurant(null)}
+            onClose={() => {
+              selectRestaurant(null);
+              setScrollToReview(false); // Reset flag khi đóng popup
+            }}
+            scrollToReview={scrollToReview}
           />
         </div>
       )}

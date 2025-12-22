@@ -1,339 +1,359 @@
+/* Layout */
 .pageContainer {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f8fafc;
 }
 
 .mainContent {
-  flex: 1;
-  padding: 2rem;
-  background-color: #f5f5f5;
+    flex: 1;
+    padding: 2rem;
+    max-width: 1200px;
+    width: 100%;
+    /* Đảm bảo content không tràn */
+    margin: 0 auto;
 }
 
 .dashboard {
-  max-width: 1200px;
-  margin: 0 auto;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    min-height: 500px;
 }
 
 .title {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #333;
-  margin-bottom: 2rem;
+    font-size: 2rem;
+    color: #1a202c;
+    margin-bottom: 2rem;
+    font-weight: 700;
 }
 
 .loading {
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.2rem;
-  color: #666;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #64748b;
+    margin-top: 4rem;
 }
 
 /* Tabs */
 .tabs {
-  display: flex;
-  gap: 1rem;
-  margin-bottom: 2rem;
-  border-bottom: 2px solid #e0e0e0;
+    display: flex;
+    gap: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    margin-bottom: 2rem;
+    padding-bottom: 2px;
+    overflow-x: auto;
+    /* Cho phép scroll ngang trên mobile */
 }
 
 .tab {
-  padding: 0.75rem 1.5rem;
-  border: none;
-  background: transparent;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #666;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  margin-bottom: -2px;
-  transition: all 0.2s ease;
+    padding: 0.75rem 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .tab:hover {
-  color: #F58634;
+    color: #f58634;
 }
 
 .tab.active {
-  color: #F58634;
-  border-bottom-color: #F58634;
+    color: #f58634;
+    border-bottom-color: #f58634;
 }
 
 /* Stats Grid */
 .statsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
 }
 
 .statCard {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s;
 }
 
 .statCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
 .statIcon {
-  width: 60px;
-  height: 60px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
-  background-color: #fff7ed;
-  color: #F58634;
+    padding: 1rem;
+    border-radius: 12px;
+    background: #f1f5f9;
+    color: #64748b;
+    font-size: 1.5rem;
 }
 
 .statIconSuccess {
-  background-color: #f0fdf4;
-  color: #22c55e;
+    background: #dcfce7;
+    color: #16a34a;
 }
 
 .statIconWarning {
-  background-color: #fffbeb;
-  color: #f59e0b;
+    background: #fef9c3;
+    color: #ca8a04;
 }
 
 .statIconInfo {
-  background-color: #eff6ff;
-  color: #3b82f6;
+    background: #dbeafe;
+    color: #2563eb;
 }
 
 .statIconPrimary {
-  background-color: #f5f3ff;
-  color: #8b5cf6;
+    background: #e0e7ff;
+    color: #4f46e5;
 }
 
 .statIconDanger {
-  background-color: #fef2f2;
-  color: #ef4444;
+    background: #fee2e2;
+    color: #dc2626;
 }
 
 .statContent h3 {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: #666;
-  margin: 0 0 0.5rem 0;
+    font-size: 0.875rem;
+    color: #64748b;
+    margin: 0;
+    margin-bottom: 0.5rem;
 }
 
 .statValue {
-  font-size: 2rem;
-  font-weight: 700;
-  color: #333;
-  margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin: 0;
 }
 
-/* Pending List */
+/* Lists */
 .pendingList {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .pendingCard {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.menuItemImage {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: #f3f4f6;
+}
+
+.menuItemImage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.noImage {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #9ca3af;
 }
 
 .pendingInfo {
-  flex: 1;
+    flex: 1;
 }
 
 .pendingInfo h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 0.5rem 0;
+    margin: 0 0 0.5rem 0;
+    color: #1e293b;
 }
 
 .pendingAddress,
 .pendingCategory,
 .pendingOwner,
-.pendingDate {
-  font-size: 0.9rem;
-  color: #666;
-  margin: 0.25rem 0;
+.pendingDate,
+.menuItemPrice {
+    color: #64748b;
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+.menuItemPrice {
+    font-weight: 600;
+    color: #f58634;
+}
+
+.popularTag {
+    background-color: #fff7ed;
+    color: #ea580c;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 8px;
 }
 
 .pendingActions {
-  display: flex;
-  gap: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
 }
 
 .approveButton,
-.rejectButton {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
+.rejectButton,
+.editButton,
+.saveButton,
+.cancelButton {
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s;
+}
+
+.approveButton:hover,
+.rejectButton:hover,
+.editButton:hover,
+.saveButton:hover,
+.cancelButton:hover {
+    opacity: 0.8;
 }
 
 .approveButton {
-  background-color: #22c55e;
-  color: white;
-}
-
-.approveButton:hover {
-  background-color: #16a34a;
+    background: #22c55e;
+    color: white;
 }
 
 .rejectButton {
-  background-color: #ef4444;
-  color: white;
-}
-
-.rejectButton:hover {
-  background-color: #dc2626;
-}
-
-.emptyState {
-  text-align: center;
-  padding: 3rem;
-  color: #666;
-  font-size: 1.1rem;
-}
-
-/* Users Table */
-.usersTable {
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  overflow-x: auto;
-}
-
-.usersTable table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.usersTable thead {
-  background-color: #f9fafb;
-}
-
-.usersTable th {
-  padding: 1rem;
-  text-align: left;
-  font-weight: 600;
-  color: #333;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.usersTable td {
-  padding: 1rem;
-  border-top: 1px solid #e5e7eb;
-  color: #666;
-}
-
-.usersTable tbody tr:hover {
-  background-color: #f9fafb;
-}
-
-.roleBadge {
-  display: inline-block;
-  padding: 0.25rem 0.75rem;
-  border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 500;
-}
-
-.roleuser {
-  background-color: #e0e7ff;
-  color: #4338ca;
-}
-
-.roleowner {
-  background-color: #fef3c7;
-  color: #92400e;
-}
-
-.roleadmin {
-  background-color: #fee2e2;
-  color: #991b1b;
-}
-
-.roleSelect {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  font-size: 0.85rem;
+    background: #ef4444;
+    color: white;
 }
 
 .editButton {
-  padding: 0.5rem 1rem;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
-  background: white;
-  color: #666;
-  font-size: 0.85rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-}
-
-.editButton:hover {
-  background-color: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-.editActions {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.saveButton,
-.cancelButton {
-  padding: 0.5rem;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s ease;
+    background: #3b82f6;
+    color: white;
 }
 
 .saveButton {
-  background-color: #22c55e;
-  color: white;
-}
-
-.saveButton:hover {
-  background-color: #16a34a;
+    background: #22c55e;
+    color: white;
 }
 
 .cancelButton {
-  background-color: #ef4444;
-  color: white;
+    background: #64748b;
+    color: white;
 }
 
-.cancelButton:hover {
-  background-color: #dc2626;
+.rejectForm {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
+.rejectInput {
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    min-width: 200px;
+}
+
+.cancelRejectButton {
+    padding: 0.5rem 0.75rem;
+    background: #94a3b8;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* User Table */
+.usersTable table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.usersTable th,
+.usersTable td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.usersTable th {
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+}
+
+.roleBadge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+
+.roleadmin {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.roleowner {
+    background: #e0e7ff;
+    color: #4f46e5;
+}
+
+.roleuser {
+    background: #f1f5f9;
+    color: #64748b;
+}
+
+.roleSelect {
+    padding: 0.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+}
+
+.editActions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 3rem;
+    color: #94a3b8;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 2px dashed #e2e8f0;
+}

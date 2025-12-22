@@ -1,0 +1,533 @@
+/* Existing styles... */
+
+.menuSection {
+    margin-top: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid #eee;
+}
+
+.sectionHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 1rem;
+}
+
+.sectionHeader h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #333;
+    margin: 0;
+}
+
+.sectionHeader span {
+    font-size: 0.9rem;
+    color: #666;
+    background-color: #f3f4f6;
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+    font-style: italic;
+}
+
+/* Menu Grid */
+.menuContainer {
+    position: relative;
+    padding: 0 1rem;
+}
+
+.menuGrid {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    gap: 10px;
+    padding-bottom: 8px;
+    /* Tránh đè scrollbar */
+    scrollbar-width: none;
+    /* Ẩn cho Firefox */
+    -ms-overflow-style: none;
+    /* Ẩn cho IE */
+}
+
+.menuGrid::-webkit-scrollbar {
+    display: none;
+    /* Ẩn cho Chrome/Safari */
+}
+
+
+
+/* Card Style */
+.menuCard {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    min-width: 110px;
+    /* Nhỏ gọn */
+    width: 110px;
+}
+
+.menuCard:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.menuImageWrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    /* Hình vuông 1:1 */
+    background-color: #f3f4f6;
+}
+
+.menuImageWrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.noImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #cbd5e1;
+}
+
+.popularBadge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background-color: rgba(255, 107, 53, 0.95);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.menuOverlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    padding: 2rem 0.75rem 0.5rem 0.75rem;
+    z-index: 1;
+}
+
+.menuName {
+    color: white;
+    font-weight: 700;
+    font-size: 0.8rem;
+    /* Nhỏ hơn */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.menuInfo {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    background: white;
+}
+
+.menuPrice {
+    color: #F58634;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.menuCategory {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    background-color: #f9fafb;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Edit Button Overlay */
+.editButton {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+    opacity: 0;
+    color: #4b5563;
+}
+
+.menuCard:hover .editButton {
+    opacity: 1;
+}
+
+.editButton:hover {
+    background-color: white;
+    transform: scale(1.1);
+    color: #F58634;
+}
+
+/* Status Badges */
+.badgesContainer {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 5;
+}
+
+.badgesContainer .popularBadge {
+    position: static;
+    /* Reset absolute */
+}
+
+.statusBadge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+
+.statusPending {
+    background-color: #f59e0b;
+}
+
+.statusRejected {
+    background-color: #ef4444;
+}
+
+/* Navigation Buttons */
+.navButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    color: #666;
+    transition: all 0.2s;
+}
+
+.navButton:hover:not(:disabled) {
+    background-color: #F58634;
+    color: white;
+    border-color: #F58634;
+}
+
+.navButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #f3f4f6;
+}
+
+.navPrev {
+    left: -10px;
+}
+
+.navNext {
+    right: -10px;
+}
+
+/* See More Button */
+.seeMoreButton {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background: none;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    color: #666;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.seeMoreButton:hover {
+    background-color: #f9fafb;
+    color: #333;
+    border-color: #d1d5db;
+}
+
+/* Add Menu Button */
+.addMenuButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: calc(100% - 2rem);
+    margin: 1rem 1rem 0 1rem;
+    padding: 0.8rem;
+    background-color: #fff7ed;
+    color: #F58634;
+    font-weight: 600;
+    border-radius: 8px;
+    border: 1px dashed #F58634;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: 0.95rem;
+}
+
+.addMenuButton:hover {
+    background-color: #fff1e0;
+}
+
+/* Empty State */
+.emptyState {
+    text-align: center;
+    padding: 2rem;
+    color: #9ca3af;
+    background-color: #f9fafb;
+    border-radius: 8px;
+    border: 1px dashed #e5e7eb;
+}
+
+/* Zoom Modal */
+.zoomOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.zoomContent {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.zoomClose {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+}
+
+.zoomClose:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.zoomImageWrapper {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+.zoomImageWrapper img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+}
+
+.zoomNav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: none;
+    width: 44px;
+    height: 44px;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background 0.2s;
+    left: 20px;
+    z-index: 50;
+}
+
+.zoomNavRight {
+    left: auto;
+    right: 20px;
+}
+
+.zoomNav:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.zoomInfo {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 20px 20px 0 0;
+    animation: slideUp 0.3s ease-out;
+}
+
+.zoomInfo h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+    color: #333;
+}
+
+.zoomMeta {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.zoomPrice {
+    color: #F58634;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.zoomCategory {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.zoomPopular {
+    background: #fff7ed;
+    color: #ea580c;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.zoomCounter {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.3);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Media Queries */
+@media (min-width: 768px) {
+
+    /* Loại bỏ việc ép số cột cố định để tránh lỗi trong popup nhỏ trên màn hình lớn */
+    .menuGrid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    .zoomInfo {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 600px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+}
+
+@media (min-width: 1024px) {
+
+    /* Nút edit ẩn mặc định trên desktop và hiện khi hover card */
+    .editButton {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 1023px) {
+
+    /* Nút edit luôn hiện trên mobile/tablet */
+    .editButton {
+        opacity: 1;
+    }
+}

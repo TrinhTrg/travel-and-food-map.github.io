@@ -31,10 +31,10 @@
   margin: 0 auto 3rem auto; /* Căn giữa và tạo khoảng cách */
 }
 
-/* Lưới CSS cho 3 bước */
+/* Lưới CSS cho 4 phần */
 .stepsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tạo 3 cột bằng nhau */
+  grid-template-columns: repeat(2, 1fr); /* Tạo 2 cột bằng nhau */
   gap: 2rem; /* Khoảng cách giữa các cột */
 }
 
@@ -67,6 +67,13 @@
 .step p {
   color: var(--text-light);
   line-height: 1.6;
+}
+
+/* Tùy chỉnh cho màn hình tablet */
+@media (max-width: 1024px) {
+  .stepsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Tùy chỉnh cho màn hình điện thoại (Responsive) */

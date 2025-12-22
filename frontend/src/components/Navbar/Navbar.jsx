@@ -5,6 +5,8 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from '../../context/AuthContext';
 import { FaTachometerAlt } from 'react-icons/fa';
 import LoginModal from '../LoginModal/LoginModal';
+import WriteReviewModal from '../WriteReviewModal/WriteReviewModal';
+import CollectionModal from '../CollectionModal/CollectionModal';
 import { searchAPI } from '../../services/api';
 
 // 1. TÁCH IMPORT ICON: Thêm import cho FiSearch
@@ -17,15 +19,17 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isWriteReviewModalOpen, setIsWriteReviewModalOpen] = useState(false);
+  const [isCollectionModalOpen, setIsCollectionModalOpen] = useState(false);
   const [isLocating, setIsLocating] = useState(false);
   const [locationError, setLocationError] = useState(null);
-  
+
   // Search states
   const [searchQuery, setSearchQuery] = useState('');
   const [searchSuggestions, setSearchSuggestions] = useState({ restaurants: [], categories: [] });
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
-  
+
   const dropdownRef = useRef(null);
   const buttonRef = useRef(null);
   const userMenuRef = useRef(null);
@@ -105,13 +109,16 @@ const Navbar = () => {
 
   const handleOptionClick = (action) => {
     setIsDropdownOpen(false);
-    
+
+    // Đóng popup restaurant nếu đang mở
+    window.dispatchEvent(new CustomEvent('app:close-restaurant-popup'));
+
     // Kiểm tra nếu user chưa đăng nhập thì hiển thị modal
     if (!isAuthenticated) {
       setIsLoginModalOpen(true);
       return;
     }
-    
+
     // Nếu đã đăng nhập thì thực hiện action
     if (action === 'create-place') {
       navigate('/create-location');
@@ -119,7 +126,14 @@ const Navbar = () => {
     }
 
     if (action === 'write-comment') {
-      navigate('/kham-pha');
+      // Mở modal tìm kiếm địa điểm để viết bình luận
+      setIsWriteReviewModalOpen(true);
+      return;
+    }
+
+    if (action === 'create-collection') {
+      // Mở modal Bộ sưu tập
+      setIsCollectionModalOpen(true);
       return;
     }
   };
@@ -194,7 +208,7 @@ const Navbar = () => {
         })
       );
     }
-    
+
     // Navigate đến DiscoverPage với restaurant id
     navigate(`/kham-pha?restaurant=${restaurant.id}`);
     setShowSuggestions(false);
@@ -212,7 +226,7 @@ const Navbar = () => {
 
       {/* 2. BỌC LOGO VÀ SEARCH BAR VÀO .navLeft */}
       <div className={styles.navLeft}>
-        
+
         {/* Logo của bạn */}
         <div className={styles.logo}>
           <NavLink to="/">
@@ -233,7 +247,7 @@ const Navbar = () => {
               onFocus={handleSearchFocus}
             />
           </form>
-          
+
           {/* Suggestions Dropdown */}
           {showSuggestions && (
             <div className={styles.searchSuggestions}>
@@ -313,7 +327,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-      
+
       {/* 2: Các link điều hướng (Giữ nguyên code NavLink của bạn) */}
       <ul className={styles.navLinks}>
         <li>
@@ -339,12 +353,12 @@ const Navbar = () => {
         </li>
         <li>
           <NavLink
-            to="/how-it-works"
+            to="/about-us"
             className={({ isActive }) =>
               isActive ? styles.active : undefined
             }
           >
-            How It Works
+            About Us
           </NavLink>
         </li>
         <li>
@@ -373,7 +387,7 @@ const Navbar = () => {
           <FaMapMarkerAlt /> Địa phương – Đà Nẵng
         </button>
         <div className={styles.dropdownContainer}>
-          <button 
+          <button
             ref={buttonRef}
             className={styles.iconButtonOrange}
             onClick={toggleDropdown}
@@ -386,7 +400,7 @@ const Navbar = () => {
                 <strong>Bạn có thể</strong>
               </div>
               <div className={styles.dropdownOptions}>
-                <div 
+                <div
                   className={styles.dropdownOption}
                   onClick={() => handleOptionClick('create-place')}
                 >
@@ -396,7 +410,7 @@ const Navbar = () => {
                     <div className={styles.optionSubtext}>Sẽ được duyệt trong vòng 48 tiếng</div>
                   </div>
                 </div>
-                <div 
+                <div
                   className={styles.dropdownOption}
                   onClick={() => handleOptionClick('write-comment')}
                 >
@@ -406,13 +420,13 @@ const Navbar = () => {
                     <div className={styles.optionSubtext}>Để chia sẻ trải nghiệm cho cộng đồng</div>
                   </div>
                 </div>
-                <div 
+                <div
                   className={styles.dropdownOption}
                   onClick={() => handleOptionClick('create-collection')}
                 >
                   <FaList className={styles.optionIcon} />
                   <div className={styles.optionContent}>
-                    <div className={styles.optionTitle}>Tạo bộ sưu tập</div>
+                    <div className={styles.optionTitle}>Bộ sưu tập</div>
                     <div className={styles.optionSubtext}>Để lưu trữ địa điểm của bạn</div>
                   </div>
                 </div>
@@ -440,19 +454,19 @@ const Navbar = () => {
                   </div>
                 </div>
                 <div className={styles.userMenuItems}>
-                  <button 
-                    className={styles.userMenuItem} 
+                  <button
+                    className={styles.userMenuItem}
                     onClick={() => {
                       setIsUserMenuOpen(false);
-                      
+                      navigate('/ho-so');
                     }}
                   >
                     <FaUser />
                     Hồ sơ
                   </button>
                   {isAdmin && (
-                    <button 
-                      className={styles.userMenuItem} 
+                    <button
+                      className={styles.userMenuItem}
                       onClick={() => {
                         setIsUserMenuOpen(false);
                         navigate('/admin/dashboard');
@@ -482,11 +496,23 @@ const Navbar = () => {
           {locationError}
         </div>
       )}
-      
+
       {/* Login Modal */}
-      <LoginModal 
-        isOpen={isLoginModalOpen} 
-        onClose={() => setIsLoginModalOpen(false)} 
+      <LoginModal
+        isOpen={isLoginModalOpen}
+        onClose={() => setIsLoginModalOpen(false)}
+      />
+
+      {/* Write Review Modal */}
+      <WriteReviewModal
+        isOpen={isWriteReviewModalOpen}
+        onClose={() => setIsWriteReviewModalOpen(false)}
+      />
+
+      {/* Collection Modal */}
+      <CollectionModal
+        isOpen={isCollectionModalOpen}
+        onClose={() => setIsCollectionModalOpen(false)}
       />
     </nav>
   );

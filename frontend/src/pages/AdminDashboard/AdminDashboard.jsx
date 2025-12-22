@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { adminAPI } from '../../services/api';
+import { adminAPI, menuItemAPI } from '../../services/api';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import styles from './AdminDashboard.module.css';
@@ -14,7 +14,8 @@ import {
   FaUserShield,
   FaCheck,
   FaTimes,
-  FaEdit
+  FaEdit,
+  FaUtensils
 } from 'react-icons/fa';
 
 const AdminDashboard = () => {
@@ -23,10 +24,15 @@ const AdminDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState(null);
   const [pendingRestaurants, setPendingRestaurants] = useState([]);
+  const [pendingMenuItems, setPendingMenuItems] = useState([]);
   const [users, setUsers] = useState([]);
-  const [activeTab, setActiveTab] = useState('stats'); // 'stats', 'pending', 'users'
+  const [activeTab, setActiveTab] = useState('stats'); // 'stats', 'pending', 'pendingMenu', 'users'
   const [editingUser, setEditingUser] = useState(null);
   const [newRole, setNewRole] = useState('');
+  const [rejectReason, setRejectReason] = useState('');
+  const [rejectingItemId, setRejectingItemId] = useState(null);
+
+  const BACKEND_URL = 'http://localhost:3000';
 
   // Redirect nếu không phải admin
   useEffect(() => {
@@ -42,15 +48,17 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [statsRes, pendingRes, usersRes] = await Promise.all([
+        const [statsRes, pendingRes, usersRes, pendingMenuRes] = await Promise.all([
           adminAPI.getStats(),
           adminAPI.getPendingRestaurants(),
-          adminAPI.getUsers()
+          adminAPI.getUsers(),
+          menuItemAPI.getPendingMenuItems()
         ]);
 
         if (statsRes.success) setStats(statsRes.data);
         if (pendingRes.success) setPendingRestaurants(pendingRes.data);
         if (usersRes.success) setUsers(usersRes.data);
+        if (pendingMenuRes.success) setPendingMenuItems(pendingMenuRes.data);
       } catch (error) {
         console.error('Error fetching admin data:', error);
       } finally {
@@ -60,6 +68,13 @@ const AdminDashboard = () => {
 
     fetchData();
   }, [isAdmin]);
+
+  // Helper để lấy full URL cho ảnh
+  const getImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http') || url.startsWith('blob:')) return url;
+    return `${BACKEND_URL}${url}`;
+  };
 
   const handleApproveRestaurant = async (id) => {
     try {
@@ -109,15 +124,71 @@ const AdminDashboard = () => {
   const handleUpdateUserRole = async (userId) => {
     if (!newRole) return;
 
+    const user = users.find(u => u.id === userId);
+    const oldRole = user?.role;
+
+    // Confirmation dialog chi tiết
+    let confirmMessage = '';
+    if (newRole === 'owner' && oldRole !== 'owner') {
+      confirmMessage = `🎉 Bạn có chắc muốn phong "${user?.name}" (${user?.email}) làm Owner?\n\nSau khi xác nhận:\n• User sẽ có quyền tạo và quản lý nhà hàng\n• User sẽ có quyền thêm/sửa/xóa menu\n• Email thông báo sẽ được gửi đến ${user?.email}`;
+    } else if (oldRole === 'owner' && newRole !== 'owner') {
+      confirmMessage = `⚠️ Bạn có chắc muốn hạ cấp "${user?.name}" từ Owner xuống ${newRole}?\n\nSau khi xác nhận:\n• User sẽ mất quyền quản lý nhà hàng\n• Các nhà hàng hiện tại vẫn được giữ\n• Email thông báo sẽ được gửi`;
+    } else if (newRole === 'admin') {
+      confirmMessage = `🛡️ Bạn có chắc muốn phong "${user?.name}" làm Admin?\n\n⚠️ Admin có toàn quyền trên hệ thống!`;
+    } else {
+      confirmMessage = `Bạn có chắc muốn đổi role của "${user?.name}" thành ${newRole}?`;
+    }
+
+    if (!confirm(confirmMessage)) {
+      return;
+    }
+
     try {
       const response = await adminAPI.updateUserRole(userId, newRole);
       if (response.success) {
         setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
         setEditingUser(null);
         setNewRole('');
+
+        // Hiển thị thông báo chi tiết
+        let successMessage = `✅ Đã cập nhật role thành ${newRole}`;
+        if (response.emailSent) {
+          successMessage += `\n📧 Email thông báo đã được gửi đến ${user?.email}`;
+        }
+        if (newRole === 'owner') {
+          successMessage += '\n\n🎉 User giờ đã có thể tạo và quản lý nhà hàng!';
+        }
+        alert(successMessage);
       }
     } catch (error) {
       alert('Lỗi khi cập nhật role: ' + error.message);
+    }
+  };
+
+  // Menu Item handlers
+  const handleApproveMenuItem = async (id) => {
+    try {
+      const response = await menuItemAPI.approveMenuItem(id);
+      if (response.success) {
+        setPendingMenuItems(pendingMenuItems.filter(m => m.id !== id));
+        alert('Đã duyệt món ăn');
+      }
+    } catch (error) {
+      alert('Lỗi khi duyệt món: ' + error.message);
+    }
+  };
+
+  const handleRejectMenuItem = async (id) => {
+    try {
+      const response = await menuItemAPI.rejectMenuItem(id, rejectReason);
+      if (response.success) {
+        setPendingMenuItems(pendingMenuItems.filter(m => m.id !== id));
+        setRejectingItemId(null);
+        setRejectReason('');
+        alert('Đã từ chối món ăn');
+      }
+    } catch (error) {
+      alert('Lỗi khi từ chối món: ' + error.message);
     }
   };
 
@@ -157,6 +228,12 @@ const AdminDashboard = () => {
               onClick={() => setActiveTab('pending')}
             >
               Nhà hàng chờ duyệt ({pendingRestaurants.length})
+            </button>
+            <button
+              className={`${styles.tab} ${activeTab === 'pendingMenu' ? styles.active : ''}`}
+              onClick={() => setActiveTab('pendingMenu')}
+            >
+              <FaUtensils /> Menu chờ duyệt ({pendingMenuItems.length})
             </button>
             <button
               className={`${styles.tab} ${activeTab === 'users' ? styles.active : ''}`}
@@ -267,6 +344,85 @@ const AdminDashboard = () => {
                       >
                         <FaTimes /> Từ chối
                       </button>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+          )}
+
+          {/* Pending Menu Items Tab */}
+          {activeTab === 'pendingMenu' && (
+            <div className={styles.pendingList}>
+              {pendingMenuItems.length === 0 ? (
+                <div className={styles.emptyState}>Không có món ăn nào chờ duyệt</div>
+              ) : (
+                pendingMenuItems.map((item) => (
+                  <div key={item.id} className={styles.pendingCard}>
+                    <div className={styles.menuItemImage}>
+                      {item.imageUrl ? (
+                        <img src={getImageUrl(item.imageUrl)} alt={item.name} />
+                      ) : (
+                        <div className={styles.noImage}>🍽️</div>
+                      )}
+                    </div>
+                    <div className={styles.pendingInfo}>
+                      <h3>{item.name}</h3>
+                      <p className={styles.menuItemPrice}>{item.priceFormatted}</p>
+                      <p className={styles.pendingCategory}>
+                        Danh mục: {item.categoryLabel}
+                        {item.isPopular && <span className={styles.popularTag}> ⭐ Popular</span>}
+                      </p>
+                      <p className={styles.pendingOwner}>
+                        Nhà hàng: {item.restaurantName}
+                      </p>
+                      <p className={styles.pendingOwner}>
+                        Owner: {item.ownerName || 'Không xác định'} {item.ownerEmail ? `(${item.ownerEmail})` : ''}
+                      </p>
+                      <p className={styles.pendingDate}>
+                        Ngày gửi: {new Date(item.createdAt).toLocaleDateString('vi-VN')}
+                      </p>
+                    </div>
+                    <div className={styles.pendingActions}>
+                      <button
+                        className={styles.approveButton}
+                        onClick={() => handleApproveMenuItem(item.id)}
+                      >
+                        <FaCheck /> Duyệt
+                      </button>
+                      {rejectingItemId === item.id ? (
+                        <div className={styles.rejectForm}>
+                          <input
+                            type="text"
+                            value={rejectReason}
+                            onChange={(e) => setRejectReason(e.target.value)}
+                            placeholder="Lý do từ chối (tùy chọn)"
+                            className={styles.rejectInput}
+                          />
+                          <button
+                            className={styles.rejectButton}
+                            onClick={() => handleRejectMenuItem(item.id)}
+                          >
+                            Xác nhận
+                          </button>
+                          <button
+                            className={styles.cancelRejectButton}
+                            onClick={() => {
+                              setRejectingItemId(null);
+                              setRejectReason('');
+                            }}
+                          >
+                            Hủy
+                          </button>
+                        </div>
+                      ) : (
+                        <button
+                          className={styles.rejectButton}
+                          onClick={() => setRejectingItemId(item.id)}
+                        >
+                          <FaTimes /> Từ chối
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))

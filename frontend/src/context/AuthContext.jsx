@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { authAPI } from '../services/api';
 
 const AuthContext = createContext(null);
@@ -42,9 +42,9 @@ export const AuthProvider = ({ children }) => {
         return { success: true };
       }
     } catch (error) {
-      return { 
-        success: false, 
-        message: error.response?.data?.message || error.message || 'Đăng nhập thất bại' 
+      return {
+        success: false,
+        message: error.response?.data?.message || error.message || 'Đăng nhập thất bại'
       };
     }
   };
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
         ...userData,
         role: 'user'
       };
-      
+
       const response = await authAPI.register(registerData);
       if (response.success) {
         localStorage.setItem('token', response.data.token);
@@ -65,26 +65,26 @@ export const AuthProvider = ({ children }) => {
         return { success: true };
       }
     } catch (error) {
-      return { 
-        success: false, 
-        message: error.response?.data?.message || error.message || 'Đăng ký thất bại' 
+      return {
+        success: false,
+        message: error.response?.data?.message || error.message || 'Đăng ký thất bại'
       };
     }
   };
 
   const forgotPassword = async (email, newPassword) => {
-  try {
-    const response = await authAPI.forgotPassword(email, newPassword);
-    if (response.success) {
-      return { success: true };
+    try {
+      const response = await authAPI.forgotPassword(email, newPassword);
+      if (response.success) {
+        return { success: true };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.message || 'Đặt lại mật khẩu thất bại'
+      };
     }
-  } catch (error) {
-    return { 
-      success: false, 
-      message: error.message || 'Đặt lại mật khẩu thất bại' 
-    };
-  }
-};
+  };
 
   const logout = async () => {
     try {
@@ -98,9 +98,25 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // Refresh user profile (useful when role changes)
+  const refreshUser = useCallback(async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+      const response = await authAPI.getProfile();
+      if (response.success) {
+        setUser(response.data.user);
+      }
+    } catch (error) {
+      console.error('Error refreshing user:', error);
+    }
+  }, []);
+
   // Helper để kiểm tra role
   const isAdmin = user?.role === 'admin';
   const isOwner = user?.role === 'owner';
+  const isOwnerOrAdmin = isOwner || isAdmin;
 
   const value = {
     user,
@@ -108,10 +124,12 @@ export const AuthProvider = ({ children }) => {
     loading,
     isAdmin,
     isOwner,
+    isOwnerOrAdmin,
     login,
     register,
     forgotPassword,
     logout,
+    refreshUser,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>; // children là các component con bên trong AuthProvider

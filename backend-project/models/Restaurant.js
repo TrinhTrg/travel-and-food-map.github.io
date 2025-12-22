@@ -4,10 +4,20 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Restaurant extends Model {
     static associate(models) {
+      // Giữ lại belongsTo để backward compatibility
       Restaurant.belongsTo(models.Category, {
         foreignKey: 'category_id',
         as: 'category'
       });
+
+      // Many-to-many relationship với categories
+      Restaurant.belongsToMany(models.Category, {
+        through: 'restaurant_categories',
+        foreignKey: 'restaurant_id',
+        otherKey: 'category_id',
+        as: 'categories'
+      });
+
       Restaurant.belongsTo(models.User, {
         foreignKey: 'owner_id',
         as: 'owner'
