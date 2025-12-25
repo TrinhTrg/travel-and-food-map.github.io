@@ -82,13 +82,28 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0
     },
     image_url: {
-      type: DataTypes.STRING(500),
+      type: DataTypes.TEXT,
       allowNull: true
     },
     status: {
       type: DataTypes.ENUM('pending', 'approved'),
       allowNull: false,
       defaultValue: 'pending'
+    },
+    opening_hours: {
+      type: DataTypes.JSON,
+      allowNull: true,
+      comment: 'Giờ mở cửa theo từng ngày trong tuần'
+    },
+    phone_number: {
+      type: DataTypes.STRING(50),
+      allowNull: true,
+      comment: 'Số điện thoại của nhà hàng'
+    },
+    website: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      comment: 'Website của nhà hàng'
     }
   }, {
     sequelize,

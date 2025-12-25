@@ -1,14 +1,17 @@
 const fs = require('fs');
+const path = require('path');
 const https = require('https');
 
-// 1. CẤU HÌNH ID DANH MỤC
-const CAT_RESTAURANT_ID = 1;
-const CAT_CAFE_ID = 2;
+// Import DATA_SOURCES và getCategoryIdFromFileName từ config
+const { 
+  DATA_SOURCES, 
+  getCategoryIdFromFileName
+} = require('./config/geojson-sources');
 
-// 2. Hàm delay để tránh rate limit
+// 1. Hàm delay để tránh rate limit
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// 3. Hàm reverse geocoding sử dụng Nominatim API
+// 2. Hàm reverse geocoding sử dụng Nominatim API
 const reverseGeocode = async (lat, lng) => {
   return new Promise((resolve, reject) => {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=vi`;
@@ -75,17 +78,65 @@ const reverseGeocode = async (lat, lng) => {
   });
 };
 
-// 4. Đọc file GeoJSON
-try {
-  const rawData = fs.readFileSync('export.geojson');
-  const geoJson = JSON.parse(rawData);
+// 3. Load tất cả GeoJSON files
+const loadAllGeoJSONFiles = () => {
+  const publicPath = path.join(__dirname, 'public');
+  const allFeatures = [];
+  
+  // Load food files
+  DATA_SOURCES.food.forEach(filePath => {
+    const fullPath = path.join(publicPath, filePath);
+    if (fs.existsSync(fullPath)) {
+      try {
+        const data = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+        const features = data.features || [];
+        features.forEach(feature => {
+          feature.properties._sourceFile = filePath;
+        });
+        allFeatures.push(...features);
+        console.log(`✅ Loaded ${features.length} features from ${filePath}`);
+      } catch (error) {
+        console.error(`❌ Error loading ${filePath}:`, error.message);
+      }
+    } else {
+      console.warn(`⚠️ File not found: ${fullPath}`);
+    }
+  });
+  
+  // Load drink files
+  DATA_SOURCES.drink.forEach(filePath => {
+    const fullPath = path.join(publicPath, filePath);
+    if (fs.existsSync(fullPath)) {
+      try {
+        const data = JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+        const features = data.features || [];
+        features.forEach(feature => {
+          feature.properties._sourceFile = filePath;
+        });
+        allFeatures.push(...features);
+        console.log(`✅ Loaded ${features.length} features from ${filePath}`);
+      } catch (error) {
+        console.error(`❌ Error loading ${filePath}:`, error.message);
+      }
+    } else {
+      console.warn(`⚠️ File not found: ${fullPath}`);
+    }
+  });
+  
+  return allFeatures;
+};
 
-  console.log(`🔍 Tìm thấy ${geoJson.features.length} địa điểm từ file GeoJSON.`);
+// 4. Đọc và xử lý tất cả file GeoJSON
+try {
+  const allFeatures = loadAllGeoJSONFiles();
+  const featuresWithNames = allFeatures.filter(feature => feature.properties.name);
+
+  console.log(`\n🔍 Tìm thấy ${allFeatures.length} địa điểm từ tất cả file GeoJSON.`);
+  console.log(`📝 Có ${featuresWithNames.length} địa điểm có tên.`);
   console.log(`⏳ Bắt đầu xử lý địa chỉ từ tọa độ (có thể mất vài phút)...\n`);
 
   // 5. Chuyển đổi dữ liệu với async processing
   const processFeatures = async () => {
-    const features = geoJson.features.filter(feature => feature.properties.name);
     const seedData = [];
     const addressCache = {}; // Cache để tránh gọi lại cùng tọa độ
     
@@ -94,15 +145,32 @@ try {
       cachedCount: 0
     };
     
-    for (let i = 0; i < features.length; i++) {
-      const feature = features[i];
+    for (let i = 0; i < featuresWithNames.length; i++) {
+      const feature = featuresWithNames[i];
       const props = feature.properties;
       const coords = feature.geometry.coordinates; // [longitude, latitude]
-      const lat = coords[1];
-      const lng = coords[0];
+      
+      // Validate và swap nếu cần (GeoJSON format: [longitude, latitude])
+      let lat = coords[1];
+      let lng = coords[0];
+      
+      // Kiểm tra nếu coordinates bị đảo ngược
+      // Latitude phải trong khoảng -90 đến 90, Longitude phải trong khoảng -180 đến 180
+      // Nếu lat > 90 hoặc lat < -90, có thể bị đảo ngược
+      if (Math.abs(lat) > 90 || Math.abs(lng) > 180) {
+        // Swap nếu bị đảo ngược
+        [lat, lng] = [lng, lat];
+      }
+      
+      // Validate lại sau khi swap
+      if (Math.abs(lat) > 90 || Math.abs(lng) > 180 || isNaN(lat) || isNaN(lng)) {
+        console.warn(`⚠️ [${i + 1}/${featuresWithNames.length}] "${props.name}" - Coordinates không hợp lệ: lat=${coords[1]}, lng=${coords[0]}, bỏ qua`);
+        continue; // Bỏ qua feature này
+      }
+      
       const coordKey = `${lat.toFixed(6)},${lng.toFixed(6)}`; // Key cho cache
 
-      // Xử lý địa chỉ
+      // Xử lý địa chỉ - giống file cũ
       let address = null;
       
       // Ưu tiên địa chỉ từ OSM properties
@@ -117,53 +185,70 @@ try {
         if (addressCache[coordKey]) {
           address = addressCache[coordKey];
           stats.cachedCount++;
-          console.log(`💾 [${i + 1}/${features.length}] "${props.name}" - Dùng địa chỉ từ cache`);
+          console.log(`💾 [${i + 1}/${featuresWithNames.length}] "${props.name}" - Dùng địa chỉ từ cache`);
         } else {
           // Nếu không có địa chỉ, dùng reverse geocoding
-          console.log(`📍 [${i + 1}/${features.length}] Đang lấy địa chỉ cho "${props.name}"...`);
+          console.log(`📍 [${i + 1}/${featuresWithNames.length}] Đang lấy địa chỉ cho "${props.name}"...`);
           address = await reverseGeocode(lat, lng);
           addressCache[coordKey] = address; // Lưu vào cache
           stats.geocodeCount++;
           
           // Delay 1 giây giữa các requests để tránh rate limit
-          if (i < features.length - 1) {
+          if (i < featuresWithNames.length - 1) {
             await delay(1000);
           }
         }
       }
 
-      // Xác định Category ID
-      let categoryId = CAT_RESTAURANT_ID;
-      if (props.amenity === 'cafe' || props.amenity === 'coffee_shop') {
-        categoryId = CAT_CAFE_ID;
-      }
+      // Xác định Category ID từ tên file - ĐƠN GIẢN
+      const categoryId = getCategoryIdFromFileName(props._sourceFile);
 
-      // --- XỬ LÝ HÌNH ẢNH (Theo yêu cầu của bạn) ---
-      let imageUrl = null; // Mặc định là null
-      
-      // Kiểm tra nếu OSM có ảnh (thường là không có, nhưng cứ check cho chắc)
-      if (props.image) {
+      // Xử lý hình ảnh - ưu tiên image_url từ geojson
+      let imageUrl = null;
+      if (props.image_url) {
+        imageUrl = props.image_url;
+      } else if (props.image) {
         imageUrl = props.image;
       }
 
-      // Log ra console nếu không có ảnh
-      if (!imageUrl) {
-        console.log(`⚠️ [${props.name}]: Chưa có hình ảnh nào`);
+      // Xử lý opening_hours - lấy từ geojson, nếu không có thì null
+      // Cột opening_hours trong DB là JSON type, nên cần wrap string trong JSON object
+      let openingHours = null;
+      if (props.opening_hours) {
+        // Wrap string trong JSON object để đảm bảo hợp lệ với cột JSON
+        // Frontend có thể lấy ra bằng opening_hours.schedule hoặc opening_hours.text
+        openingHours = { schedule: props.opening_hours };
       }
-      // ---------------------------------------------
 
+      // Xử lý phone_number - lấy từ geojson (field "phone")
+      let phoneNumber = null;
+      if (props.phone) {
+        phoneNumber = props.phone;
+      }
+
+      // Xử lý website - lấy từ geojson
+      let website = null;
+      if (props.website) {
+        website = props.website;
+      }
+
+      // Tạo restaurant entry với đầy đủ fields theo migration
       seedData.push({
         name: props.name,
         category_id: categoryId,
         address: address,
-        description: `Một địa điểm tuyệt vời tại Đà Nẵng (${props.amenity})`,
-        latitude: coords[1],
-        longitude: coords[0],
-        average_rating: (Math.random() * (5.0 - 3.5) + 3.5).toFixed(1),
-        review_count: Math.floor(Math.random() * 100) + 1,
+        description: `Một địa điểm tuyệt vời tại Đà Nẵng${props.amenity ? ` (${props.amenity})` : ''}`,
+        owner_id: null, // GeoJSON không có owner_id
+        average_rating: parseFloat((Math.random() * (5.0 - 3.5) + 3.5).toFixed(1)),
+        latitude: parseFloat(lat.toFixed(8)),
+        longitude: parseFloat(lng.toFixed(8)),
         is_open: true,
-        status: 'approved',
+        review_count: Math.floor(Math.random() * 100) + 1,
         image_url: imageUrl,
+        opening_hours: openingHours, // Lưu dưới dạng string
+        phone_number: phoneNumber,
+        website: website,
+        status: 'approved',
         createdAt: new Date(),
         updatedAt: new Date()
       });
@@ -174,7 +259,7 @@ try {
 
   // 6. Chạy async processing và xuất file
   processFeatures().then(({ seedData, stats }) => {
-    // Xuất ra file kết quả
+    // Xuất ra file kết quả - giống file cũ
     const outputContent = `
 'use strict';
 
@@ -214,6 +299,7 @@ module.exports = {
   });
 
 } catch (error) {
-  console.error("❌ Lỗi: Không tìm thấy file export.geojson hoặc file bị lỗi json.");
+  console.error("❌ Lỗi: Không thể load các file GeoJSON.");
   console.error(error.message);
+  console.error(error.stack);
 }

@@ -1,20 +1,27 @@
 import React, { useState } from 'react';
 import styles from './CollectionModal.module.css';
 import { FiX, FiHeart, FiClock, FiMapPin, FiTrash2 } from 'react-icons/fi';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaHeart } from 'react-icons/fa';
 import { useCollection } from '../../context/CollectionContext';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
+import { useNotification } from '../../context/NotificationContext';
 
 const CollectionModal = ({ isOpen, onClose }) => {
     const [activeTab, setActiveTab] = useState('checkin'); // 'checkin' | 'recent'
+    const [favoriteLoading, setFavoriteLoading] = useState({}); // Track loading state per restaurant
     const navigate = useNavigate();
 
+    const { isAuthenticated } = useAuth();
+    const { showSuccess, showError, showInfo } = useNotification();
     const {
         favorites,
         recentSearches,
         removeFavorite,
         removeRecentSearch,
         clearRecentSearches,
+        toggleFavorite,
+        isFavorite,
         loading
     } = useCollection();
 
@@ -53,6 +60,38 @@ const CollectionModal = ({ isOpen, onClose }) => {
 
     const handleClearRecent = () => {
         clearRecentSearches();
+    };
+
+    // Handler cho favorite button
+    const handleFavoriteClick = async (e, location) => {
+        e.stopPropagation();
+        
+        if (!isAuthenticated) {
+            showInfo('Đăng nhập', 'Vui lòng đăng nhập để lưu địa điểm yêu thích');
+            return;
+        }
+
+        const restaurantId = location.id;
+        setFavoriteLoading(prev => ({ ...prev, [restaurantId]: true }));
+
+        try {
+            const result = await toggleFavorite(location);
+            if (result.success) {
+                const isNowFavorite = isFavorite(restaurantId);
+                if (isNowFavorite) {
+                    showSuccess('Thành công!', 'Đã thêm vào yêu thích', 2000);
+                } else {
+                    showSuccess('Thành công!', 'Đã xóa khỏi yêu thích', 2000);
+                }
+            } else {
+                showError('Lỗi', result.message || 'Không thể cập nhật yêu thích');
+            }
+        } catch (error) {
+            console.error('Error toggling favorite:', error);
+            showError('Lỗi', error.message || 'Không thể cập nhật yêu thích');
+        } finally {
+            setFavoriteLoading(prev => ({ ...prev, [restaurantId]: false }));
+        }
     };
 
     const renderStars = (rating) => {
@@ -120,16 +159,31 @@ const CollectionModal = ({ isOpen, onClose }) => {
                 )}
             </div>
 
-            <button
-                className={styles.removeButton}
-                onClick={(e) => type === 'checkin'
-                    ? handleRemoveFavorite(e, location.id)
-                    : handleRemoveRecent(e, location.id)
-                }
-                aria-label="Xóa"
-            >
-                <FiTrash2 />
-            </button>
+            <div className={styles.actionButtons}>
+                {/* Favorite button - chỉ hiển thị ở tab recent */}
+                {type === 'recent' && (
+                    <button
+                        className={`${styles.favoriteButton} ${isFavorite(location.id) ? styles.favoriteButtonActive : ''}`}
+                        onClick={(e) => handleFavoriteClick(e, location)}
+                        disabled={favoriteLoading[location.id]}
+                        aria-label={isFavorite(location.id) ? "Bỏ yêu thích" : "Thêm yêu thích"}
+                        title={isFavorite(location.id) ? "Bỏ yêu thích" : "Thêm yêu thích"}
+                    >
+                        {isFavorite(location.id) ? <FaHeart /> : <FiHeart />}
+                    </button>
+                )}
+                {/* Remove button */}
+                <button
+                    className={styles.removeButton}
+                    onClick={(e) => type === 'checkin'
+                        ? handleRemoveFavorite(e, location.id)
+                        : handleRemoveRecent(e, location.id)
+                    }
+                    aria-label="Xóa"
+                >
+                    <FiTrash2 />
+                </button>
+            </div>
         </div>
     );
 

@@ -15,11 +15,11 @@ exports.requireAuth = async (req, res, next) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'your-secret-key');
 
-    const user = await User.findById(decoded.userId);
+    const user = await User.findByPk(decoded.userId);
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Token không hợp lệ'
+        message: 'User không tồn tại'
       });
     }
 

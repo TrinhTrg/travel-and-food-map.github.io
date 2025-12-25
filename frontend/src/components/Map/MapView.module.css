@@ -13,12 +13,48 @@
   position: absolute;
   top: 1rem;
   right: 1rem;
-  z-index: 1000;
+  z-index: 999;
   pointer-events: none;
+  max-height: calc(100vh - 140px); /* Tránh đè lên header (70px) và footer (70px) */
 }
 
 .detailPopupWrapper > * {
   pointer-events: auto;
+}
+
+/* Mobile: Popup hiển thị từ dưới lên (bottom sheet) */
+@media (max-width: 768px) {
+  .detailPopupWrapper {
+    position: fixed;
+    top: 70px; /* Bắt đầu từ dưới navbar */
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999; /* Thấp hơn navbar (1000) nhưng vẫn đủ để hiển thị */
+    pointer-events: auto;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0;
+    padding-bottom: 0; /* Có thể thêm padding-bottom nếu có footer */
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .detailPopupWrapper > * {
+    pointer-events: auto;
+    max-height: calc(100vh - 70px); /* Tránh đè lên navbar */
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 /* Custom style cho tooltip của restaurant markers */

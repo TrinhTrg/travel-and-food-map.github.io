@@ -1,0 +1,171 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T10:59:20Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5699726168",
+        "addr:street": "Thanh Khê Đông, Thanh Khê, Da Nang, Vietnam",
+        "amenity": "fast_food",
+        "brand": "KFC",
+        "brand:wikidata": "Q524757",
+        "brand:wikipedia": "en:KFC",
+        "cuisine": "chicken",
+        "name": "KFC",
+        "opening_hours": "Mo-Su 09:00-22:00",
+        "takeaway": "yes",
+        "website": "https://kfcvietnam.com.vn"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1870359,
+          16.066512
+        ]
+      },
+      "id": "node/5699726168"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8552881467",
+        "addr:city": "Thành phố Đà Nẵng",
+        "addr:district": "Quận Hải Châu",
+        "addr:housenumber": "137",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Huỳnh Thúc Kháng",
+        "addr:subdistrict": "Bình Hiên",
+        "amenity": "fast_food",
+        "cuisine": "asian",
+        "drive_through": "yes",
+        "fixme": "add proper tags, diet:Ship = yes; diet:ăn_tại_chỗ = yes",
+        "name": "Cháo ếch Singapore NG",
+        "opening_hours": "24/7",
+        "operator": "Cháo ếch Singapore NG",
+        "phone": "+84 258 656 7799",
+        "website": "https://www.facebook.com/chaoechdanangNG/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2181515,
+          16.057545
+        ]
+      },
+      "id": "node/8552881467"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12105866901",
+        "addr:housenumber": "21",
+        "addr:street": "Đường An Thượng 26",
+        "amenity": "fast_food",
+        "cuisine": "burger;coffee_shop;kebab",
+        "internet_access": "wlan",
+        "name": "Kebab ngon",
+        "opening_hours": "Mo-Su 10:30-21:30",
+        "phone": "+84 799 389 646"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2447033,
+          16.0552866
+        ]
+      },
+      "id": "node/12105866901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12464306501",
+        "addr:housenumber": "68",
+        "addr:street": "Đường Châu Thị Vĩnh Tế",
+        "amenity": "fast_food",
+        "name": "Waffle queen",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 966 136 778"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2400797,
+          16.0517229
+        ]
+      },
+      "id": "node/12464306501"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13230561977",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "01",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Trần Đức Thông",
+        "addr:subdistrict": "Man Thai",
+        "amenity": "fast_food",
+        "contact:facebook": "1CpvtJg751",
+        "cuisine": "kebab;coffee_shop;vietnamese;rice_nood",
+        "delivery": "yes",
+        "diet:meat": "yes",
+        "diet:non-vegetarian": "yes",
+        "diet:pork": "yes",
+        "drive_through": "yes",
+        "highchair": "yes",
+        "image": "https://www.facebook.com/share/1CpvtJg751/?mibextid=wwXIfr",
+        "internet_access": "yes",
+        "name": "Trường Thọ Ha Noi KeBab Rice Noodlse®",
+        "name:vi": "Bún Chả Trường Thọ®",
+        "opening_hours": "Mo-Su 09:00-19:00",
+        "opening_hours:drive_through": "Mo-Su 09:00-19:00",
+        "operator": "Family",
+        "outdoor_seating": "yes",
+        "payment:cash": "yes",
+        "phone": "+84 372 121 881",
+        "smoking": "yes",
+        "takeaway": "yes",
+        "toilets": "yes",
+        "website": "https://www.facebook.com/share/1CpvtJg751/?mibextid=wwXIfr",
+        "website:menu": "https://www.facebook.com/share/1CpvtJg751/?mibextid=wwXIfr",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.247242,
+          16.0818056
+        ]
+      },
+      "id": "node/13230561977"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4352266389",
+        "amenity": "restaurant",
+        "addr:housenumber": "30",
+        "addr:street": "An Thượng 4",
+        "cuisine": "burger",
+        "name": "Burger Bros",
+        "name:ko": "burger bros",
+        "opening_hours": "Mo-Su 11:00-14:00, Mo-Su 17:00-22:00",
+        "phone": "+84 945 576 240"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.246541,
+          16.0485431
+        ]
+      },
+      "id": "node/4352266389"
+    }
+  ]
+}

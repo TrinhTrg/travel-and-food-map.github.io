@@ -98,6 +98,23 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithFirebase = async (idToken) => {
+    try {
+      const response = await authAPI.loginWithFirebase(idToken);
+      if (response.success) {
+        localStorage.setItem('token', response.data.token);
+        setUser(response.data.user);
+        setIsAuthenticated(true);
+        return { success: true };
+      }
+    } catch (error) {
+      return {
+        success: false,
+        message: error.response?.data?.message || error.message || 'Đăng nhập thất bại'
+      };
+    }
+  };
+
   // Refresh user profile (useful when role changes)
   const refreshUser = useCallback(async () => {
     const token = localStorage.getItem('token');
@@ -130,6 +147,7 @@ export const AuthProvider = ({ children }) => {
     forgotPassword,
     logout,
     refreshUser,
+    loginWithFirebase,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>; // children là các component con bên trong AuthProvider

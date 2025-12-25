@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import styles from "./MapView.module.css";
 import L from "leaflet";
 import RestaurantDetailPopup from "./RestaurantDetailPopup";
+import { useCollection } from "../../context/CollectionContext";
 
 // Fix icon mặc định của leaflet
 delete L.Icon.Default.prototype._getIconUrl;
@@ -15,6 +16,8 @@ L.Icon.Default.mergeOptions({
 
 const DEFAULT_CENTER = [16.0628, 108.215];
 const MARKER_ZOOM = 17;
+const FLY_TO_DURATION = 0.4; // Giảm từ 0.8s xuống 0.4s để mượt hơn
+const MIN_ZOOM_TO_SHOW_MARKERS = 15; // Chỉ hiển thị markers khi zoom >= 13
 
 // Helper function to parse coordinate
 const parseCoordinate = (value) => {
@@ -75,24 +78,32 @@ const getMarkerIcon = (restaurant) => {
     categories = restaurant.tags;
   }
 
-  // Kiểm tra xem có category nào là cafe, dessert, hoặc chè không
+  // Danh sách các drink categories (dùng cafeIcon)
+  const drinkCategories = [
+    'coffee', 'cafe', 'bar', 'juice', 'dessert', 'chè', 'che',
+    'ice cream', 'ice-cream'
+  ];
+
+  // Kiểm tra xem có category nào là drink không
   const categoryLower = categories.map(cat => (cat || '').toLowerCase().trim());
 
-  const isCafeCategory = categoryLower.some(cat =>
-    cat === "cafe" ||
-    cat === "dessert" ||
-    cat === "chè" ||
-    cat === "che" ||
-    cat.includes("chè") || // Bao gồm cả "Chè đậu", "Chè thái"
-    cat.includes("che")
+  const isDrinkCategory = categoryLower.some(cat => {
+    // Check exact match
+    if (drinkCategories.includes(cat)) {
+      return true;
+    }
+    // Check partial match (bao gồm cả "Chè đậu", "Chè thái", "Coffee Shop", etc.)
+    return drinkCategories.some(drinkCat => 
+      cat.includes(drinkCat) || drinkCat.includes(cat)
   );
+  });
 
-  // Cafe, Dessert, Chè dùng cafeIcon
-  if (isCafeCategory) {
+  // Drink categories (Coffee, Bar, Juice, Dessert, Chè, Ice Cream) dùng cafeIcon
+  if (isDrinkCategory) {
     return cafeIcon;
   }
 
-  // Tất cả category khác dùng foodIcon
+  // Tất cả category khác (Food: Restaurant, Fast Food, BBQ, Seafood, Vietnamese, etc.) dùng foodIcon
   return foodIcon;
 };
 
@@ -119,6 +130,31 @@ const MapClickHandler = ({ onMapClick }) => {
       }
     },
   });
+  return null;
+};
+
+// Component để lắng nghe zoom level
+const ZoomListener = ({ onZoomChange }) => {
+  const map = useMap();
+  
+  useEffect(() => {
+    const handleZoomEnd = () => {
+      const currentZoom = map.getZoom();
+      if (onZoomChange) {
+        onZoomChange(currentZoom);
+      }
+    };
+    
+    // Lắng nghe sự kiện zoom
+    map.on('zoomend', handleZoomEnd);
+    // Gọi ngay lần đầu để lấy zoom level hiện tại
+    handleZoomEnd();
+    
+    return () => {
+      map.off('zoomend', handleZoomEnd);
+    };
+  }, [map, onZoomChange]);
+  
   return null;
 };
 
@@ -153,13 +189,9 @@ const MarkerWithPopupControl = ({ restaurant, onSelect, mapRef, markerRefs }) =>
       icon={getMarkerIcon(restaurant)}
       eventHandlers={{
         click: () => {
+          // Select restaurant ngay lập tức để popup detail hiện ngay
           onSelect(restaurant.id);
-          // Zoom is handled by useEffect, but we can also do it here for immediate feedback
-          if (mapRef.current) {
-            mapRef.current.flyTo(position, MARKER_ZOOM, {
-              duration: 0.8,
-            });
-          }
+          // Zoom sẽ được xử lý trong useEffect để tránh duplicate
         },
       }}
     >
@@ -183,15 +215,53 @@ const MapView = ({
   restaurants = [],
   selectedRestaurantId,
   onRestaurantSelect = noop,
+  autoFitBounds = false, // Bật auto fit bounds khi có search results
 }) => {
   const [userPosition, setUserPosition] = useState(null);
+  const [currentZoom, setCurrentZoom] = useState(14); // Default zoom level
+  const [fullRestaurantData, setFullRestaurantData] = useState(null); // Lưu full data từ detail API
   const mapRef = useRef(null);
   const markerRefs = useRef({}); // Store refs for all markers
+  const { recentSearches } = useCollection(); // Lấy danh sách tìm kiếm gần đây
+  
   const handleMapReady = useCallback((mapInstance) => {
     mapRef.current = mapInstance;
+    
+    // Restore map position từ sessionStorage nếu có (khi quay lại trang)
+    try {
+      const savedCenter = sessionStorage.getItem('mapCenter');
+      const savedZoom = sessionStorage.getItem('mapZoom');
+      if (savedCenter && savedZoom) {
+        const [lat, lng] = JSON.parse(savedCenter);
+        const zoom = parseFloat(savedZoom);
+        mapInstance.setView([lat, lng], zoom, {
+          animate: false // Không animate khi restore
+        });
+        // Cập nhật currentZoom state
+        setCurrentZoom(zoom);
+      } else {
+        // Nếu không có saved zoom, lấy zoom hiện tại
+        setCurrentZoom(mapInstance.getZoom());
+      }
+    } catch (error) {
+      console.warn('Không thể restore map position:', error);
+      setCurrentZoom(mapInstance.getZoom());
+    }
+    
+    // Lưu vị trí map vào sessionStorage khi user di chuyển
+    mapInstance.on('moveend', () => {
+      const center = mapInstance.getCenter();
+      const zoom = mapInstance.getZoom();
+      try {
+        sessionStorage.setItem('mapCenter', JSON.stringify([center.lat, center.lng]));
+        sessionStorage.setItem('mapZoom', zoom.toString());
+      } catch (error) {
+        console.warn('Không thể lưu map position:', error);
+      }
+    });
   }, []);
+  
   const [fallbackSelectedId, setFallbackSelectedId] = useState(null);
-  const [scrollToReview, setScrollToReview] = useState(false);
 
   const isControlled = typeof selectedRestaurantId !== "undefined";
 
@@ -215,15 +285,84 @@ const MapView = ({
     [restaurants]
   );
 
+  // Tạo Set các ID của restaurants tìm kiếm gần đây
+  const recentSearchIds = useMemo(() => {
+    return new Set(recentSearches.map(search => String(search.id)));
+  }, [recentSearches]);
+
+  // Filter markers dựa trên zoom level - chỉ hiển thị khi zoom đủ lớn
+  // Nhưng luôn hiển thị restaurants tìm kiếm gần đây và restaurant đang được chọn
+  const visibleMarkers = useMemo(() => {
+    if (currentZoom >= MIN_ZOOM_TO_SHOW_MARKERS) {
+      return restaurantMarkers;
+    }
+    
+    // Nếu zoom quá nhỏ, chỉ hiển thị:
+    // 1. Restaurant đang được chọn (nếu có)
+    // 2. Restaurants tìm kiếm gần đây
+    const markersToShow = restaurantMarkers.filter((r) => {
+      const restaurantId = String(r.id);
+      // Luôn hiển thị nếu là restaurant đang được chọn
+      if (effectiveSelectedId && (String(effectiveSelectedId) === restaurantId || r.id === effectiveSelectedId)) {
+        return true;
+      }
+      // Luôn hiển thị nếu là restaurant tìm kiếm gần đây
+      if (recentSearchIds.has(restaurantId)) {
+        return true;
+      }
+      return false;
+    });
+    
+    return markersToShow;
+  }, [restaurantMarkers, currentZoom, effectiveSelectedId, recentSearchIds]);
+
+  // Fetch full restaurant detail từ API khi selected
+  useEffect(() => {
+    if (!effectiveSelectedId) {
+      setFullRestaurantData(null);
+      return;
+    }
+
+    const fetchFullRestaurantDetail = async () => {
+      try {
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+        const res = await fetch(`${API_BASE_URL}/restaurants/${effectiveSelectedId}`);
+        if (!res.ok) {
+          console.error('Không thể lấy thông tin nhà hàng');
+          setFullRestaurantData(null);
+          return;
+        }
+
+        const json = await res.json();
+        if (json.success && json.data) {
+          setFullRestaurantData(json.data);
+        } else {
+          setFullRestaurantData(null);
+        }
+      } catch (err) {
+        console.error('Error fetching restaurant detail:', err);
+        setFullRestaurantData(null);
+      }
+    };
+
+    fetchFullRestaurantDetail();
+  }, [effectiveSelectedId]);
+
   const selectedRestaurant = useMemo(() => {
     if (!effectiveSelectedId) return null;
-    // So sánh ID cả string và number để đảm bảo tìm được
+    
+    // Ưu tiên dùng fullRestaurantData nếu có (từ detail API)
+    if (fullRestaurantData) {
+      return fullRestaurantData;
+    }
+    
+    // Fallback về restaurantMarkers nếu chưa fetch được detail
     return (
       restaurantMarkers.find(
         (item) => String(item.id) === String(effectiveSelectedId) || item.id === effectiveSelectedId
       ) || null
     );
-  }, [restaurantMarkers, effectiveSelectedId]);
+  }, [restaurantMarkers, effectiveSelectedId, fullRestaurantData]);
 
   const handleDirectionsRequest = () => {
     if (!selectedRestaurant) return;
@@ -245,7 +384,8 @@ const MapView = ({
     }
   }, [effectiveSelectedId, selectRestaurant]);
 
-  // Lấy vị trí hiện tại của user và focus map vào vị trí đó
+  // Lấy vị trí hiện tại của user (chỉ lưu, không tự động zoom)
+  // Chỉ zoom khi user click button "Vị trí của tôi"
   useEffect(() => {
     if (!navigator.geolocation) {
       setUserPosition([16.0628, 108.215]);
@@ -256,17 +396,14 @@ const MapView = ({
       (pos) => {
         const nextPosition = [pos.coords.latitude, pos.coords.longitude];
         setUserPosition(nextPosition);
-        if (mapRef.current) {
-          mapRef.current.setView(nextPosition, MARKER_ZOOM);
-        }
+        // KHÔNG tự động zoom - chỉ lưu vị trí
+        // Map sẽ giữ nguyên vị trí hiện tại
       },
       (err) => {
         console.log("Không lấy được vị trí, dùng vị trí mặc định:", err);
         const fallback = [16.0628, 108.215];
         setUserPosition(fallback);
-        if (mapRef.current) {
-          mapRef.current.setView(fallback, 14);
-        }
+        // KHÔNG tự động zoom
       }
     );
   }, []);
@@ -277,32 +414,29 @@ const MapView = ({
       if (typeof latitude !== "number" || typeof longitude !== "number") return;
       const nextPosition = [latitude, longitude];
       setUserPosition(nextPosition);
+      // Chỉ zoom khi user click button "Vị trí của tôi"
       if (mapRef.current) {
         mapRef.current.flyTo(nextPosition, MARKER_ZOOM, {
-          duration: 0.8,
+          duration: FLY_TO_DURATION,
         });
       }
     };
 
     const handleCenterOnRestaurant = (event) => {
-      const { latitude, longitude, restaurantId, scrollToReview: shouldScrollToReview } = event.detail || {};
+      const { latitude, longitude, restaurantId } = event.detail || {};
       if (typeof latitude !== "number" || typeof longitude !== "number") return;
       const position = [latitude, longitude];
 
       // Ping map to restaurant location
       if (mapRef.current) {
         mapRef.current.flyTo(position, MARKER_ZOOM, {
-          duration: 0.8,
+          duration: FLY_TO_DURATION,
         });
       }
 
       // If restaurantId is provided, select that restaurant
       if (restaurantId) {
         selectRestaurant(restaurantId);
-        // Set scrollToReview flag nếu có
-        if (shouldScrollToReview) {
-          setScrollToReview(true);
-        }
       }
     };
 
@@ -322,9 +456,60 @@ const MapView = ({
     };
   }, [selectRestaurant]);
 
-  // Zoom to selected restaurant when selectedRestaurantId changes and open popup
+  // Auto fit bounds khi có search results (autoFitBounds = true)
+  useEffect(() => {
+    if (!autoFitBounds || !mapRef.current || restaurantMarkers.length === 0) {
+      return;
+    }
+
+    // Tính toán bounds từ tất cả restaurants
+    const validMarkers = restaurantMarkers.filter(r => {
+      const lat = parseCoordinate(r.latitude);
+      const lng = parseCoordinate(r.longitude);
+      return lat !== null && lng !== null;
+    });
+
+    if (validMarkers.length === 0) {
+      return;
+    }
+
+    // Nếu chỉ có 1 marker, zoom vào marker đó
+    if (validMarkers.length === 1) {
+      const lat = parseCoordinate(validMarkers[0].latitude);
+      const lng = parseCoordinate(validMarkers[0].longitude);
+      if (lat !== null && lng !== null) {
+        mapRef.current.flyTo([lat, lng], MARKER_ZOOM, {
+          duration: FLY_TO_DURATION,
+        });
+      }
+      return;
+    }
+
+    // Nếu có nhiều markers, fit bounds
+    const bounds = L.latLngBounds(
+      validMarkers.map(r => [
+        parseCoordinate(r.latitude),
+        parseCoordinate(r.longitude)
+      ])
+    );
+
+    // Fit bounds với padding để không sát mép
+    mapRef.current.flyToBounds(bounds, {
+      padding: [50, 50], // Padding 50px mỗi bên
+      duration: FLY_TO_DURATION,
+      maxZoom: 16 // Giới hạn zoom tối đa
+    });
+  }, [autoFitBounds, restaurantMarkers]);
+
+  // Zoom to selected restaurant when selectedRestaurantId changes
+  // Popup detail sẽ hiện ngay, không cần chờ animation
   useEffect(() => {
     if (!effectiveSelectedId || !selectedRestaurant || !mapRef.current) {
+      return;
+    }
+
+    // Nếu đang auto fit bounds, không zoom vào selected restaurant
+    if (autoFitBounds) {
       return;
     }
 
@@ -333,22 +518,16 @@ const MapView = ({
 
     if (lat !== null && lng !== null) {
       const position = [lat, lng];
+      
+      // FlyTo với duration ngắn hơn để mượt hơn
       mapRef.current.flyTo(position, MARKER_ZOOM, {
-        duration: 0.8,
+        duration: FLY_TO_DURATION,
       });
 
-      // Mở popup sau khi map đã flyTo xong
-      setTimeout(() => {
-        const markerRef = markerRefs.current[effectiveSelectedId];
-        if (markerRef) {
-          const leafletMarker = markerRef?.leafletElement || markerRef;
-          if (leafletMarker && typeof leafletMarker.openPopup === 'function') {
-            leafletMarker.openPopup();
-          }
-        }
-      }, 900); // Sau khi flyTo hoàn thành (duration 0.8s + buffer 0.1s)
+      // Popup detail đã được hiển thị ngay qua selectedRestaurant state
+      // Không cần setTimeout vì popup detail là component riêng, không phải Leaflet popup
     }
-  }, [effectiveSelectedId, selectedRestaurant]);
+  }, [effectiveSelectedId, selectedRestaurant, autoFitBounds]);
 
   return (
     <div className={styles.mapWrapper}>
@@ -360,6 +539,7 @@ const MapView = ({
       >
         <MapInstanceRegistrar onReady={handleMapReady} />
         <MapClickHandler onMapClick={handleMapClick} />
+        <ZoomListener onZoomChange={setCurrentZoom} />
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
         {/* Marker vị trí người dùng */}
@@ -369,8 +549,8 @@ const MapView = ({
           </Marker>
         )}
 
-        {/* Marker các quán ăn */}
-        {restaurantMarkers.map((restaurant) => (
+        {/* Marker các quán ăn - chỉ hiển thị khi zoom đủ lớn */}
+        {visibleMarkers.map((restaurant) => (
           <MarkerWithPopupControl
             key={restaurant.id}
             restaurant={restaurant}
@@ -381,15 +561,21 @@ const MapView = ({
         ))}
       </MapContainer>
       {selectedRestaurant && (
-        <div className={styles.detailPopupWrapper}>
+        <div 
+          className={styles.detailPopupWrapper}
+          onClick={(e) => {
+            // Đóng popup khi click vào overlay (chỉ trên mobile)
+            if (window.innerWidth <= 768 && e.target === e.currentTarget) {
+              selectRestaurant(null);
+            }
+          }}
+        >
           <RestaurantDetailPopup
             restaurant={selectedRestaurant}
             onRequestDirections={handleDirectionsRequest}
             onClose={() => {
               selectRestaurant(null);
-              setScrollToReview(false); // Reset flag khi đóng popup
             }}
-            scrollToReview={scrollToReview}
           />
         </div>
       )}

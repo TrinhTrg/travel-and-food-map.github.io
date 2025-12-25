@@ -1,0 +1,106 @@
+.openingHoursContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.statusRow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.clockIcon {
+  color: #10b981;
+  font-size: 1.1rem;
+}
+
+.statusText {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.statusOpen {
+  color: #10b981;
+}
+
+.statusClosed {
+  color: #ef4444;
+}
+
+.hoursList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hourRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.hourRow:hover {
+  background-color: #f9fafb;
+  border-radius: 6px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.currentDay {
+  background-color: #eff6ff;
+  border-radius: 6px;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-weight: 600;
+}
+
+.dayLabel {
+  color: #374151;
+  min-width: 100px;
+}
+
+.timeRange {
+  color: #1f2937;
+  font-weight: 500;
+}
+
+.closedLabel {
+  color: #9ca3af;
+  font-style: italic;
+}
+
+.footer {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
+}
+
+.suggestButton {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s;
+}
+
+.suggestButton:hover {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+

@@ -57,9 +57,12 @@
   font-size: 1rem;
 }
 
-.searchBar svg { /* Style cho các icon */
-  color: #777;
-  font-size: 1.2rem;
+/* Nhóm các nút bấm */
+.buttonGroup {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  width: 100%;
 }
 
 /* Nút kêu gọi hành động */
@@ -78,6 +81,27 @@
 .ctaButton:hover {
   transform: scale(1.05);
   color: white;
+  background-color: #e6751e;
+}
+
+/* Nút phụ - Đăng ký */
+.secondaryButton {
+  background-color: transparent;
+  color: #F58634;
+  border: 2px solid #F58634;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+
+.secondaryButton:hover {
+  background-color: #F58634;
+  color: white;
+  transform: scale(1.05);
 }
 
 /* Các tính năng - đặt ở dưới cùng màn hình */

@@ -1,0 +1,944 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T11:23:59Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4301483689",
+        "addr:housenumber": "12",
+        "addr:street": "Võ Văn Tần",
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "name": "Sơn",
+        "opening_hours": "Mo-Su 06:30-22:00",
+        "phone": "+84 917 779 870",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy4qNU5eoVe3BNmWr0y3uWUoeNhiQy6NlgzTd2rX16S49FtyOqJeRa6n9NHajRsLVdF3J6jROmnyYZByNVpLC75kmblJ8_2-4LIRN4XE4SSXxfeeHxioPG73QvETKgnNdorKS2q2g=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2047003,
+          16.0672283
+        ]
+      },
+      "id": "node/4301483689"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4652751790",
+        "addr:housenumber": "606",
+        "addr:street": "Đường Ông Ích Khiêm",
+        "amenity": "cafe",
+        "internet_access": "wlan",
+        "name": "Cà Phê Chim 606",
+        "name:en": "cafe606",
+        "opening_hours": "Mo-Su 05:00-16:00",
+        "phone": "+84 236 389 7616",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwTa11bCTP0nO0GSuR5yMvqeNlJ5sLWnrd95HxZkH7JM7GYtwpxyZSRiD47q_g9Di_UOR-DCSM7b_XWlIrC0IfxhpyCv26TtF_LY29pxGJvBbusExJSfVAWWsybFZknst9N7um3Ng=w426-h240-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2164509,
+          16.0616284
+        ]
+      },
+      "id": "node/4652751790"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5154435522",
+        "addr:housenumber": "2",
+        "addr:street": "3 Tháng 2",
+        "amenity": "cafe",
+        "email": "caracoli.crc@gmail.com",
+        "name": "Café Caracoli",
+        "name:en": "Caracoli Coffee",
+        "opening_hours": "Mo-Su 09:00-18:00",
+        "phone": "+84 236 389 9755",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSw86-R4dSlnZLUxKUj27805pAvLRhIibOipPO_IOxJpq8ulevwGU1PWJBd6M_3g-R8hdVEQaGT3u8X5b5acVr1pRI8LJbH4X7eJyT66-ChZQXoLJG3RKIb4vSQFE07uK13c0Tla=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.222509,
+          16.0829842
+        ]
+      },
+      "id": "node/5154435522"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5432960921",
+        "addr:housenumber": "64",
+        "addr:street": "Đường Bà Huyện Thanh Quan",
+        "amenity": "cafe",
+        "contact:facebook": "sixonsixcafe",
+        "cuisine": "coffee_shop;brunch",
+        "drink:espresso": "served",
+        "drink:filter_coffee": "served",
+        "email": "hello@sixonsix.net",
+        "internet_access": "wlan",
+        "name": "SIX ON SIX",
+        "opening_hours": "Mo-Su 07:30-21:30",
+        "phone": "+84 946 114 967",
+        "website": "https://www.facebook.com/sixonsixcafe/menu/?id=100063485023387&sk=menu",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipNeem12Ck5SjXn4XloC56tJMIRmAd37VTyHdOKq=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2441897,
+          16.0432955
+        ]
+      },
+      "id": "node/5432960921"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5541654969",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "216",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Võ Nguyên Giáp",
+        "addr:subdistrict": "Phước Mỹ",
+        "amenity": "cafe",
+        "check_date": "2023-01-08",
+        "cuisine": "coffee;coffee_shop;cake;ice_cream;tea",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "level": "1",
+        "name": "Maison du Café",
+        "opening_hours": "Mo-Su 06:00-22:00",
+        "operator": "Belle Maison Parosand Hotel",
+        "outdoor_seating": "no",
+        "website": "http://pubhtml5.com/center/flips/book.php?cid=140560",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipNZBPQ4EcfOhhdT05Cg-uLDrTR4oYLcCwMkPmDq=w408-h271-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.245011,
+          16.067526
+        ]
+      },
+      "id": "node/5541654969"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5865968590",
+        "addr:housenumber": "59",
+        "addr:postcode": "55000",
+        "addr:street": "Thái Phiên",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "Hachi Coffee",
+        "name:en": "Hachi coffee",
+        "opening_hours": "Mo-Su 06:00-22:00",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwap8r9n6QlBB_HoErMI-uuupPRaGm1s0mt4x5x37qaqqC5EQjNTHI6HVIm8pkNWmvVNAEDVpKLrQQOgLpJ5d1MGqOrw2PYMzvGqzjB474hRi5WxnvPath1NiFNLo5-XDdIsZRt=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2219481,
+          16.0650395
+        ]
+      },
+      "id": "node/5865968590"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5913221638",
+        "addr:city": "Da Nang",
+        "addr:housenumber": "165",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Hà Huy Tập",
+        "amenity": "cafe",
+        "internet_access": "yes",
+        "name": "Green Coffee 165",
+        "opening_hours": "Mo-Su 06:30-23:00",
+        "smoking": "outside",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxc2mFPxGe-WYsSKXDmRlDjhPlCdbySeN5Fd5SQWr7ZX2Ou2_M5yUNgYkse51bcTV0x7Z3jDpYJOcYKwRtKTa2qBmycEFH68MYna0O4UI_cynlMb9tRbgnl_Bd3zSDTYAYddtEZ=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1920138,
+          16.0638679
+        ]
+      },
+      "id": "node/5913221638"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5920089202",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "27/21",
+        "addr:postcode": "55000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Thái Phiên",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "drink:espresso": "served",
+        "drink:filter_coffee": "served",
+        "facebook": "https://www.facebook.com/BrewmanCoffeeConcept/",
+        "internet_access": "yes",
+        "internet_access:fee": "no",
+        "microroasting": "yes",
+        "name": "Brewman Coffee Concept",
+        "opening_hours": "Mo-Su 06:30-22:00",
+        "phone":"+84 967 359 292",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyuRE-_bHJyF0VMlGgTZOxE3ESvC2x76oLidvlc8Fka53F-RoIeHH8Yqt618GlhxLlponjuqdulAtBWDhVQ8eji_ww4YIlLDCtgthYjqOmTRn3eRWhCxot_Smb3O_spYhl2oV6iK2HUdDvo=w408-h544-k-no",
+        "outdoor_seating": "yes",
+        "website":"https://www.facebook.com/BrewmanCoffeeConcept/menu"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2229858,
+          16.0643013
+        ]
+      },
+      "id": "node/5920089202"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6108930789",
+        "addr:city": "Đà Nẵng",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng", 
+        "addr:housenumber": "CLô 40",
+        "addr:street": "30 Tháng 4",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "internet_access:ssid": "Cafe Bentley",
+        "name": "Bentley Cafe",
+        "opening_hours": "Mo-Su 07:00-23:30",
+        "website":"https://www.facebook.com/Bentley-Milktea-COffee-100710488646797/",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSz0l13BtYbC72lRH41kN6ZNFkAtRdghaTbjT7Qom6eU6129f6lkfq87fwyvuKnik7_PAhZdw1mPX4QfXvcSPsirPRjj5pzwQP_b3nKFvj990-gxKNZaVXeBRfJeFca1ojcbGc20=w408-h544-k-no",
+        "phone":"+84 983 527 579"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2403147,
+          16.0513235
+        ]
+      },
+      "id": "node/6108930789"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6109163976",
+        "addr:housenumber": "422",
+        "addr:street": "Ngô Thì Sĩ",
+        "addr:subdistrict": "Thanh Khê",
+        "addr:district": "Thanh Khê",
+        "addr:city": "Đà Nẵng",
+        "addr:province": "Đà Nẵng",
+        "addr:postcode": "550000",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "name": "43 Factory Coffee Roaster",
+        "name:en": "43 Factory Coffee",
+        "website":"https://xliiicoffee.com/en/location/xliii-coffee-da-nang/menu/",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "phone":"+84 799 343 943",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipOBqtvTaVfj4N8Ujc8o_77tuTd6HhNIOuDK6rSx=w408-h290-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2460362,
+          16.0480968
+        ]
+      },
+      "id": "node/6109163976"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6310334885",
+        "addr:housenumber": "11",
+        "addr:street": "Hà Chương",
+        "amenity": "cafe",
+        "name": "Indochine Coffee & Food",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "phone":"+84 961 603 603",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipPbfhMNgikFOe8jkf7CHuEz78o-z_AuQiU9GCgG=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2445632,
+          16.0653876
+        ]
+      },
+      "id": "node/6310334885"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6975514285",
+        "addr:housenumber": "k1/151",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Nguyễn Văn Thoại",
+        "amenity": "cafe",
+        "check_date": "2024-09-13",
+        "internet_access": "wlan",
+        "name": "Doll coffee",
+        "opening_hours": "24/7",
+        "phone":"+84 905 167 203",
+        "website":"https://www.facebook.com/dollcoffee.vn#",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipP24d9szQU6-NJ4NBwuX4dM_uW6MtARvqVpLGMD=w408-h272-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.241287,
+          16.0549519
+        ]
+      },
+      "id": "node/6975514285"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7210884485",
+        "addr:housenumber": "D41",
+        "addr:street": "Đường An Thượng 34",
+        "amenity": "cafe",
+        "check_date": "2025-05-20",
+        "cuisine": "tea;coffee_shop",
+        "internet_access": "wlan",
+        "name:en": "Drop Authentic Coffee & Tea",
+        "opening_hours": "Mo-Su 07:00-21:30",
+        "phone":"+84 957 055 379",
+        "website":"https://www.facebook.com/profile.php?id=100063539621287",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipOkhbwYxQmLX9ZPawdt5Msk_Cgh5vXvl14n4w6b=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2452698,
+          16.049702
+        ]
+      },
+      "id": "node/7210884485"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7244239486",
+        "addr:housenumber": "190",
+        "addr:street": "Đường Nguyễn Công Trứ",
+        "amenity": "cafe",
+        "cuisine": "breakfast;international;tea;cake;coffee_shop;american;donut",
+        "diet:vegetarian": "yes",
+        "internet_access": "wlan",
+        "name:en": "Jeremy's Kitchen",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "website": "http://jeremyskitchenvn.com/",
+        "phone":"+84 935 155 085",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipMlYK1tXhJpJ77aXBtWbF35upglGbl32nafTgwD=w408-h271-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2341649,
+          16.0672213
+        ]
+      },
+      "id": "node/7244239486"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8616526719",
+        "addr:housenumber": "K69/16",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Lý Thái Tổ",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;tea",
+        "internet_access": "wlan",
+        "name": "Cà phê chim  K69 chị Yến",
+        "name:en": "Bird competition coffee Ms Yen",
+        "opening_hours": "Mo-Su 06:00-20:00",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwWekZlaFr-M5QJcOuXVH_gvDM4ySIl7eJd589jZKQ2zdgAj3tV4IBhMBRlX3_qibaAaX9joklewvjFiDHlULWk8IZvx19Hsg1t_vXLkxdist0PXitlRKd6yj-6bFgEulK7l8t1ng=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2085147,
+          16.0656191
+        ]
+      },
+      "id": "node/8616526719"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8616537318",
+        "addr:housenumber": "06",
+        "addr:street": "Đường Nguyễn Tri Phương",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Cà phê 27",
+        "name:en": "27 coffee house",
+        "opening_hours": "Mo-Su 06:30-22:30",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSw-j1hc2AdqPP3yU0yttY0m5cy4ViSt5RseBLzdz0biEJdB8e_Y4kghyMbLhXwMA2TZ7LeuyX3mYKZLBK1wo28S5_oAcYG9sFVPQPZB0EaXt8PU3Zel6Ks4c-wbzSnCtL5OnjX_6A=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2027737,
+          16.0649681
+        ]
+      },
+      "id": "node/8616537318"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10749874405",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "27",
+        "addr:province": "Thành phố Đà Nẵng",
+        "addr:street": "Trần Bạch Đằng",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "air_conditioning": "yes",
+        "amenity": "cafe",
+        "cuisine": "breakfast;burger;cake;vietnamese;salad",
+        "description": "Healthy Vegan Restaurant",
+        "diet:dairy_free": "yes",
+        "diet:gluten_free": "yes",
+        "diet:healthy": "yes",
+        "diet:organic": "yes",
+        "diet:sugar_free": "yes",
+        "diet:vegan": "only",
+        "diet:vegetarian": "yes",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "Roots Plant-Based Café",
+        "name:en": "Roots Plant-Based Café",
+        "opening_hours": "Mo-Su 08:30-22:45",
+        "outdoor_seating": "yes",
+        "payment:cash": "yes",
+        "payment:credit_cards": "yes",
+        "phone": "+84 865 528 252",
+        "toilets": "yes",
+        "website": "https://rootsplantbasedcafe.com/",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipNVbqzVAqVBM6SYnNBrhgnzpWEXGzSZVgs7v7el=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2478755,
+          16.0486599
+        ]
+      },
+      "id": "node/10749874405"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10773540605",
+        "addr:city": "ĐÀ NẴNG",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "77",
+        "addr:street": "Đường Thạch Lam",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;vietnamese",
+        "internet_access": "yes",
+        "internet_access:fee": "customers",
+        "name": "Art Coffee",
+        "opening_hours": "Mo-Su 06:00-17:30",
+        "outdoor_seating": "yes",
+        "phone": "+84 98 551 13 24",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipNIHCMKfL2ZdVEp58zUS5bHWbVr2mF4oqf6bFaJ=w408-h306-k-no",
+        "website": "https://website--7227724345093534127171-cafe.business.site/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2446766,
+          16.0565444
+        ]
+      },
+      "id": "node/10773540605"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10775313305",
+        "addr:housenumber": "66",
+        "addr:street": "Đường An Thượng 29",
+        "amenity": "cafe",
+        "contact:instagram": "bamboo__bob",
+        "cuisine": "coffee_shop;vietnamese",
+        "internet_access": "wlan",
+        "name:en": "Bamboo Bob Coffee",
+        "opening_hours": "Th-Tu 07:00-18:30; We 07:00-22:00",
+        "phone":"+84 935 728 133",
+        "website": "https://bamboo-bob.com/",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipOG_s6JnEwhmU_mB2K0uUS_5qcPoZ7D1Wo4PFS2=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2441482,
+          16.0516465
+        ]
+      },
+      "id": "node/10775313305"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10777276806",
+        "addr:housenumber": "10",
+        "addr:street": "Đường Trần Bạch Đằng",
+        "amenity": "cafe",
+        "check_date": "2024-09-11",
+        "cuisine": "coffee_shop;vietnamese",
+        "internet_access": "wlan",
+        "name": "Coffee Thanh Hà",
+        "name:vi": "Thanh Hà Coffee",
+        "phone":"+84 379 999 009",
+        "opening_hours": "Mo-Su 06:00-21:30",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipMyZ4ud2xq6x3j-dmjhERe9MA4RwziFuISFGtYG=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2445472,
+          16.0590473
+        ]
+      },
+      "id": "node/10777276806"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10777962706",
+        "addr:housenumber": "126",
+        "addr:street": "Đường Châu Thị Vĩnh Tế",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;vietnamese",
+        "internet_access": "wlan",
+        "name": "Tiệm cà phê hạnh phúc",
+        "opening_hours": "Mo-Su 06:00-22:30",
+        "image_url":"https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=EzN1Pl8a07S6gkjYiBLd2w&cb_client=search.gws-prod.gps&w=408&h=240&yaw=119.22349&pitch=0&thumbfov=100",
+        "phone": "+84 793 456 729"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2406526,
+          16.0496739
+        ]
+      },
+      "id": "node/10777962706"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10783641305",
+        "addr:housenumber": "88",
+        "addr:street": "Đường Lê Hữu Trác",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;vietnamese",
+        "internet_access": "wlan",
+        "name": "PHIN 88",
+        "opening_hours": "Mo-Su 06:00-22:00",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy0nyPrp7cw4hL6-03KtAWFrYJwrKnytnBbDjfeMVSYobmohAP_3iK0QSBh__1p_wZTasF5DTpOKO-cbkTyeu-O2uUzZR150Jy8TYSMFwVC6MY6SRriRH3iGU3Ht6TZhuBJTd8=w408-h306-k-no",
+        "phone": "+84 904 136 191"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2399082,
+          16.0582419
+        ]
+      },
+      "id": "node/10783641305"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10786605906",
+        "addr:housenumber": "82",
+        "addr:street": "Đường Lê Quang Đạo",
+        "amenity": "cafe",
+        "check_date": "2025-05-18",
+        "cuisine": "coffee_shop;tea;vietnamese",
+        "description": "There is possibility to play chess and foosball.",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy_mU9p6bx1UmC7uOnaL2KGqo0la0U23JBT-vpW-arg6pN-6VXXrKpiMjU14S9Vv5159yEnvQ-9ORNyZ1AuceRRmNqnv6UHW-LtC5At1asfSUQQjrEy0pTQAuB6VnLhAzqdjtnlQ3YC9GSJ=w518-h240-k-no",
+        "name":"GOLO Coffee & AP",
+        "name:en": "GOLO",
+        "opening_hours": "Tu-We, Fr-Su 07:00-22:00; Mo, Th 07:00-19:00",
+        "phone": "+84 94 798 96 79"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2454308,
+          16.050279
+        ]
+      },
+      "id": "node/10786605906"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10801935005",
+        "addr:housenumber": "6",
+        "addr:street": "Đường An Thượng 18",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;vietnamese",
+        "internet_access": "wlan",
+        "name:en": "J Cafe",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx06LCl8HSOSaYmSJEddESL6IQUtLmrQqSMuOQ2y8L4x_HQa7zkQmbZBoUmkWSsvcjCofUFG1qM7Kf4ajIgNJ5B8dClIjd-m_bRvDrY0o26Ekysc-r4VD8Le4FPezq-VnxharHp=w408-h544-k-no",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "phone": "+84 708 102 188"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2398842,
+          16.0494309
+        ]
+      },
+      "id": "node/10801935005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10819609705",
+        "addr:street": "Đường Phan Tứ",
+        "amenity": "cafe",
+        "contact:facebook": "greengrottocoffee",
+        "cuisine": "coffee_shop",
+        "name:en": "Green Grotto Coffee",
+        "opening_hours": "Mo-Su 08:00-23:00",
+        "phone": "+84 869 177 420",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipNAok-vgicvfzNq3EM3hLz-RzmSSErRSl3c6QPr=w408-h306-k-no",
+        "website":"https://www.facebook.com/greengrottocoffee"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2452691,
+          16.0470877
+        ]
+      },
+      "id": "node/10819609705"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10836613005",
+        "addr:street": "Đường Trần Khánh Dư",
+        "amenity": "cafe",
+        "contact:facebook": "jeremyskitchenvn",
+        "contact:instagram": "jeremyskitchenvn",
+        "internet_access": "wlan",
+        "name:en": "Jeremy's Kitchen",
+        "opening_hours": "Mo-Su 07:00-21:00",
+        "phone": "+84 935 155 085",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipMlYK1tXhJpJ77aXBtWbF35upglGbl32nafTgwD=w408-h271-k-no",
+        "website": "https://jeremyskitchenvn.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2416835,
+          16.0509901
+        ]
+      },
+      "id": "node/10836613005"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11074810731",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngu Hanh Son",
+        "addr:housenumber": "39",
+        "addr:province": "Danang",
+        "addr:street": "Đường Ngô Thì Sĩ",
+        "addr:subdistrict": "Phường Mỹ An",
+        "amenity": "cafe",
+        "check_date": "2025-05-18",
+        "name": "Bro's Kafe",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipPbg_IEUVBcqMwrMaNeh735Ckxb5DvD2zpTZvW3=w408-h306-k-no",
+        "opening_hours": "Mo-Su 07:00-21:30",
+        "phone": "+84 905-05-79-03",
+        "website": "https://broskafe.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2431257,
+          16.0472109
+        ]
+      },
+      "id": "node/11074810731"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11510069960",
+        "addr:housenumber": "230",
+        "addr:street": "Nguyễn Công Trứ",
+        "amenity": "cafe",
+        "check_date": "2024-09-11",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipOhUjKepeVzJn3gLLcz6Lz9XMhJ2CooxvUCphrq=w408-h293-k-no",
+        "name": "DREAMER",
+        "phone":"+84 905 288 851",
+        "opening_hours": "Mo-Su 07:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2368088,
+          16.065937
+        ]
+      },
+      "id": "node/11510069960"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12002534969",
+        "addr:housenumber": "8a",
+        "addr:street": "Đường Mỹ Khê 5",
+        "amenity": "cafe",
+        "check_date": "2024-09-11",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "GỐM Garden Coffee",
+        "opening_hours": "Mo-Su 06:30-22:00",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipPFMbUAMhuRsZHt2nJ2g02FlyJmP-vfVD5fQQrm=w408-h272-k-no",
+        "phone": "+84 932 587 890"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2413131,
+          16.061519
+        ]
+      },
+      "id": "node/12002534969"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12609115911",
+        "addr:housenumber": "27",
+        "addr:street": "Kiệt 113 Nguyễn Chí Thanh",
+        "amenity": "cafe",
+        "contact:facebook": "alacafe.official",
+        "contact:instagram": "alacafe.official",
+        "cuisine": "coffee_shop",
+        "drink:espresso": "served",
+        "drink:filter_coffee": "served",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "microroasting": "yes",
+        "name": "Àla Cafe",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipNNEMbMqHWGdlegn47KJhMcP5-2Dc0fJ2ImVtA6=w408-h544-k-no",
+        "opening_hours": "Mo-Su 07:00-18:00",
+        "website":"https://alacafe.vn/product/menu-do-uong-ala/",
+        "phone": "+84 917 168 530"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2217151,
+          16.0736742
+        ]
+      },
+      "id": "node/12609115911"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11951761272",
+        "addr:housenumber": "109-111",
+        "addr:street": "Đường Phan Đăng Lưu",
+        "amenity": "cafe",
+        "name": "Guming Tea & Kafei",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSy_8NIysbG4WAtiy0n2rQUEpjnN4LkPqGcGXX3DBTFF3DqKIdXk5OjX43NQ5KMPol_I95eDhxXEgk6U1SNyOJygCUJ7OtEZByO1906ef9HjK2J76ic0iqvidL1EoO03fZaHw-o=w408-h305-k-no",
+        "opening_hours": "Mo-Su 7:30-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2167462,
+          16.0360364
+        ]
+      },
+      "id": "node/11951761272"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13286322244",
+        "addr:street": "Đường Trần Hưng Đạo",
+        "amenity": "cafe",
+        "check_date": "2025-11-07",
+        "cuisine": "coffee_shop;japanese",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "Minori",
+        "opening_hours": "07:00-22:30",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipNjhHIGiqmMQiko6v0E9jqc7jb7qMXr5SSQ2Lp8=w408-h272-k-no",
+        "pets": "no",
+        "strapline": "Tea and more",
+        "wheelchair": "limited",
+        "phone":"+84 814 277 777"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2296973,
+          16.0660771
+        ]
+      },
+      "id": "node/13286322244"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13340074016",
+        "addr:district": "Quận Hải Châu",
+        "addr:housenumber": "74",
+        "addr:province": "Thành phố Đà Nẵng",
+        "addr:street": "Đường Thi Sách",
+        "addr:subdistrict": "Phường Hòa Thuận Tây",
+        "air_conditioning": "yes",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop;cake;regional;asian;vietnamese;juice",
+        "delivery": "yes",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "name": "Becoming Specialty Coffee",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipMyYohAosByPuFtSQJJbDRTUPZpClEBpIacr5d6=w408-h510-k-no",
+        "opening_hours": "Mo-Su 08:00-21:00",
+        "organic": "yes",
+        "outdoor_seating": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "phone": "+84 834 554 335",
+        "reservation": "yes",
+        "smoking": "outside",
+        "takeaway": "yes",
+        "toilets": "yes",
+        "website": "https://share.google/ycQOaQBwfVO149Pca"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2055094,
+          16.0537961
+        ]
+      },
+      "id": "node/13340074016"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13377653501",
+        "addr:housenumber": "12",
+        "addr:street": "Đường An Thượng 30",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Chong Banh Mi, Coffee & Food",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyfWq3V6oodc1r7EF16Vqa6_Spcdj6OStHz0CLUDvcqGlD8Q7Q69RFjSerOxAHh_YRIDvpy3jaannhErV6_vYJFYBT6SDkXG03jQFIFb25sfT3lKy1D7z97mBA2WyPwlxaH_9kEu5z1ASM=w408-h544-k-no",
+        "opening_hours": "Mo-Su 08:00-23:00",
+        "outdoor_seating": "yes",
+        "phone":"+84 909 181 257"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2463316,
+          16.051328
+        ]
+      },
+      "id": "node/13377653501"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13387865401",
+        "addr:housenumber": "36",
+        "addr:street": "Kiệt 72 Nguyễn Văn Thoại",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Tabiji Coffee",
+        "opening_hours": "Mo-Su 07:30-19:30",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwvjWT7S3QymyYgoQr8AaRDbHKOG4gK8uXjXoCMcrTyW7EwEsW7pLN3d8FPI78jG1Wj10v85YG2xBXTsnUijELfpJZqsoCQ8_baY_D7k-BNkdrl_6GcbS9utb7G8eJYy7uPNdbQ4C60iVM=w408-h544-k-no",
+        "outdoor_seating": "yes",
+        "phone":"+84 987 895 266"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2406141,
+          16.0530294
+        ]
+      },
+      "id": "node/13387865401"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13394279401",
+        "addr:housenumber": "89",
+        "addr:street": "Đường Sương Nguyệt Ánh",
+        "amenity": "cafe",
+        "cuisine": "coffee_shop",
+        "internet_access": "wlan",
+        "name": "Oslow Coffee",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipP3i6a5cecLeIB8jYpNj-8yA7__ICs2rSFcRgL4=w408-h543-k-no",
+        "outdoor_seating": "yes",
+        "phone":"+84 909 186 830"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2425594,
+          16.0683888
+        ]
+      },
+      "id": "node/13394279401"
+    }
+  ]
+}

@@ -64,10 +64,11 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'reviews',
         timestamps: true,
         indexes: [
+            // Đã xóa unique constraint để cho phép user review nhiều lần
+            // Index không unique để tăng tốc query
             {
-                unique: true,
                 fields: ['user_id', 'restaurant_id'],
-                name: 'unique_user_restaurant_review'
+                name: 'idx_user_restaurant_review'
             }
         ]
     });

@@ -1,0 +1,262 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-24T01:23:48.045Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4805182821",
+        "amenity": "restaurant",
+        "cuisine": "american;barbecue;chicken;grill;noodles;pizza;sausage;steak_house",
+        "email": "pho5saovn@gmail.com",
+        "internet_access": "wlan",
+        "name:en": "Suon Nuong Cao Boi",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 938 381 188",
+        "website": "https://suonnuongcaoboi.vn/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.203722,
+          16.062368
+        ]
+      },
+      "id": "node/4805182821"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4759752150",
+        "addr:city": "Đà Nẵng",
+        "addr:country": "VN",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "4",
+        "addr:street": "Phạm Văn Đồng",
+        "amenity": "restaurant",
+        "cuisine": "barbecue;japanese",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "level": "0",
+        "name": "Phố Nướng Tokyo Đà Nẵng",
+        "outdoor_seating": "yes",
+        "phone": "+84 931 544 399",
+        "opening_hours": "Mo-Su 11:00-23:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2428955,
+          16.07061
+        ]
+      },
+      "id": "node/4759752150"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7020359049",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "45",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Hải Phòng",
+        "addr:subdistrict": "Thạch Thang",
+        "amenity": "restaurant",
+        "cuisine": "barbecue ; bbq",
+        "name": "Nhóp Nhép Lẩu Nướng",
+        "opening_hours": "Mo-Su 16:30-23:30",
+        "phone": "+84 379 011 111"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2178675,
+          16.0722538
+        ]
+      },
+      "id": "node/7020359049"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8624261430",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Cẩm Lệ",
+        "addr:housenumber": "38",
+        "addr:street": "Đường Chu Mạnh Trinh",
+        "addr:subdistrict": "Khuê Trung",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "cá sấu nướng Đà Thành 2",
+        "opening_hours": "Mo-Su 09:00-20:00",
+        "phone": "+84 906 058 087"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2103559,
+          16.0343423
+        ]
+      },
+      "id": "node/8624261430"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6911218676",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Thanh Khê",
+        "addr:housenumber": "K96/146",
+        "addr:postcode": "550000",
+        "addr:street": "Kiệt 96 Điện Biên Phủ",
+        "addr:subdistrict": "Thanh Khê Đông",
+        "amenity": "restaurant",
+        "delivery": "yes",
+        "internet_access": "wlan",
+        "name": "NEM NƯỚNG THANH HÀ",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 902 811 969",
+        "takeaway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1964679,
+          16.0675559
+        ]
+      },
+      "id": "node/6911218676"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7020359049",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "45",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Hải Phòng",
+        "addr:subdistrict": "Thạch Thang",
+        "amenity": "restaurant",
+        "cuisine": "asian",
+        "name": "Nhóp Nhép Lẩu Nướng",
+        "opening_hours": "Mo-Su 16:30-23:30",
+        "phone": "+84 379 011 111"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2178675,
+          16.0722538
+        ]
+      },
+      "id": "node/7020359049"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7370362779",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Thanh Khê",
+        "addr:housenumber": "73",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Lê Đình Lý",
+        "addr:subdistrict": "Vĩnh Trung",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese;grill;hotpot",
+        "name": "Cơm trưa, lẫu nướng Rammus",
+        "opening_hours": "Mo-Su 09:00-23:00",
+        "phone": "+84 905 002 304"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2115285,
+          16.0574296
+        ]
+      },
+      "id": "node/7370362779"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8624261430",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "29",
+        "addr:street": "Đường Doãn Uẩn",
+        "addr:subdistrict": "Khuê Mỹ",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "cá sấu nướng Đà Thành 2",
+        "opening_hours": "Mo-Su 09:00-20:00",
+        "phone": "+84 906 058 087"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2437554,
+          16.0346103
+        ]
+      },
+      "id": "node/8624261430"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11276780187",
+        "addr:city": "Phường An Hải Trung",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "505",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Trần Hưng Đạo",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "bar": "yes",
+        "brewery": "yes",
+        "contact:facebook": "https://facebook.com/lacabanadn/",
+        "cuisine": "steak_house;argentinian;burger",
+        "delivery": "yes",
+        "description": "La Cabana is a Cozy Argentinian Steak house in Da Nang. Han River, Dragon Bridge view with spacious space, comfortable seats, excellent air conditioners. La Cabana's signature includes perfect grilled Argentinian Steaks with reasonable prices.",
+        "diet:meat": "yes",
+        "email": "info@lacabana.vn",
+        "highchair": "yes",
+        "image": "https://lacabana.vn/web/image/866-e8968132/La%20Cabana%20restaurant%20on%20the%20street.jpg",
+        "internet_access": "wlan",
+        "internet_access:ssid": "La Cabana - House of BBQ",
+        "name": "La Cabana - House of BBQ",
+        "opening_hours": "Mo-Su 16:00-23:00",
+        "outdoor_seating": "yes",
+        "payment:account_cards": "yes",
+        "payment:apple_pay": "yes",
+        "payment:cash": "yes",
+        "payment:credit_cards": "yes",
+        "payment:jcb": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "+84 934 935 198",
+        "reservation": "yes",
+        "smoking": "outside",
+        "stars": "5",
+        "takeaway": "yes",
+        "toilets": "yes",
+        "toilets:wheelchair": "no",
+        "website": "https://lacabana.vn",
+        "website:menu": "https://lacabana.vn/menu/food-menu",
+        "wheelchair": "limited"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2302972,
+          16.0629394
+        ]
+      },
+      "id": "node/11276780187"
+    }
+  ]
+}

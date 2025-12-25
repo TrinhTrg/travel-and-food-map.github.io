@@ -1,0 +1,475 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T11:29:14Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4283597758",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "148",
+        "addr:street": "Võ Nguyên Giáp",
+        "addr:subdistrict": "Biển Mỹ Khuê",
+        "amenity": "bar",
+        "name": "Casa Breeze Restaurant & Bar",
+        "opening_hours": "Mo-Su 14:00-23:00",
+        "operator": "SS|VN",
+        "smoking": "outside",
+        "phone": "+84 236 655 8558",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipMXegVCj-ErOhiO8UtXNgnrgqC8yCQwFCp12Iw=w408-h272-k-no",
+        "website": "https://bit.ly/CasaBreeze"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2500022,
+          16.0473675
+        ]
+      },
+      "id": "node/4283597758"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4313932192",
+        "addr:housenumber": "229",
+        "addr:street": "Hồ Nghinh",
+        "amenity": "bar",
+        "cuisine": "burger;sandwich;international;breakfast;coffee_shop;steak_house;american;beef_bowl;pasta;chicken",
+        "internet_access": "wlan",
+        "name": "Kangaroo Bar & Burger",
+        "opening_hours": "Mo-Su 07:30-22:00",
+        "phone": "+84 935 810 692",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipMog5mid5KvoYFAnQD_xCeqjY6EXBq-Z7JVY9oc=w408-h306-k-no",
+        "website": "https://www.kangaroo-bar.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2430919,
+          16.0666644
+        ]
+      },
+      "id": "node/4313932192"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6627633488",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "11",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "An Thượng 32",
+        "addr:subdistrict": "Mỹ An",
+        "air_conditioning": "yes",
+        "amenity": "bar",
+        "brewery": "yes",
+        "check_date": "2025-05-16",
+        "description": "Live Sports All Day, Open 24/7. The only Irish Pub in Da Nang. Weekly Pool & Darts Competitions!",
+        "email": "info@shamrocksportsbar.com",
+        "internet_access": "yes",
+        "level": "0",
+        "name": "The Original Shamrock Sports Bar Da Nang 🇮🇪 since 2019",
+        "note": "Added by owner",
+        "opening_hours": "24/7",
+        "outdoor_seating": "yes",
+        "phone": "+84 333 314 600",
+        "smoking": "separated",
+        "website": "https://shamrocksportsbar.com",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipNWSeW_0UsVWoBcdlJVvrX9SMIuJ963l7qlvNb_=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2463653,
+          16.0509481
+        ]
+      },
+      "id": "node/6627633488"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7016543285",
+        "addr:housenumber": "48",
+        "addr:postcode": "550000",
+        "addr:street": "Phan Tứ",
+        "amenity": "bar",
+        "internet_access": "wlan",
+        "name": "The Craftsman Cocktail Bar",
+        "name:en": "Good atmosphere",
+        "name:ru": "Отличные авторские коктейли, приятная атмосфера",
+        "opening_hours": "Mo-Su 00:00-01:00; 19:30-00:00",
+        "phone": "+84 775 089 890",
+        "website": "https://www.facebook.com/thecraftsmancocktailbar/",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipMoUiF1JmCGJcdV18xT-wy-HrfCg9Uay-jnCnxp=w426-h240-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2470111,
+          16.0465373
+        ]
+      },
+      "id": "node/7016543285"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10537180403",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Quận Hải Châu",
+        "addr:housenumber": "28d",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Đống Đa",
+        "addr:subdistrict": "Phường Thuận Phước",
+        "air_conditioning": "yes",
+        "amenity": "bar",
+        "brewery": "yes;various",
+        "email": "fcg.carol.info@gmail.com",
+        "min_age": "18",
+        "name": "Carol Lounge",
+        "website": "https://drive.google.com/drive/folders/1R0jPKV_XokuZoEeOgFf7Awv2GQNrXDJS",
+        "opening_hours": "Mo-Su 21:00-03:00",
+        "phone": "+84 236 888 7999",
+        "source": "local knowledge;gps",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwPCX6q33SrYRvBQhNhkCRGxMd_AeXihd5PqaqcWcAGb-njkH4Ayw4566WKMz_ku78PisJpS1Inh-WbZ6idcSZRMwZ4TzwCr0VbD9BhIukjFYF6dqDV0Uene-OKB7LXfMcNdTh-=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2204005,
+          16.0823991
+        ]
+      },
+      "id": "node/10537180403"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10747475499",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "284",
+        "addr:postcode": "550000",
+        "addr:province": "Danang",
+        "addr:street": "Võ Nguyên Giáp",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "amenity": "bar",
+        "check_date": "2024-09-10",
+        "website": "https://www.facebook.com/MaiaDanang",
+        "currency:XBT": "no",
+        "name": "Maia Beach Bar",
+        "opening_hours": "Mo-Su 8:00-01:00",
+        "payment:lightning": "no",
+        "payment:onchain": "no",
+        "phone": "+84 347 588 190",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipPH7XVBNuFnFQ-Y_IcRSsiFWRjdOlugNpIi-IxM=w408-h408-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2485711,
+          16.0515244
+        ]
+      },
+      "id": "node/10747475499"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10747512788",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "270",
+        "addr:postcode": "550000",
+        "addr:province": "Danang",
+        "addr:street": "Võ Nguyên Giáp",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "amenity": "bar",
+        "check_date": "2024-09-10",
+        "currency:XBT": "no",
+        "phone": "+84 946 188 848",
+        "name": "Paradise Beach Bar & Cinema Danang",
+        "opening_hours": "Mo-Su 07:00-02:00",
+        "website": "https://www.dropbox.com/sh/gklszdwjy4omra5/AADovHFFXBI553nz6fCFv93ia?dl=0",
+        "payment:lightning": "no",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipPlbCmQ4Y3wStRBnB-uqnu6eobj1ICwN5GF_-IM=w408-h725-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2481303,
+          16.0534593
+        ]
+      },
+      "id": "node/10747512788"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10902657909",
+        "addr:housenumber": "26",
+        "addr:street": "An Thượng 30",
+        "amenity": "bar",
+        "name": "Section 30",
+        "phone": "+84 903 017 001",
+        "opening_hours": "Mo-Su 16:00-01:00",
+        "outdoor_seating": "yes",
+        "website": "https://fb.com/section30",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipP_jDRGKhERlusex5PsmlJgEHr44kcEZUrDjvXY=w408-h271-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2461773,
+          16.0513039
+        ]
+      },
+      "id": "node/10902657909"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11119032905",
+        "addr:street": "Đường Ngô Thì Sĩ",
+        "addr:housenumber": "50",
+        "amenity": "pub",
+        "check_date": "2024-09-10",
+        "cuisine": "burger",
+        "name:en": "Corner Pub",
+        "website": "https://www.facebook.com/profile.php?id=100085278603633",
+        "opening_hours": "Mo-Su 17:00-05:00",
+        "phone": "+84 789 425 899",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzAPTOdwD4Mi8kOY-yRUKLaVSlfSIRs-9mGUyt62tukt0_08bNzunDIHl1YpVanN21GhmPPbJyRyPHDZqdVYSIa5bQD3ki9sdVpWNk32zoxjoxPeZrbWG3yG1o7BW_RtxH68ujZMg=w472-h240-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2452807,
+          16.0476247
+        ]
+      },
+      "id": "node/11119032905"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11542212269",
+        "addr:housenumber": "36",
+        "addr:postcode": "550000",
+        "addr:street": "Bạch Đằng",
+        "amenity": "bar",
+        "email": "info@sky36.vn",
+        "internet_access": "wlan",
+        "name": "Sky36 Bar & Dining",
+        "name:en": "Sky36 Bar & Dining",
+        "name:ko-Latn": "스카이36 - 루프탑 나이트클럽",
+        "opening_hours": "Mo-Su 18:00-02:00",
+        "phone": "+84 901 151 536",
+        "website": "https://sky36.vn/",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwnAEO25YDNUSeEPUm8A69iMyV3-TFQi99kVl0C3Tvm4n6e2KThNYfj4LRsQCf3582XsRTim4K_L7wexUtOJSb9J33iC5XDcwaEjlu1CeXrWiEnumBo0gpOmoWdCNACtoIG2waL=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2246579,
+          16.0748392
+        ]
+      },
+      "id": "node/11542212269"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11546000278",
+        "addr:city": "Da Nang",
+        "addr:district": "Ngu Hanh Son",
+        "addr:housenumber": "26",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đỗ Bá",
+        "addr:subdistrict": "Mỹ An",
+        "air_conditioning": "yes",
+        "amenity": "bar",
+        "check_date": "2025-05-15",
+        "contact:facebook": "https://www.facebook.com/hybridpoolandlounge",
+        "description": "Da Nang's biggest sports bar - 10 x 65\" & 75\" 4K TV's showing all worldwide sport; NFL, NBA, NHL, EPL, cricket etc. 2 x freeplay Predator Apex pool tables, pool hall with 15 pool tables. Nightly pool & darts competitions. 24/7 good times!",
+        "internet_access": "wlan",
+        "internet_access:fee": "no",
+        "microbrewery": "yes",
+        "name": "Hybrid Sports Lounge: Watch | Play | Dine",
+        "opening_hours": "24/7",
+        "outdoor_seating": "yes",
+        "phone": "+84 903 322 310",
+        "smoking": "isolated",
+        "sport": "billiards;table_soccer;darts",
+        "website": "https://www.hybridpoolandlounge.com/",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipN33TSFCNuJoRhE5Ig5-DzKJqTbzCpwOs8RwBXG=w408-h272-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2459128,
+          16.0517792
+        ]
+      },
+      "id": "node/11546000278"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12101052301",
+        "addr:housenumber": "203",
+        "addr:street": "Đường Lê Quang Đạo",
+        "amenity": "bar",
+        "check_date": "2025-05-18",
+        "contact:facebook": "roadhousedanang",
+        "contact:instagram": "roadhousedanang",
+        "cuisine": "american",
+        "internet_access": "wlan",
+        "name": "Roadhouse Burgers",
+        "opening_hours": "Mo-Su 11:30-01:00",
+        "phone": "+84 905 827 577",
+        "website": "https://www.facebook.com/roadhousedanang/menu/?id=100057542705631&sk=menu",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipMhsP8uThguN1pCBifG95OyTsdklqZc3QcAv6px=w408-h306-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2462291,
+          16.0484009
+        ]
+      },
+      "id": "node/12101052301"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12173072808",
+        "addr:housenumber": "155",
+        "addr:street": "Lê Quang Đạo",
+        "amenity": "bar",
+        "check_date": "2025-05-23",
+        "name": "Game On Bar",
+        "opening_hours": "Mo-Su 11:00-03:00",
+        "phone": "+84 968 949 414",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwkh7SyLuN-e10kpdlWPwgqxuX9_I_x1ECKwuq5AcUF68gGsmOYg6iWVCPRyGLGiwwt-6WtE9aCzx0OoP6eSK9q2nqNvq_bOlG3gdXsiOiPx7bAZ1XK45n0OnDNVzvXJzRfhY7s=w408-h543-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2454131,
+          16.0510765
+        ]
+      },
+      "id": "node/12173072808"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12373133701",
+        "addr:housenumber": "39-41",
+        "addr:postcode": "50000",
+        "addr:street": "Đường Nguyễn Thái Học",
+        "amenity": "bar",
+        "name": "Tê Bar - Speakeasy",
+        "phone": "+84 788 334 343",
+        "opening_hours": "Mo-Su 19:00-01:30",
+        "website": "https://drive.google.com/file/d/19WDdL4Zh2oMJgeQJtfwLGA_SFzImQ9Hf/view?usp=sharing",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipPq7XmkVrGAny6f056ZxCYi3zXr_jS1SrZ7vfP2=w408-h271-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2234339,
+          16.0679973
+        ]
+      },
+      "id": "node/12373133701"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12600671095",
+        "addr:housenumber": "27",
+        "addr:street": "Thái Phiên",
+        "amenity": "bar",
+        "brewery": "rooster_beers",
+        "drink:craft_beer": "yes",
+        "name": "Tiệm Bia Gà - Rooster Beers Taproom Da Nang",
+        "name:en": "Rooster Beers Taproom",
+        "phone": "+84 824 648 199",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSw2BK2gp3YbuEfgGQWRX-TkOyb15uNdujfBWW3PPKzzwNTzrlCVr5bRPE9oeKSbFQNiEAEf7GIm3tKidqfcJw5CaYsiV8Dxf2YKzpstIMyzq4zOUNd0_swoKHhMb0EUGfcpqY34tMv1ies=w408-h544-k-no",
+        "website": "https://roosterbeers.com/",
+        "opening_hours": "Mo-Su 16:00-01:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2228845,
+          16.0649245
+        ]
+      },
+      "id": "node/12600671095"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12603974292",
+        "addr:housenumber": "16",
+        "addr:street": "Thái Phiên",
+        "amenity": "bar",
+        "brewery": "5_elements",
+        "drink:craft_beer": "yes",
+        "name": "BREWHAHA - 5 Elements Brew Co. Taproom",
+        "phone": "+84 911 340 989",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipPe5q0W5kQbv_PVAGStRyETBpv2fWpMlLuonecW=w408-h306-k-no",
+        "website": "http://brewhaha.vn/",
+        "opening_hours": "Mo-Su 10:00-00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2234405,
+          16.0650076
+        ]
+      },
+      "id": "node/12603974292"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12853200248",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "29",
+        "addr:postcode": "550000",
+        "addr:province": "Danang",
+        "addr:street": "Đường An Thượng 29",
+        "addr:subdistrict": "Mỹ An",
+        "amenity": "bar",
+        "check_date": "2025-09-07",
+        "name": "Sova Lounge Da Nang",
+        "opening_hours": "Mo-Su 18:00-02:00",
+        "phone": "+84 922 738 889",
+        "image_url": "https://lh3.googleusercontent.com/p/AF1QipMGAm9X5LYpZnGEW7giAWtt7S9MJo3Z8OXi6w7e=w426-h240-k-no",
+        "website": "https://sova.social/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2458141,
+          16.0520338
+        ]
+      },
+      "id": "node/12853200248"
+    }
+  ]
+}

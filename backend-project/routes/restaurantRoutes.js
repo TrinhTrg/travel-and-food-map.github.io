@@ -18,5 +18,8 @@ router.get('/by-category/:category_id', restaurantController.getRestaurantsByCat
 // POST /api/restaurants
 router.post('/', requireAuth, restaurantController.createRestaurant);
 
+// POST /api/restaurants/:id/view - Track restaurant view (không cần auth, có thể dùng session_id)
+router.post('/:id/view', restaurantController.trackRestaurantView);
+
 module.exports = router;
 

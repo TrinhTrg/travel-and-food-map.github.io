@@ -1,0 +1,2031 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T10:57:16Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/754677601",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "1C",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Lê Duẩn",
+        "addr:subdistrict": "Phường Hải Châu 1",
+        "amenity": "restaurant",
+        "building": "restaurant",
+        "cuisine": "vietnamese;seafood",
+        "diet:local": "yes",
+        "name": "Nhà hàng LoCo",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipP4y-zkmgp40UmCojMxcn8xrCFwymiOOyu5omaf=w408-h612-k-no",
+        "opening_hours": "10:00-23:00",
+        "@geometry": "center",
+        "phone": "+84 906 456 785"
+
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2234585,
+          16.0713531
+        ]
+      },
+      "id": "way/754677601"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1314179477",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "77",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Trần Bạch Đằng",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "amenity": "restaurant",
+        "cuisine": "barbecue; bbq",
+        "name": "땀띤식당(Tâm Tình Restaurant)",
+        "opening_hours": "Mo-Su 09:30-14:30 ; 16:30-22:00",
+        "website": "https://meatplusvn.com/meat-plus-da-nang/",
+        "phone": "+84 333 684 881",
+        "@geometry": "center"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.247442,
+          16.0509126
+        ]
+      },
+      "id": "way/1314179477"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "way/1326470317",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "Lô 1",
+        "addr:postcode": "550000",
+        "addr:street": "cầu Đảo Xanh",
+        "addr:subdistrict": "Hoà Cường Bắc",
+        "amenity": "restaurant",
+        "cuisine": "seafood;hotpot;grill",
+        "name": "Chill Chill Đảo Xanh",
+        "phone": "+84 911 155 590",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSx2l49xQcR-cDGg3EBUA3iDxd3_OJB1Ggju1Y0JlcjvWhkKTGYYoC0luvyvWdJprS8mLJDYP1h40RZvtghsFa3EhsIYwzVV3Izh_aNVydO-FrXIIUjhHZLAmQDbDezMooETsIvLL1c_Osw=w408-h272-k-no",
+        "website": "https://www.facebook.com/profile.php?id=61572638076291",
+        "@geometry": "center",
+        "opening_hours": "Mo-Su 16:00-00:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2242954,
+          16.0486996
+        ]
+      },
+      "id": "way/1326470317"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/2988980334",
+        "addr:housenumber": "244",
+        "addr:street": "Đường 2 Tháng 9",
+        "amenity": "restaurant",
+        "cuisine": "japanese",
+        "email": "sushibardanang@gmail.com",
+        "name": "Hương Cau",
+        "name:de": "Hương Cau",
+        "name:en": "The Sushi bar",
+        "name:vi": "The Sushi bar",
+        "opening_hours": "Mo-Su 09:00-17:00",
+        "operator": "DNTN Nhà hàng Thiên Quế",
+        "phone": "+84 901 970 838"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2231394,
+          16.0482352
+        ]
+      },
+      "id": "node/2988980334"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4076171123",
+        "addr:housenumber": "186",
+        "addr:street": "Trần Bạch Đằng",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:city": "Đà Nẵng",
+        "addr:postcode": "550000",
+        "amenity": "restaurant",
+        "name": "Bún Ốc Liễu Châu - Bún Quế Lâm (螺蛳粉 - 桂林米粉) - restaurant",
+        "opening_hours": "Mo-Su 06:00-02:00",
+        "phone": "+84 703 889 158"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2438548,
+          16.0532475
+        ]
+      },
+      "id": "node/4076171123"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10806946505",
+        "addr:housenumber": "51",
+        "addr:street": "Đường Dương Tự Quán",
+        "amenity": "restaurant",
+        "contact:facebook": "arrowcafedn",
+        "cuisine": "breakfast;coffee_shop;sandwich;tea;vietnamese",
+        "internet_access": "wlan",
+        "name:en": "NU ARROWS",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipMIyL-S8bPRLlqHJzfse4poy843xyLMGacwyk4U=w408-h343-k-no",
+        "phone": "+84 902 125 171"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.244882,
+          16.0465848
+        ]
+      },
+      "id": "node/10806946505"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4109054391",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "100",
+        "addr:street": "Đường Điện Biên Phủ",
+        "amenity": "restaurant",
+        "name": "Bê Thui 100",
+        "opening_hours": "Mo-Su 08:00-21:30",
+        "phone": "+84 905 558 538"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2002733,
+          16.0658884
+        ]
+      },
+      "id": "node/4109054391"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4118223691",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "03",
+        "addr:street": "Đường Tuệ Tĩnh",
+        "amenity": "restaurant",
+        "cuisine": "grill",
+        "name": "Bê Thui",
+        "opening_hours": "Mo-Su 08:00-23:00",
+        "phone": "+84 905 302 246"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2200408,
+          16.0549844
+        ]
+      },
+      "id": "node/4118223691"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4118236589",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "143-145",
+        "addr:street": "Đường Đỗ Bá",
+        "amenity": "restaurant",
+        "name": "Dê Nghĩa Restaurant",
+        "opening_hours": "Mo-Su 09:00-23:30",
+        "phone": "+84 942 353 535"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.0495557,
+          108.2343279
+        ]
+      },
+      "id": "node/4118236589"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4430077491",
+        "addr:housenumber": "5",
+        "addr:street": "Đường Hải Phòng",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese;noodles",
+        "name": "Mi Quang 1A",
+        "name:en": "Mi Quang 1A",
+        "name:ko": "미꽝-쌀국수",
+        "name:vi": "Mi Quang 1A",
+        "opening_hours": "Mo-Su 06:00-21:00",
+        "phone": "+84 511 382 7936"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2189341,
+          16.0725232
+        ]
+      },
+      "id": "node/4430077491"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4430078489",
+        "addr:housenumber": "248",
+        "addr:street": "Trần Phú",
+        "amenity": "restaurant",
+        "cuisine": "steak_house",
+        "name": "Red Sky Steakhouse Restaurant",
+        "name:en": "Red Sky Bar & Restaurant",
+        "opening_hours": "Mo-Su 11:00-14:00; 17:00-23:00",
+        "phone": "+84 905 727 576"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2232276,
+          16.0628344
+        ]
+      },
+      "id": "node/4430078489"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4464451390",
+        "addr:street": "Ngô Quyền",
+        "amenity": "restaurant",
+        "cuisine": "korean",
+        "internet_access": "wlan",
+        "name": "Nhà hàng HanCook",
+        "name:en": "HanCook Cafe & Food",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "operator": "Công ty TNHH MTV HanCook",
+        "phone": "05113991828"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2300722,
+          16.0716557
+        ]
+      },
+      "id": "node/4464451390"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4541527689",
+        "addr:housenumber": "23",
+        "addr:street": "Kiệt 280 Hoàng Diệu",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese;pancake",
+        "name": "Bánh Xèo Bà Dưỡng",
+        "name:ko": "반쎄오 바두엉",
+        "opening_hours": "Mo-Su 09:30-21:30",
+        "phone": "+84 236 3873 168"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2160349,
+          16.0588034
+        ]
+      },
+      "id": "node/4541527689"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4694652890",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "36",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "An Thượng 12",
+        "amenity": "restaurant",
+        "cuisine": "mexican;breakfast;burger;italian;international",
+        "delivery": "yes",
+        "email": "hangskitchen@gmail.com",
+        "name:en": "Hang's Kitchen - restaurant",
+        "opening_hours": "Mo-Su 08:30-22:30",
+        "outdoor_seating": "yes",
+        "phone": "+84 905 709 164, +84 906 448 421"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2376243,
+          16.04722
+        ]
+      },
+      "id": "node/4694652890"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4778581323",
+        "addr:housenumber": "53",
+        "addr:street": "Đường Morrison",
+        "amenity": "restaurant",
+        "internet_access": "wlan",
+        "name": "My Casa",
+        "name:vi": "My Casa Restaurant",
+        "phone": "+84 769 919 273",
+        "opening_hours": "Mo-Su 11:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2427238,
+          16.07163
+        ]
+      },
+      "id": "node/4778581323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4814994722",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Thanh Khê",
+        "addr:housenumber": "02",
+        "addr:street": "Đường Hoàng Hoa Thám",
+        "addr:subdistrict": "Tân Chính",
+        "amenity": "restaurant",
+        "cuisine": "korean",
+        "name": "CHOI’S - Korean Kitchen - restaurant",
+        "opening_hours": "Mo-Su 10:00-21:30",
+        "phone": "+84 906 404 794"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2093349,
+          16.0707738
+        ]
+      },
+      "id": "node/4814994722"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4860107522",
+        "addr:housenumber": "417",
+        "addr:street": "Nguyễn Tất Thành",
+        "amenity": "restaurant",
+        "internet_access": "wlan",
+        "name": "Nhà hàng Phú Mỹ Thành",
+        "opening_hours": "Mo-Su 08:00-21:30",
+        "phone": "+84 236 374 5749"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2049,
+          16.0763618
+        ]
+      },
+      "id": "node/4860107522"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4931152321",
+        "addr:housenumber": "19",
+        "addr:street": "Yên Bái",
+        "air_conditioning": "no",
+        "amenity": "restaurant",
+        "award:michelin": "bib_gourmand:2024,2025",
+        "check_date": "2025-11-08",
+        "cuisine": "reg;regional",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "Quán Phú Hồng",
+        "name:vi": "Quán Phú Hồng",
+        "opening_hours": "10:30-14:00,16:00-21:30",
+        "phone": "+84 905 588 855",
+        "payment:cards": "no",
+        "payment:cash": "yes",
+        "payment:credit_cards": "no",
+        "payment:debit_cards": "no",
+        "restaurant": "eatery",
+        "wheelchair": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2229138,
+          16.0695853
+        ]
+      },
+      "id": "node/4931152321"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4948013624",
+        "addr:housenumber": "109",
+        "addr:street": "Nguyễn Chí Thanh",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "Quán An Bún Chả Cá",
+        "name:vi": "Quán An Bún Chả Cá",
+        "phone": "+84 945 713 171",
+        "opening_hours": "Mo-Su 06:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2206238,
+          16.0745962
+        ]
+      },
+      "id": "node/4948013624"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5116302323",
+        "addr:housenumber": "441",
+        "addr:street": "Đường Ông Ích Khiêm",
+        "amenity": "restaurant",
+        "name": "Quán Mì Quảng Ếch",
+        "name:vi": "Mì Quảng Ếch ",
+        "opening_hours": "Mo-Su 06:30-22:30",
+        "phone": "+84 968 086 529"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2163479,
+          16.0619829
+        ]
+      },
+      "id": "node/5116302323"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5293335937",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Thanh Khê",
+        "addr:housenumber": "258",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Nguyễn Văn Linh",
+        "addr:subdistrict": "Thạch Gián",
+        "amenity": "restaurant",
+        "capacity": "300",
+        "delivery": "no",
+        "name": "Đổi gió Restaurant",
+        "opening_hours": "Mo-Su 10:00-23:00",
+        "outdoor_seating": "no",
+        "phone": "+84 236 365 0955",
+        "smoking": "no",
+        "takeaway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2093536,
+          16.0598008
+        ]
+      },
+      "id": "node/5293335937"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5414316021",
+        "addr:housenumber": "40",
+        "addr:street": "Đường An Thượng 30",
+        "amenity": "restaurant",
+        "check_date": "2023-01-08",
+        "cuisine": "italian",
+        "internet_access": "wlan",
+        "name": "L'italiano Restaurant",
+        "opening_hours": "Mo-Su 11:00-22:00",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "phone": "+84 906 069 458"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2456807,
+          16.0511561
+        ]
+      },
+      "id": "node/5414316021"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5429167110",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "4",
+        "addr:street": "Trần Quốc Toản",
+        "amenity": "restaurant",
+        "cuisine": "thai",
+        "name": "Nhà Hàng Đồ Ăn Thái - Thai Market Restaurant",
+        "website": "https://thaimarket.vn/",
+        "phone": "+84 1900 0207",
+        "opening_hours": "Mo-Su 10:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2242408,
+          16.0661423
+        ]
+      },
+      "id": "node/5429167110"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5429181331",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "46",
+        "addr:street": "Thái Phiên",
+        "amenity": "restaurant",
+        "cuisine": "thai",
+        "name": "Nhà Hàng Đồ Ăn Thái - Thai Market Restaurant",
+        "website": "https://thaimarket.vn/",
+        "phone": "+84 1900 0207",
+        "opening_hours": "Mo-Su 10:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2225171,
+          16.0651331
+        ]
+      },
+      "id": "node/5429181331"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5429221882",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "7",
+        "addr:street": "Bạch Đằng",
+        "amenity": "restaurant",
+        "check_date": "2023-01-07",
+        "name": "Memory Lounge Restaurant",
+        "opening_hours": "Mo-Su 07:00-22:30",
+        "phone": "+84 236 357 5899",
+        "website": "https://www.facebook.com/memoryloungedanang/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2251645,
+          16.0726661
+        ]
+      },
+      "id": "node/5429221882"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5699718559",
+        "addr:street": "Tầng trệt, Coopmart, 478 Điện Biên Phủ, Q. Thanh Khê, TP, Thanh Khê Đông, Thanh Khê, Đà Nẵng, Vietnam",
+        "amenity": "restaurant",
+        "name": "The Pizza Company Restaurant",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 1900 6066",
+        "website": "https://thepizzacompany.vn/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1870304,
+          16.0667331
+        ]
+      },
+      "id": "node/5699718559"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5796473953",
+        "addr:housenumber": "87",
+        "addr:street": "Đường Hoàng Văn Thụ",
+        "amenity": "restaurant",
+        "cuisine": "thai;vietnamese",
+        "diet:vegan": "yes",
+        "internet_access": "wlan",
+        "name": "Nhà hàng Chay",
+        "name:en": "Revolution Of Mushroom",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "phone": "+84 905 789 085",
+        "website": "http://revolutionofmushroom.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2195011,
+          16.0629555
+        ]
+      },
+      "id": "node/5796473953"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5804107053",
+        "addr:housenumber": "329",
+        "addr:street": "Dương Đình Nghệ",
+        "amenity": "restaurant",
+        "contact:facebook": "https://www.facebook.com/profile.php?id=100063541972195",
+        "cuisine": "tea;pizza;pasta;thai;vietnamese;coffee_shop",
+        "diet:vegan": "only",
+        "internet_access": "wlan",
+        "name": "Quán Chay 2 Restaurant",
+        "name:en": "Vegan Restaurant",
+        "name:vi": "Ða Năng Cơm Chay 2",
+        "opening_hours": "Mo-Su 07:00-22:00",
+        "phone": "+84 906 268 209"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2329541,
+          16.0707582
+        ]
+      },
+      "id": "node/5804107053"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5947469393",
+        "addr:housenumber": "56",
+        "addr:street": "Đường Hoàng Bích Sơn",
+        "amenity": "restaurant",
+        "contact:facebook": "ThucDuongBaoAn",
+        "cuisine": "vietnamese",
+        "diet:vegan": "yes",
+        "diet:vegetarian": "yes",
+        "email": "thucduongbaoan@gmail.com",
+        "internet_access": "wlan",
+        "name": "Nhà hàng chay Thực Dưỡng Bảo An (Bao An Macrobiotics)",
+        "name:en": "Thực Dưỡng Bảo An",
+        "opening_hours": "Mo-Sa 06:30-20:30; Su 06:30-15:30",
+        "phone": "+84 902 957 256",
+        "website": "https://thucduongbaoan.com.vn/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2409602,
+          16.0753828
+        ]
+      },
+      "id": "node/5947469393"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5978084714",
+        "addr:housenumber": "30/1",
+        "addr:street": "Đặng Thai Mai",
+        "amenity": "restaurant",
+        "description": "vegetarian food",
+        "diet:vegetarian": "only",
+        "name": "Nhà Hàng Chay Hoa Sen - Vegetarian Restaurant",
+        "opening_hours": "Mo-Su 09:00-20:00",
+        "phone": "+84 90 599 44 73;+84 90 583 74 73"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2099353,
+          16.0609388
+        ]
+      },
+      "id": "node/5978084714"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6120622785",
+        "addr:city": "Hải Châu",
+        "addr:housenumber": "37",
+        "addr:postcode": "551300",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Ba Đình",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "diet:gluten_free": "yes",
+        "diet:halal": "yes",
+        "diet:vegan": "yes",
+        "diet:vegetarian": "yes",
+        "name": "Quán ăn ngon Thìa Gỗ Đà Nẵng-style",
+        "name:en": "Thìa Gỗ Danang-style restaurant",
+        "opening_hours": "Mo-Su 11:00-20:30",
+        "phone": "+84 236 368 9005",
+        "website": "http://www.thiagodnstyle.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2183879,
+          16.0760522
+        ]
+      },
+      "id": "node/6120622785"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6147088185",
+        "addr:housenumber": "17",
+        "addr:street": "Trần Tống",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese;beef_noodle",
+        "name": "Quán Bún Bò Bà Diệu",
+        "name:en": "Bun Bo Ba Dieu",
+        "opening_hours": "Mo-Su 13:00+",
+        "phone": "+84 236 365 2323"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.210864,
+          16.0585612
+        ]
+      },
+      "id": "node/6147088185"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6378039485",
+        "addr:housenumber": "29",
+        "addr:street": "Đường Lưu Quang Thuận",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "internet_access": "wlan",
+        "name": "Markets Restaurant",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 905 001 744"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2456682,
+          16.0402369
+        ]
+      },
+      "id": "node/6378039485"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6594176685",
+        "addr:housenumber": "100",
+        "addr:street": "Đường Lê Đình Dương",
+        "amenity": "restaurant",
+        "name": "Cơm Bà Thôi Restaurant",
+        "opening_hours": "24/7",
+        "phone": "+84 511 382 5384"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2227325,
+          16.0613578
+        ]
+      },
+      "id": "node/6594176685"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6845812585",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "30",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Ăn Trung Đông 1",
+        "addr:subdistrict": "An Hải Đông",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "cuisine": "indian",
+        "delivery": "yes",
+        "email": "indiancurrydanang@gmail.com",
+        "internet_access": "wlan",
+        "name:en": "INDIAN CURRY - Authentic Indian Restaurant",
+        "opening_hours": "Mo-Su 09:00-22:30",
+        "operator": "JK",
+        "phone": "+84 707 311 084",
+        "reservation": "yes",
+        "takeaway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2356323,
+          16.0622793
+        ]
+      },
+      "id": "node/6845812585"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6911218676",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Thanh Khê",
+        "addr:housenumber": "K96/146",
+        "addr:postcode": "550000",
+        "addr:street": "Kiệt 96 Điện Biên Phủ",
+        "addr:subdistrict": "Thanh Khê Đông",
+        "amenity": "restaurant",
+        "delivery": "yes",
+        "internet_access": "wlan",
+        "name": "NEM NƯỚNG THANH HÀ Restaurant",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 902 811 969",
+        "takeaway": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1964679,
+          16.0675559
+        ]
+      },
+      "id": "node/6911218676"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6984061285",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "45-47",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường An Thượng 2",
+        "addr:subdistrict": "Mỹ An",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "bar": "yes",
+        "check_date": "2025-05-20",
+        "cuisine": "breakfast;coffee_shop;american;burger",
+        "delivery": "yes",
+        "diet:meat": "yes",
+        "email": "hello@bikinibottomexpress.com",
+        "highchair": "yes",
+        "name": "Bikini Bottom Express Restaurant",
+        "name:en": "Bikini Bottom",
+        "opening_hours": "mo-su 08:00-22:45",
+        "phone": "+84 934 916 911",
+        "toilets": "yes",
+        "website": "https://bikinibottomexpress.com/",
+        "website:menu": "bikinibottomexpress.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2475717,
+          16.0486661
+        ]
+      },
+      "id": "node/6984061285"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/7027674785",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "341",
+        "addr:street": "Đường Trần Hưng Đạo",
+        "amenity": "restaurant",
+        "cuisine": "steak_house",
+        "name": "Danang Tower Steakhouse Restaurant",
+        "name:en": "Danang Tower Steakhouse",
+        "name:ko": "다낭 타워 스테이크 하우스",
+        "opening_hours": "Mo-Su 11:00-24:00",
+        "phone": "+84 896 623 737"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2292556,
+          16.0709643
+        ]
+      },
+      "id": "node/7027674785"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/8754806961",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "175",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Bà Huyện Thanh Quan",
+        "addr:subdistrict": "Mỹ An",
+        "amenity": "restaurant",
+        "diet:dairy_free": "yes",
+        "diet:egg_free": "yes",
+        "diet:gluten_free": "yes",
+        "diet:healthy": "yes",
+        "diet:raw": "yes",
+        "diet:sugar_free": "yes",
+        "diet:vegan": "yes",
+        "diet:vegetarian": "yes",
+        "name": "KURUMI - Restaurant",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "opening_hours:covid19": "Mo-Su 08:00-21:00",
+        "phone": "+84 956 984 4088",
+        "website": "https://kurumi.vn/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.245744,
+          16.0452794
+        ]
+      },
+      "id": "node/8754806961"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10537046604",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Quận Hải Châu",
+        "addr:housenumber": "28d",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Đống Đa",
+        "addr:subdistrict": "Phường Thuận Phước",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "diet:meat": "yes",
+        "diet:vegetarian": "yes",
+        "name": "Carol Lounge Restaurant",
+        "opening_hours": "Mo-Su 20:00-03:00",
+        "phone": "+84 927 456 789",
+        "website": "https://carollounge.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2203289,
+          16.0823478
+        ]
+      },
+      "id": "node/10537046604"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10779745505",
+        "addr:housenumber": "172",
+        "addr:street": "Đường Châu Thị Vĩnh Tế",
+        "amenity": "restaurant",
+        "name": "Chinese Noodle Đệ Nhất Sủi Cảo Hoàn Mỹ - Restaurant",
+        "opening_hours": "Mo-Su 06:30-22:00",
+        "phone": "+84 343 122 339"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2410216,
+          16.0484989
+        ]
+      },
+      "id": "node/10779745505"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10798682806",
+        "addr:housenumber": "85",
+        "addr:street": "Kiệt 227 Đường Nguyễn Văn Thoại",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "internet_access": "wlan",
+        "name": "Làng Tôi - Bánh Khoái Cá Kình Huế Restaurant",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 93 598 27 71"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2443933,
+          16.0583075
+        ]
+      },
+      "id": "node/10798682806"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11684513272",
+        "addr:housenumber": "11/1",
+        "addr:street": "Đường Lưu Quang Thuận",
+        "amenity": "restaurant",
+        "contact:facebook": "NuDoKitchenVN",
+        "cuisine": "vietnamese",
+        "internet_access": "wlan",
+        "name": "Nu Đồ Restaurant",
+        "name:en": "Masterchef Noodles",
+        "opening_hours": "Mo-Su 08:00-16:00",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwnF0wpRmssPvC9IvTxT1If-1ORhvkYxvV-L99yOxTTaN05DEavUnQCG0MvQBbxeUvzYgbzJbH2EWB0X4MRtMX7OW9WujZShWt48h3-zh5OLoJCJbRKApV3dI8awnJ0wPDkdIae8GBHwpkx=w408-h306-k-no",
+        "phone": "+84 932 594 771"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2453688,
+          16.0409571
+        ]
+      },
+      "id": "node/11684513272"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11758839350",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "346",
+        "addr:postcode": "550000",
+        "addr:street": "2 Tháng 9",
+        "addr:subdistrict": "Hòa Cường Bắc",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "Bếp Của Mạ - Cơm niêu và món Huế - Restaurant",
+        "opening_hours": "Mo-Su 10:00-21:00",
+        "phone": "+84 866 353 739",
+        "website": "fb.com/comnieuvamonhue"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2234461,
+          16.0389193
+        ]
+      },
+      "id": "node/11758839350"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11906566069",
+        "addr:housenumber": "333",
+        "addr:street": "Đường Hồ Nghinh",
+        "amenity": "restaurant",
+        "check_date": "2024-09-11",
+        "cuisine": "japanese",
+        "internet_access": "wlan",
+        "name": "BaBaBa Japanese Restaurant",
+        "opening_hours": "Mo-Su 10:00-22:00",
+        "phone": "+84 789 686 856",
+        "website": "https://www.bababajapan.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2436944,
+          16.0622398
+        ]
+      },
+      "id": "node/11906566069"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11906566170",
+        "addr:housenumber": "75",
+        "addr:street": "Đường Ngô Thì Sĩ",
+        "amenity": "restaurant",
+        "check_date": "2025-05-20",
+        "cuisine": "italian_pizza;pizza;pasta",
+        "internet_access": "wlan",
+        "name": "Olivia Pizza Restaurant",
+        "opening_hours": "Mo-Su 17:00-01:30",
+        "phone": "+84 986 080 847"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2450807,
+          16.0477146
+        ]
+      },
+      "id": "node/11906566170"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11951128766",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "Lô B6-B7, Đường 2/9, Bình Thuận, Hải Châu",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường 2 Tháng 9",
+        "addr:subdistrict": "Hòa Thuận Đông",
+        "amenity": "restaurant",
+        "cuisine": "korean",
+        "diet:non-vegetarian": "yes",
+        "name": "Mì Cay SEOUL Hải Châu Restaurant",
+        "opening_hours": "Mo-Su 08:00-22:00",
+        "phone": "+84 397 366 673",
+        "website": "https://micayseoul.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2224112,
+          16.0543706
+        ]
+      },
+      "id": "node/11951128766"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12032859170",
+        "addr:housenumber": "222",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Trần Phú",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "XÓM MỚI GARDEN ĐÀ NẴNG (씀모이가든 다낭)",
+        "opening_hours": "Mo-Su 10:30-22:00",
+        "phone": "+84931951004",
+        "website": "https://www.xommoigarden.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2232424,
+          16.0635146
+        ]
+      },
+      "id": "node/12032859170"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12600778557",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Hải Châu",
+        "addr:housenumber": "154",
+        "addr:postcode": "550000",
+        "addr:province": "Thành phố Đà Nẵng",
+        "addr:street": "Đường Trần Phú",
+        "addr:subdistrict": "Phường Hải Châu  I",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "bar": "yes",
+        "branch": "Pink Church",
+        "brand": "Bikini Bottom Express",
+        "capacity": "100",
+        "contact:facebook": "https://www.facebook.com/bikinibottomexpress/",
+        "cuisine": "burger;brunch",
+        "delivery": "yes",
+        "email": "hello@bikinibottomexpress.com",
+        "highchair": "yes",
+        "name": "Bikini Bottom Express Pink Church Restaurant",
+        "opening_hours": "Mo-Su 08:00-23:00",
+        "phone": "+84 932 421 203",
+        "website": "https://www.bikinibottomexpress.com/",
+        "website:menu": "bikinibottomexpress.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2236568,
+          16.0672416
+        ]
+      },
+      "id": "node/12600778557"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12850675090",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "05",
+        "addr:postcode": "550000",
+        "addr:street": "Đường An Thượng 6",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "amenity": "restaurant",
+        "check_date": "2025-08-24",
+        "cuisine": "vietnamese;coffee_shop;cafe",
+        "name": "Roly Poly Fresh Spring Rolls & Coffee Đà Nẵng Restaurant",
+        "opening_hours": "Mo-Su 10:00-20:00",
+        "phone": "+84 327 306 076",
+        "website": "https://www.rolypolydanang.vn/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2450404,
+          16.0487934
+        ]
+      },
+      "id": "node/12850675090"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12976267223",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "493",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Đường Trần Hưng Đạo",
+        "addr:subdistrict": "An Hải Trung",
+        "amenity": "restaurant",
+        "check_date": "2025-11-07",
+        "cuisine": "italian;pizza",
+        "diet:mediterranean": "yes",
+        "name": "Riverside Terrace Restaurant",
+        "opening_hours": "Mo-Su 11:00-23:00",
+        "phone": "+84 911500440"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2302807,
+          16.0631261
+        ]
+      },
+      "id": "node/12976267223"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13009347078",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "16",
+        "addr:postcode": "550000",
+        "addr:street": "Chế Lan Viên",
+        "addr:subdistrict": "Bắc Mỹ An",
+        "amenity": "restaurant",
+        "contact:facebook": "lecomptoirdng",
+        "contact:instagram": "lecomptoirdng",
+        "cuisine": "french",
+        "email": "lecomptoirdng@gmail.com",
+        "language:en": "yes",
+        "language:vi": "yes",
+        "mobile": "+84 842 588 931",
+        "name": "Le Comptoir Restaurant",
+        "opening_hours": "Mo-Su 17:00-21:00",
+        "payment:cash": "yes",
+        "payment:mastercard": "yes",
+        "payment:paypal": "yes",
+        "payment:visa": "yes",
+        "phone": "+84 708 040 560",
+        "source:website": "https://www.tripadvisor.com.vn/Restaurant_Review-g27704560-d15059295-Reviews-Le_Comptoir_Danang-Ngu_Hanh_Son_Da_Nang.html",
+        "start_date": "2017",
+        "website": "https://lecomptoirdng.com/en/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.245455,
+          16.0426768
+        ]
+      },
+      "id": "node/13009347078"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13040636501",
+        "addr:housenumber": "122",
+        "addr:street": "Đường Hồ Xuân Hương",
+        "amenity": "restaurant",
+        "name": "Bò Né 3 Ngon Restaurant",
+        "opening_hours": "Mo-Su 06:00-11:00",
+        "phone": "+84 905 249 827"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.247529,
+          16.0401826
+        ]
+      },
+      "id": "node/13040636501"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13165190395",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "97",
+        "addr:postcode": "55000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Mai Thúc Lân",
+        "addr:subdistrict": "Mỹ An",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "bar": "yes",
+        "capacity": "150",
+        "contact:facebook": "https://www.facebook.com/vietnomeatery/",
+        "cuisine": "vietnamese",
+        "delivery": "yes",
+        "diet:local": "yes",
+        "diet:meat": "yes",
+        "diet:vegetarian": "yes",
+        "email": "hello@vietnom.kitchen",
+        "highchair": "yes",
+        "name": "Vietnom Local Eatery Restaurant",
+        "opening_hours": "Mo-Su 07:30-22:00",
+        "outdoor_seating": "yes",
+        "payment:american_express": "yes",
+        "payment:cards": "yes",
+        "payment:cash": "yes",
+        "payment:contactless": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:discover_card": "yes",
+        "payment:jcb": "yes",
+        "payment:maestro": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "payment:visa_debit": "yes",
+        "payment:visa_electron": "yes",
+        "phone": "+84 905 482 913",
+        "website": "https://vietnom.kitchen/",
+        "website:menu": "vietnom.kitchen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2438751,
+          16.047867
+        ]
+      },
+      "id": "node/13165190395"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13165204025",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "99",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Mai Thúc Lân",
+        "addr:subdistrict": "Mỹ An",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "bar": "yes",
+        "capacity": "120",
+        "contact:facebook": "https://www.facebook.com/missteakvn/",
+        "cuisine": "steak_house",
+        "delivery": "yes",
+        "diet:meat": "yes",
+        "email": "hello@missteak.co",
+        "highchair": "yes",
+        "name": "Missteak Restaurant",
+        "opening_hours": "Mo-Su 11:30-23:00",
+        "outdoor_seating": "yes",
+        "payment:american_express": "yes",
+        "payment:cards": "yes",
+        "payment:cash": "yes",
+        "payment:contactless": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:discover_card": "yes",
+        "payment:jcb": "yes",
+        "payment:maestro": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "payment:visa_debit": "yes",
+        "payment:visa_electron": "yes",
+        "phone": "1,432 Google reviews",
+        "website": "https://missteak.co/",
+        "website:menu": "missteak.co"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2438843,
+          16.0478267
+        ]
+      },
+      "id": "node/13165204025"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13165207773",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "95",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Mai Thúc Lân",
+        "addr:subdistrict": "Mỹ An",
+        "air_conditioning": "yes",
+        "amenity": "restaurant",
+        "capacity": "120",
+        "cuisine": "hawaiian;fusion",
+        "delivery": "yes",
+        "diet:fish": "yes",
+        "diet:healthy": "yes",
+        "diet:vegan": "yes",
+        "diet:vegetarian": "yes",
+        "email": "hello@rainbowlpoke.com",
+        "highchair": "yes",
+        "name": "Rainbowl Poke Restaurant",
+        "opening_hours": "mo-su 07:30-22:00",
+        "outdoor_seating": "yes",
+        "payment:american_express": "yes",
+        "payment:cards": "yes",
+        "payment:cash": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "payment:discover_card": "yes",
+        "payment:jcb": "yes",
+        "payment:maestro": "yes",
+        "payment:mastercard": "yes",
+        "payment:visa": "yes",
+        "payment:visa_electron": "yes",
+        "phone": "+84 769 059 079",
+        "website": "https://rainbowlpoke.com/",
+        "website:menu": "vietnom.kitchen"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2438673,
+          16.0479151
+        ]
+      },
+      "id": "node/13165207773"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13382556901",
+        "addr:housenumber": "60",
+        "addr:street": "Đường Pasteur",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "Quán Phở Thìn Đà Nẵng",
+        "opening_hours": "Mo-Su 06:00-14:00; 17:00-21:00",
+        "phone": "+84 935 576 060"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2130745,
+          16.0698761
+        ]
+      },
+      "id": "node/13382556901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13368831001",
+        "addr:housenumber": "74",
+        "addr:street": "Đường Nguyễn Chí Thanh",
+        "amenity": "restaurant",
+        "diet:vegetarian": "yes",
+        "name": "Nhà hàng chay UM MANI",
+        "phone": "+84 963 856 811",
+        "opening_hours": "Mo-Su 10:30-14:30, 16:00-21:00",
+        "outdoor_seating": "yes",
+        "self_service": "no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2207958,
+          16.0732641
+        ]
+      },
+      "id": "node/13368831001"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13371161201",
+        "addr:housenumber": "13",
+        "addr:street": "Đường Nguyễn Văn Thoại",
+        "amenity": "restaurant",
+        "cuisine": "noodles;vietnamese",
+        "name": "PHỞ THÌN 13 LÒ ĐÚC",
+        "outdoor_seating": "no",
+        "self_service": "no",
+        "phone": "+84 853 623 628",
+        "opening_hours": "Mo-Su 06:00-22:30"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2410262,
+          16.054737
+        ]
+      },
+      "id": "node/13371161201"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13373374201",
+        "addr:housenumber": "59",
+        "addr:street": "Đường Bà Huyện Thanh Quan",
+        "amenity": "restaurant",
+        "cuisine": "thai",
+        "name": "กิน กิน Kin Kin Thai Food - Restaurant",
+        "opening_hours": "Mo-Su 11:00-14:00, 16:30-21:30",
+        "outdoor_seating": "yes",
+        "self_service": "no",
+        "phone": "+84 905 798 692"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.24418,
+          16.043404
+        ]
+      },
+      "id": "node/13373374201"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12836656104",
+        "addr:housenumber": "64",
+        "addr:street": "Lê Quang Đạo",
+        "amenity": "restaurant",
+        "cuisine": "steak_house",
+        "name": "Butcher Steak - Restaurant",
+        "phone": "+84 327 900 268",
+        "opening_hours": "Mo-Su 10:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2451984,
+          16.0508781
+        ]
+      },
+      "id": "node/12836656104"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12918575654",
+        "addr:city": "Ngũ Hành Sơn",
+        "addr:housenumber": "68",
+        "addr:street": "Nguyễn Tư Giản",
+        "amenity": "restaurant",
+        "contact:phone": "+84 905 798 692",
+        "name": "Westwood Da Nang - Restaurant",
+        "opening_hours": "Tu-Su 18:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2350925,
+          16.0474663
+        ]
+      },
+      "id": "node/12918575654"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13097955401",
+        "addr:housenumber": "183",
+        "addr:street": "Đường Châu Thị Vĩnh Tế",
+        "amenity": "restaurant",
+        "cuisine": "asian;oriental;regional;vietnamese",
+        "name": "Quán Cơm Gà Xối Mỡ Duyên ( Chicken Rice )",
+        "self_service": "no",
+        "phone": "+84 768 522 777",
+        "opening_hours": "Mo-Su 09:00-21:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.24159,
+          16.0470283
+        ]
+      },
+      "id": "node/13097955401"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13362942201",
+        "addr:housenumber": "123",
+        "addr:street": "Đường Phạm Cự Lượng",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "diet:vegetarian": "yes",
+        "name": "Quán chay Thu",
+        "phone": "+84 776 978 057",
+        "opening_hours": "Mo-Su 06:00-22:30"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2375729,
+          16.0562893
+        ]
+      },
+      "id": "node/13362942201"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13362942301",
+        "addr:housenumber": "30",
+        "addr:street": "Đường An Thượng 8",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "diet:vegetarian": "yes",
+        "name": "Quán Chay xinh",
+        "phone": "+84 943 851 598",
+        "opening_hours": "Mo-Su 07:00-22:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.244709,
+          16.0480317
+        ]
+      },
+      "id": "node/13362942301"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5541654970",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Sơn Trà",
+        "addr:housenumber": "216",
+        "addr:postcode": "550000",
+        "addr:province": "Đà Nẵng",
+        "addr:street": "Võ Nguyên Giáp",
+        "addr:subdistrict": "Phước Mỹ",
+        "amenity": "restaurant",
+        "capacity": "120",
+        "cuisine": "seafood;vietnamese;dessert;wine;asian",
+        "level": "3",
+        "name": "NEM Restaurant",
+        "name:ko": "NEM 씨푸드 식당",
+        "name:vi": "Nhà hàng NEM",
+        "opening_hours": "Mo-Su 05:30-22:00",
+        "operator": "Belle Maison Parosand Hotel",
+        "takeaway": "yes",
+        "phone": "+84 917 248 688"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2449556,
+          16.0675122
+        ]
+      },
+      "id": "node/5541654970"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12402104801",
+        "addr:housenumber": "227",
+        "addr:postcode": "50000",
+        "addr:street": "Đường Dương Đình Nghệ",
+        "amenity": "restaurant",
+        "cuisine": "japanese;sushi",
+        "name": "Nhà hàng Nhật Miyoshi",
+        "opening_hours": "Mo-Su 11:00-14:00; 17:00-22:00",
+        "phone": "+84 768 425 488"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2364723,
+          16.0693093
+        ]
+      },
+      "id": "node/12402104801"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12337003901",
+        "addr:housenumber": "389",
+        "addr:street": "Đường Trần Hưng Đạo",
+        "air_conditioning": "no",
+        "amenity": "restaurant",
+        "award:michelin": "bib_gourmand:2024,2025",
+        "bar": "no",
+        "check_date": "2025-11-07",
+        "contact:phone": "+84 236 381 0307",
+        "cuisine": "noodles;chicken;fish;seafood;vietnamese;local;noodles;regional;frog;rooster_testicles",
+        "internet_access": "wlan",
+        "internet_access:fee": "customers",
+        "name": "Mỳ Quảng Cô Sáu - Restaurant",
+        "name:vi": "Mỳ Quảng Sứa Hồng Vân",
+        "opening_hours": "Mo-Su 06:00-22:30",
+        "payment:cash": "yes",
+        "payment:credit_cards": "yes",
+        "payment:debit_cards": "yes",
+        "wheelchair": "yes"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.229693,
+          16.0661233
+        ]
+      },
+      "id": "node/12337003901"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12350543701",
+        "addr:housenumber": "3",
+        "addr:street": "Kiệt 113 Nguyễn Chí Thanh",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese;noodle",
+        "name": "Bún chả cá Hờn - Restaurant",
+        "opening_hours": "Mo-Su 06:00-20:30",
+        "phone": "+84 236 381 0307"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2212407,
+          16.0740827
+        ]
+      },
+      "id": "node/12350543701"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12372824402",
+        "addr:housenumber": "59",
+        "addr:street": "Đường Lê Hồng Phong",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "internet_access": "wlan",
+        "name": "Mì Quảng Hồng Vân - Restaurant",
+        "opening_hours": "Mo-Su 06:00-13:30",
+        "phone": "+84 788 492 977"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2205832,
+          16.0640032
+        ]
+      },
+      "id": "node/12372824402"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12373107601",
+        "addr:housenumber": "18",
+        "addr:street": "Đường An Thượng 24",
+        "amenity": "restaurant",
+        "cuisine": "italian;italian_pizza;pizza",
+        "name": "Bravo Pizzeria - Restaurant",
+        "opening_hours": "Mo-Su 16:40-23:30",
+        "phone": "+84 338 830 883"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2417111,
+          16.0526459
+        ]
+      },
+      "id": "node/12373107601"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12382429401",
+        "addr:street": "Đường Đỗ Bá",
+        "amenity": "restaurant",
+        "check_date": "2025-05-15",
+        "name": "Nhà Hàng Mỳ Lan Châu Đỗ Bá 兰州拉面一号店",
+        "opening_hours": "Mo-Su 06:00-03:00",
+        "phone": "+84 708 988 287"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2463757,
+          16.0519094
+        ]
+      },
+      "id": "node/12382429401"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12402101301",
+        "addr:housenumber": "11B2",
+        "addr:postcode": "50000",
+        "addr:street": "Đường Đinh Thị Hòa",
+        "amenity": "restaurant",
+        "cuisine": "italian;italian_pizza",
+        "name": "CinCin Pizzeria - Sourdough & Wood-Fired Pizza DaNang - Restaurant",
+        "opening_hours": "Mo-Su 17:00-22:00",
+        "phone": "+84 935 570 457"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2372895,
+          16.0731069
+        ]
+      },
+      "id": "node/12402101301"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11906566169",
+        "addr:housenumber": "309",
+        "addr:street": "Đường Hồ Nghinh",
+        "amenity": "restaurant",
+        "cuisine": "italian_pizza;pizza;pasta",
+        "internet_access": "wlan",
+        "name": "Olivia Pizza - Restaurant",
+        "opening_hours": "Mo-Su 11:00-01:00",
+        "phone": "+84 376 549 912"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2436287,
+          16.0627602
+        ]
+      },
+      "id": "node/11906566169"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10837001505",
+        "addr:housenumber": "78",
+        "addr:street": "Đường Châu Thị Vĩnh Tế",
+        "amenity": "restaurant",
+        "cuisine": "noodles;vietnamese",
+        "internet_access": "wlan",
+        "name": "Bún bò Chum",
+        "phone": "+84 766 716 241",
+        "opening_hours": "Mo-Su 06:00-21:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2401295,
+          16.051573
+        ]
+      },
+      "id": "node/10837001505"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10819049905",
+        "addr:housenumber": "40",
+        "addr:street": "Đường An Thượng 5",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "Quán Mai - Bún chả Obama",
+        "phone": "+84 961 645 099",
+        "opening_hours": "Mo-Su 24/7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2455492,
+          16.0482464
+        ]
+      },
+      "id": "node/10819049905"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10796872105",
+        "addr:housenumber": "17",
+        "addr:street": "Kiệt 126 Nguyễn Duy Hiệu",
+        "amenity": "restaurant",
+        "cuisine": "noodles;vietnamese",
+        "internet_access": "wlan",
+        "name": "Haomi - Tiệm Mì Trộn - Restaurant",
+        "phone": "+84 778 677 771",
+        "opening_hours": "Mo-Su 09:00-14:00, 16:00-21:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2406379,
+          16.0553774
+        ]
+      },
+      "id": "node/10796872105"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12850675090",
+        "addr:city": "Đà Nẵng",
+        "addr:district": "Ngũ Hành Sơn",
+        "addr:housenumber": "05",
+        "addr:postcode": "550000",
+        "addr:street": "Đường An Thượng 6",
+        "addr:subdistrict": "Bắc Mỹ Phú",
+        "amenity": "restaurant",
+        "check_date": "2025-08-24",
+        "cuisine": "vietnamese;coffee_shop;cafe",
+        "name": "Roly Poly Fresh Spring Rolls & Coffee Da Nang",
+        "opening_hours": "Mo-Su 10:00-20:00",
+        "phone": "+84 327 306 076",
+        "website": "https://www.rolypolydanang.vn/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2450404,
+          16.0487934
+        ]
+      },
+      "id": "node/12850675090"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12606953537",
+        "addr:housenumber": "83",
+        "addr:street": "Phan Tứ",
+        "amenity": "restaurant",
+        "cuisine": "vietnamese",
+        "name": "Quán Nhân",
+        "phone": "+84 899 860 495"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2455441,
+          16.0462457
+        ]
+      },
+      "id": "node/12606953537"
+    }
+  ]
+}

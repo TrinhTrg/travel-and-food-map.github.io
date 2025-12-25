@@ -12,6 +12,7 @@ var { createDatabase, createUsersTable } = require('./config/database');
 
 var indexRouter = require('./routes/index');
 var userRoutes = require('./routes/userRoutes');
+var authRoutes = require('./routes/authRoutes');
 var categoryRoutes = require('./routes/categoryRoutes');
 var restaurantRoutes = require('./routes/restaurantRoutes');
 var adminRoutes = require('./routes/adminRoutes');
@@ -29,6 +30,7 @@ const initializeDatabase = async () => {
     console.log('🔄 Đang khởi tạo database...');
     await createDatabase();     // Tạo database trước
     await createUsersTable();   // Sau đó tạo bảng
+    
     console.log('✅ Database initialized successfully');
   } catch (error) {
     console.error('Database initialization failed:', error);
@@ -60,6 +62,7 @@ console.log(`🚀 API server chuẩn bị phục vụ tại http://${appHost}:${
 
 // Routes
 app.use('/api/users', userRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/restaurants', restaurantRoutes);
 app.use('/api/admin', adminRoutes);

@@ -1,0 +1,109 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T11:15:44Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/10787239705",
+        "addr:street": "Đường An Thượng 38",
+        "amenity": "ice_cream",
+        "name": "Kem bơ Bé Huệ",
+        "name:en": "Avocado Ice Cream Bé Huệ",
+        "phone": "+84 912 136 690",
+        "opening_hours": "Mo-Su 08:00-21:00"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2445233,
+          16.0506693
+        ]
+      },
+      "id": "node/10787239705"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11715202769",
+        "addr:housenumber": "14",
+        "addr:postcode": "550000",
+        "addr:street": "Đường Lê Đình Lý",
+        "amenity": "ice_cream",
+        "name": "Kem dừa Mã Lai",
+        "opening_hours": "Mo-Su 10:30-22:45",
+        "phone": "+84 706 159 159"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.21117,
+          16.0590727
+        ]
+      },
+      "id": "node/11715202769"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11903735269",
+        "addr:housenumber": "18",
+        "addr:street": "Phan Tứ",
+        "amenity": "ice_cream",
+        "name": "Kem dừa Mã Lai",
+        "name:en": "Ice cream",
+        "opening_hours": "Mo-Su 15:00-23:00",
+        "phone": "+84 906 446 377"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2440724,
+          16.0458995
+        ]
+      },
+      "id": "node/11903735269"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12606908495",
+        "addr:housenumber": "226",
+        "addr:street": "Bạch Đằng",
+        "amenity": "ice_cream",
+        "name": "The Crafty Cow",
+        "opening_hours": "Mo-Su 15:15-22:30"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2240361,
+          16.0642922
+        ]
+      },
+      "id": "node/12606908495"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12612199719",
+        "addr:housenumber": "47",
+        "addr:street": "Yên Bái",
+        "amenity": "ice_cream",
+        "name": "Kem Dừa Mã Lai",
+        "opening_hours": "Mo-Su 06:00-23:00",
+        "phone": "+84 906 446 377"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.222659,
+          16.0674825
+        ]
+      },
+      "id": "node/12612199719"
+    }
+  ]
+}

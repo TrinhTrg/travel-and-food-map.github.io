@@ -4,13 +4,16 @@ import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import styles from './RegisterPage.module.css';
-import { FaUser, FaLock } from 'react-icons/fa';
+import { FaUser, FaLock, FaPhone, FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
@@ -46,7 +49,7 @@ const RegisterPage = () => {
       return;
     }
 
-    const result = await register({ name, email, password });
+    const result = await register({ name, email, password, phone_number: phoneNumber || null });
     setLoading(false);
 
     if (result.success) {
@@ -60,6 +63,17 @@ const RegisterPage = () => {
     <div className={styles.pageContainer}>
       <Navbar />
       <div className={styles.registerContainer}>
+        {/* Back Button */}
+        <div className={styles.backButtonWrapper}>
+          <button 
+            className={styles.backButton}
+            onClick={() => navigate(-1)}
+            title="Quay lại"
+          >
+            <FaArrowLeft /> Quay lại
+          </button>
+        </div>
+        
         <div className={styles.registerCard}>
           <h1 className={styles.title}>Đăng ký</h1>
           <p className={styles.subtitle}>Tạo tài khoản mới để bắt đầu</p>
@@ -92,12 +106,12 @@ const RegisterPage = () => {
             </div>
 
             <div className={styles.inputGroup}>
-              <FaLock className={styles.inputIcon} />
+              <FaPhone className={styles.inputIcon} />
               <input
-                type="password"
-                placeholder="Mật khẩu (tối thiểu 6 ký tự)"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="tel"
+                placeholder="Số điện thoại (tùy chọn)"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
                 className={styles.input}
                 disabled={loading}
               />
@@ -106,13 +120,41 @@ const RegisterPage = () => {
             <div className={styles.inputGroup}>
               <FaLock className={styles.inputIcon} />
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Mật khẩu (tối thiểu 6 ký tự)"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={styles.input}
+                disabled={loading}
+              />
+              <button
+                type="button"
+                className={styles.passwordToggle}
+                onClick={() => setShowPassword(!showPassword)}
+                disabled={loading}
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+
+            <div className={styles.inputGroup}>
+              <FaLock className={styles.inputIcon} />
+              <input
+                type={showConfirmPassword ? "text" : "password"}
                 placeholder="Xác nhận mật khẩu"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 className={styles.input}
                 disabled={loading}
               />
+              <button
+                type="button"
+                className={styles.passwordToggle}
+                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                disabled={loading}
+              >
+                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
             </div>
 
             <button

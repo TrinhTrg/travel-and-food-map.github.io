@@ -5,12 +5,14 @@ import { useAuth } from '../../context/AuthContext';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import styles from './ForgotPasswordPage.module.css';
-import { FaEnvelope, FaCheckCircle } from 'react-icons/fa';
+import { FaEnvelope, FaCheckCircle, FaArrowLeft, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
@@ -82,6 +84,17 @@ const ForgotPasswordPage = () => {
     <div className={styles.pageContainer}>
       <Navbar />
       <div className={styles.forgotPasswordContainer}>
+        {/* Back Button */}
+        <div className={styles.backButtonWrapper}>
+          <button 
+            className={styles.backButton}
+            onClick={() => navigate(-1)}
+            title="Quay lại"
+          >
+            <FaArrowLeft /> Quay lại
+          </button>
+        </div>
+        
         <div className={styles.forgotPasswordCard}>
           <h1 className={styles.title}>Quên mật khẩu</h1>
           <p className={styles.subtitle}>
@@ -121,25 +134,41 @@ const ForgotPasswordPage = () => {
               <div className={styles.inputGroup}>
                 <FaCheckCircle className={styles.inputIcon} />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Mật khẩu mới"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   className={styles.input}
                   disabled={loading}
                 />
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setShowPassword(!showPassword)}
+                  disabled={loading}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
 
               <div className={styles.inputGroup}>
                 <FaCheckCircle className={styles.inputIcon} />
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   placeholder="Xác nhận mật khẩu mới"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className={styles.input}
                   disabled={loading}
                 />
+                <button
+                  type="button"
+                  className={styles.passwordToggle}
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  disabled={loading}
+                >
+                  {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
               </div>
 
               <button

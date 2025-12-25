@@ -8,6 +8,7 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
 import { AuthProvider } from './context/AuthContext';
 import { CollectionProvider } from './context/CollectionContext';
+import { NotificationProvider } from './context/NotificationContext';
 import ForgotPasswordPage from './pages/ForgotPasswordPage/ForgotPasswordPage';
 import CreateLocationPage from './pages/CreateLocationPage/CreateLocationPage';
 import AdminDashboard from './pages/AdminDashboard/AdminDashboard';
@@ -17,6 +18,7 @@ import './index.css'; // Import file CSS toàn cục (để lấy font, màu n�
 
 function App() {
   return (
+    <NotificationProvider>
     <AuthProvider>
       <CollectionProvider>
         <BrowserRouter>
@@ -36,6 +38,7 @@ function App() {
         </BrowserRouter>
       </CollectionProvider>
     </AuthProvider>
+    </NotificationProvider>
   );
 }
 

@@ -38,7 +38,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP')
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP')
       }
     });
 
@@ -48,12 +48,13 @@ module.exports = {
       name: 'unique_restaurant_category'
     });
 
-    // Migrate dữ liệu từ category_id cũ sang bảng mới
+    // Migrate dữ liệu từ category_id cũ sang bảng mới (nếu có)
     await queryInterface.sequelize.query(`
       INSERT INTO restaurant_categories (restaurant_id, category_id, createdAt, updatedAt)
       SELECT id, category_id, createdAt, updatedAt
       FROM restaurants
       WHERE category_id IS NOT NULL
+      ON DUPLICATE KEY UPDATE updatedAt = updatedAt
     `);
   },
 

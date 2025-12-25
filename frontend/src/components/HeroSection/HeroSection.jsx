@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { FiSearch, FiMapPin, FiSliders, FiStar, FiImage, FiMap } from 'react-icons/fi';
 
 // Import các ảnh món ăn từ assets
-import imgGoiCuon from '../../assets/goi-cuon.png'; 
+import imgGoiCuon from '../../assets/goi-cuon.png';
 import imgBunBoHue from '../../assets/bun-bo-Hue.png';
 import imgCaPheMuoi from '../../assets/ca-phe-muoi.png';
 import imgBanhMi from '../../assets/banh-mi.png';
@@ -24,10 +24,15 @@ const HeroSection = () => {
         <h1>Khám phá món ngon <span>gần bạn</span></h1>
         <p>Tìm quán ăn yêu thích, xem đánh giá thực tế, và chia sẻ trải nghiệm ẩm thực.</p>
 
-        
-        <Link to="/kham-pha" className={styles.ctaButton}>
-          Khám phá ngay &rarr;
-        </Link>
+
+        <div className={styles.buttonGroup}>
+          <Link to="/kham-pha" className={styles.ctaButton}>
+            Khám phá ngay
+          </Link>
+          <Link to="/dang-ky" className={styles.secondaryButton}>
+            Đăng Ký
+          </Link>
+        </div>
       </div>
 
       {/* Các tính năng - đặt ở dưới cùng */}

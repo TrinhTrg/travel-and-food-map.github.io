@@ -1,0 +1,52 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T11:31:15Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6151185387",
+        "addr:housenumber": "189",
+        "addr:street": "Đường Hoàng Diệu",
+        "amenity": "restaurant",
+        "name": "Chè Liên Đà Nẵng",
+        "phone": "+84 988 280 898",
+        "opening_hours": "Mo-Su 07:30-23:00",
+        "website": "http://www.chelien.com.vn/",
+        "image_url": "https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzclmC5YqdVzCFNSQMuJ60dontLdsmxfNKzGBYUwtEUU-BuyvTzPaRvQ3zyDyp4ipWW2mPqRHOxutLAP-GUB-eXfx2fxiztn8Cd4ofA-ozX1e4jOQLOzcNf4RPDvtR74ppzadjIEW25wS9a=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2171498,
+          16.0606096
+        ]
+      },
+      "id": "node/6151185387"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/12603960658",
+        "addr:housenumber": "101",
+        "addr:street": "Thái Phiên",
+        "amenity": "restaurant",
+        "cuisine": "juice;dessert",
+        "name": "Sinh Tố Chè Thái A.Bé",
+        "opening_hours": "Mo-Su 09:00-00:00",
+        "phone": "+84 236 382 4200",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSw3D8XM6LdcxPJJaY6bJmpKt5xqIujZReo9Y7nSqnnzwCPRCOqnC7TZfUKPZvJHkRWT37HbZIcrR08Z_4VDefJM-ri7hxi3En_cxrcf7BWjLVXmRjtMxPTTggND_Z9w2y2FxL84kQ=w408-h544-k-no"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2201962,
+          16.0652141
+        ]
+      },
+      "id": "node/12603960658"
+    }
+  ]
+}

@@ -17,18 +17,18 @@ module.exports = (sequelize, DataTypes) => {
 
     static async findById(id) {
       return await User.findByPk(id, {
-        attributes: ['id', 'name', 'email', 'role', 'createdAt']
+        attributes: ['id', 'name', 'email', 'role', 'phone_number', 'createdAt']
       });
     }
 
     // Ghi đè create để tự hash mật khẩu, vẫn dùng được User.create trong controller
     static async create(values, options) {
-      const { name, email, password, role = 'user' } = values;
+      const { name, email, password, role = 'user', phone_number } = values;
       const saltRounds = 10;
       const hashedPassword = await bcrypt.hash(password, saltRounds);
 
       return await super.create(
-        { name, email, password: hashedPassword, role },
+        { name, email, password: hashedPassword, role, phone_number },
         options
       );
     }
@@ -69,6 +69,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING(50),
         allowNull: false,
         defaultValue: 'user'
+      },
+      phone_number: {
+        type: DataTypes.STRING(20),
+        allowNull: true,
+        comment: 'Số điện thoại của người dùng'
       }
     },
     {

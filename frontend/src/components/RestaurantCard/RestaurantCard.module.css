@@ -162,3 +162,102 @@
   font-weight: bold;
   color: #555;
 }
+
+/* ========== RESPONSIVE DESIGN ========== */
+
+/* Tablet (768px và nhỏ hơn) */
+@media (max-width: 768px) {
+  .card {
+    flex-direction: row;
+  }
+
+  .cardImage,
+  .cardImagePlaceholder {
+    width: 100px;
+    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
+    margin: 0.75rem;
+  }
+
+  .cardContent {
+    padding: 0.75rem;
+    padding-left: 0;
+  }
+
+  .name {
+    font-size: 1rem;
+  }
+
+  .rating {
+    font-size: 0.85rem;
+  }
+
+  .address {
+    font-size: 0.85rem;
+  }
+
+  .info {
+    font-size: 0.85rem;
+  }
+}
+
+/* Mobile (480px và nhỏ hơn) */
+@media (max-width: 480px) {
+  .cardImage,
+  .cardImagePlaceholder {
+    width: 80px;
+    height: 80px;
+    min-width: 80px;
+    min-height: 80px;
+    margin: 0.5rem;
+  }
+
+  .cardContent {
+    padding: 0.5rem;
+    padding-left: 0;
+  }
+
+  .name {
+    font-size: 0.95rem;
+  }
+
+  .rating {
+    font-size: 0.8rem;
+    margin: 0.2rem 0;
+  }
+
+  .address {
+    font-size: 0.8rem;
+  }
+
+  .addressRow {
+    flex-direction: column;
+    gap: 0.25rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .distance {
+    font-size: 0.75rem;
+  }
+
+  .info {
+    font-size: 0.8rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tags {
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+  }
+
+  .price {
+    font-size: 0.85rem;
+  }
+}

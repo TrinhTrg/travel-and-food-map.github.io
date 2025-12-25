@@ -48,11 +48,19 @@ module.exports = {
       },
       latitude: {
         type: Sequelize.DECIMAL(10, 8),
-        allowNull: false
+        allowNull: false,
+        validate: {
+          min: -90,
+          max: 90
+        }
       },
       longitude: {
         type: Sequelize.DECIMAL(11, 8),
-        allowNull: false
+        allowNull: false,
+        validate: {
+          min: -180,
+          max: 180
+        }
       },
       is_open: {
         type: Sequelize.BOOLEAN,

@@ -1,0 +1,119 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T11:28:15Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4428502591",
+        "addr:housenumber": "109",
+        "addr:street": "Trần Phú",
+        "name": "Tiệm Bánh Ngọt Hương Nam Bỉnh Gia - Huong Nam Bakery",
+        "name:vi": "Huong Nam Bakery",
+        "opening_hours": "Mo-Su 07:00-21:00",
+        "phone": "+84 511 382 6820",
+        "image_url":"https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=lYk5Sk4ahuIllEWFsvInZA&cb_client=search.gws-prod.gps&w=408&h=240&yaw=320.99225&pitch=0&thumbfov=100",
+        "shop": "confectionery"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2240457,
+          16.0689123
+        ]
+      },
+      "id": "node/4428502591"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5469077521",
+        "addr:housenumber": "1201",
+        "addr:street": "Đường Ngô Quyền",
+        "name": "Đồng Tiến Bakery",
+        "opening_hours": "Mo-Su 05:00-22:00",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipPjztypUzMqajpnAybcJUBq1pVbnEt-o6_yBE6y=w408-h544-k-no",
+        "phone": "+84 236 3987122",
+        "website":"http://dongtienbakery.com.vn/",
+        "shop": "bakery"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2368739,
+          16.0540638
+        ]
+      },
+      "id": "node/5469077521"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/6570781698",
+        "addr:housenumber": "575",
+        "addr:street": "Đường Điện Biên Phủ",
+        "name": "Đồng Tiến Bakery",
+        "opening_hours": "Mo-Su 05:30-22:30",
+        "phone": "+84 511 372 5785; +84 1800 5555 17",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipP96iznSZ1Z-PZRVwRqmIykRN5V61B4sKqLOqho=w408-h544-k-no",
+        "shop": "bakery",
+        "website": "http://www.dongtienbakery.com"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1839569,
+          16.065061
+        ]
+      },
+      "id": "node/6570781698"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/11898108670",
+        "addr:housenumber": "112",
+        "addr:street": "Đường Trần Bạch Đằng",
+        "name": "Paris levain bakery & cafe",
+        "opening_hours": "Mo-Su 06:30-10:30",
+        "phone": "+84393010103",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipOX2nY4T_7KTltmNcRBuOsM36hi02CzqddjCfyb=w408-h271-k-no",
+        "shop": "bakery",
+        "website": "https://parislevainvn.com/"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2459904,
+          16.0546388
+        ]
+      },
+      "id": "node/11898108670"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/13033365101",
+        "addr:housenumber": "34",
+        "addr:street": "Đường Hồ Quý Ly",
+        "email": "nhansu.anhquanbakery@gmail.com",
+        "name": "Anh Quân Bakery",
+        "image_url":"https://lh3.googleusercontent.com/p/AF1QipPcqZneA-6INYW7CwnITTaggEv-1h3YNJK-adph=w408-h306-k-no",
+        "phone": "+84 931 602 060",
+        "opening_hours": "Mo-Su 05:00-23:00",
+        "website":"https://anhquanbakery.com/",
+        "shop": "bakery"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.1725853,
+          16.076543
+        ]
+      },
+      "id": "node/13033365101"
+    }
+  ]
+}

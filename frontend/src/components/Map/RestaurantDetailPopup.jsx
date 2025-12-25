@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo, useState, useRef, useCallback } from "react";
-import { FaClock, FaDirections, FaHeart, FaMapMarkerAlt, FaStar, FaCamera, FaTimes, FaUser } from "react-icons/fa";
+import { FaClock, FaDirections, FaHeart, FaMapMarkerAlt, FaStar, FaCamera, FaTimes, FaUser, FaPhone, FaGlobe } from "react-icons/fa";
 import { FiHeart, FiX } from "react-icons/fi";
 import styles from "./RestaurantDetailPopup.module.css";
 import { useCollection } from "../../context/CollectionContext";
 import { useAuth } from "../../context/AuthContext";
+import { useNotification } from "../../context/NotificationContext";
 import { reviewAPI } from "../../services/api";
 import MenuSection from "../MenuSection/MenuSection";
+import OpeningHours from "../OpeningHours/OpeningHours";
 
 const MAX_RATING = 5;
 const MAX_IMAGES = 5;
@@ -33,7 +35,7 @@ const formatRelativeTime = (dateStr) => {
 
 const BACKEND_URL = 'http://localhost:3000';
 
-const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop, scrollToReview = false }) => {
+const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop }) => {
   // Helper để lấy full URL cho ảnh
   const getImageUrl = (url) => {
     if (!url) return '';
@@ -57,6 +59,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
   const fileInputRef = useRef(null);
 
   const { isAuthenticated, user } = useAuth();
+  const { showSuccess, showError, showInfo } = useNotification();
 
   const isOwner = useMemo(() => {
     if (!user || !restaurant) return false;
@@ -83,38 +86,16 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
     }
   }, [restaurant?.id]);
 
-  // Load user's existing review
-  const loadUserReview = useCallback(async () => {
-    if (!restaurant?.id || !isAuthenticated) return;
-
-    try {
-      const response = await reviewAPI.getUserReview(restaurant.id);
-      if (response.success && response.data) {
-        setReviewRating(response.data.rating);
-        setReviewText(response.data.content || '');
-        // Load existing images if any
-        if (response.data.images?.length > 0) {
-          setImagePreviewUrls(response.data.images.map(img => img.url));
-        }
-      }
-    } catch (error) {
-      console.error('Error loading user review:', error);
-    }
-  }, [restaurant?.id, isAuthenticated]);
-
   useEffect(() => {
     loadReviews();
-    loadUserReview();
-  }, [loadReviews, loadUserReview]);
+  }, [loadReviews]);
 
-  // Reset form khi restaurant thay đổi
+  // Reset form khi restaurant thay đổi - luôn reset để form luôn trống
   useEffect(() => {
-    if (!restaurant?.userReview) {
-      setReviewRating(4);
-      setReviewText("");
-      setSelectedImages([]);
-      setImagePreviewUrls([]);
-    }
+    setReviewRating(4);
+    setReviewText("");
+    setSelectedImages([]);
+    setImagePreviewUrls([]);
   }, [restaurant?.id]);
 
   // Thêm vào lịch sử tìm kiếm gần đây khi mở popup
@@ -124,37 +105,14 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
     }
   }, [restaurant?.id, isAuthenticated, addRecentSearch]);
 
-  // Auto-scroll đến phần review khi scrollToReview = true
-  useEffect(() => {
-    if (scrollToReview && reviewSectionRef.current && popupRef.current) {
-      setTimeout(() => {
-        const popupContainer = popupRef.current;
-        const reviewSection = reviewSectionRef.current;
-
-        if (popupContainer && reviewSection) {
-          const reviewSectionTop = reviewSection.offsetTop;
-          popupContainer.scrollTo({
-            top: reviewSectionTop - 20,
-            behavior: 'smooth'
-          });
-
-          setTimeout(() => {
-            const textarea = reviewSection.querySelector('textarea');
-            if (textarea) {
-              textarea.focus();
-            }
-          }, 600);
-        }
-      }, 500);
-    }
-  }, [scrollToReview, restaurant]);
 
   if (!restaurant) return null;
 
   const categoryLabel = restaurant.category || "Ẩm thực Đà Nẵng";
   const description = restaurant.description || "Thông tin đang được cập nhật.";
   const ratingValue = restaurant.rating || 0;
-  const reviewCount = communityReviews.length;
+  // Sử dụng review_count từ database (chính xác hơn) thay vì communityReviews.length
+  const reviewCount = restaurant.reviews || restaurant.review_count || 0;
 
   const statusLabel = restaurant.openStatus ||
     (restaurant.isOpen !== undefined
@@ -185,7 +143,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
     const filesToAdd = files.slice(0, remainingSlots);
 
     if (filesToAdd.length === 0) {
-      alert(`Bạn chỉ có thể upload tối đa ${MAX_IMAGES} ảnh`);
+      showInfo('Thông báo', `Bạn chỉ có thể upload tối đa ${MAX_IMAGES} ảnh`);
       return;
     }
 
@@ -212,7 +170,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
   // Handler cho rating (kiểm tra login)
   const handleRatingClick = (starValue) => {
     if (!isAuthenticated) {
-      alert('Vui lòng đăng nhập để đánh giá');
+      showInfo('Đăng nhập', 'Vui lòng đăng nhập để đánh giá');
       return;
     }
     setReviewRating(starValue);
@@ -221,7 +179,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
   // Handler cho textarea focus (kiểm tra login)
   const handleTextareaFocus = () => {
     if (!isAuthenticated) {
-      alert('Vui lòng đăng nhập để viết đánh giá');
+      showInfo('Đăng nhập', 'Vui lòng đăng nhập để viết đánh giá');
     }
   };
 
@@ -230,7 +188,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
     event.preventDefault();
 
     if (!isAuthenticated) {
-      alert('Vui lòng đăng nhập để lưu đánh giá');
+      showInfo('Đăng nhập', 'Vui lòng đăng nhập để lưu đánh giá');
       return;
     }
 
@@ -267,11 +225,13 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
         // Reload reviews để hiển thị review mới
         await loadReviews();
 
-        alert('Đánh giá của bạn đã được lưu!');
+        showSuccess('Thành công!', 'Đánh giá của bạn đã được lưu!', 4000);
       }
     } catch (error) {
       console.error('Error submitting review:', error);
-      setSubmitError(error.message || 'Không thể lưu đánh giá. Vui lòng thử lại.');
+      const errorMessage = error.message || 'Không thể lưu đánh giá. Vui lòng thử lại.';
+      setSubmitError(errorMessage);
+      showError('Lỗi', errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -280,7 +240,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
   // Handler cho nút yêu thích
   const handleFavoriteClick = async () => {
     if (!isAuthenticated) {
-      alert('Vui lòng đăng nhập để lưu địa điểm yêu thích');
+      showInfo('Đăng nhập', 'Vui lòng đăng nhập để lưu địa điểm yêu thích');
       return;
     }
 
@@ -359,7 +319,7 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
           aria-label={isRestaurantFavorite ? "Bỏ yêu thích" : "Thêm yêu thích"}
         >
           {isRestaurantFavorite ? <FaHeart /> : <FiHeart />}
-          {favoriteLoading ? 'Đang xử lý...' : (isRestaurantFavorite ? 'Đã thích' : 'Yêu thích')}
+          {isRestaurantFavorite ? 'Đã thích' : 'Yêu thích'}
         </button>
       </section>
 
@@ -369,14 +329,69 @@ const RestaurantDetailPopup = ({ restaurant, onClose, onRequestDirections = noop
           <FaMapMarkerAlt />
           <span>{restaurant.address}</span>
         </div>
-        <div className={styles.metaItem}>
-          <FaClock />
-          <span>
-            Trạng thái : <span className={statusClass}>{statusLabel}</span>
-          </span>
-        </div>
+        {restaurant.phone_number && (
+          <div className={styles.metaItem}>
+            <FaPhone />
+            <span>{restaurant.phone_number}</span>
+          </div>
+        )}
+        {(() => {
+          const website = restaurant.website || restaurant.website_url;
+          // Kiểm tra website có tồn tại và không phải null/undefined/empty
+          if (!website) return null;
+          
+          const websiteStr = String(website).trim();
+          if (!websiteStr || websiteStr === 'null' || websiteStr === 'undefined') return null;
+          
+          // Format URL
+          let websiteUrl = websiteStr;
+          if (!websiteStr.startsWith('http://') && !websiteStr.startsWith('https://')) {
+            // Nếu là URL-encoded hoặc có @ (Google Maps link), decode và xử lý
+            if (websiteStr.includes('@') || websiteStr.startsWith('%')) {
+              try {
+                const decoded = decodeURIComponent(websiteStr);
+                // Nếu là Google Maps link, giữ nguyên
+                if (decoded.includes('google.com/maps') || decoded.includes('maps.google.com')) {
+                  websiteUrl = decoded.startsWith('http') ? decoded : `https://${decoded}`;
+                } else {
+                  websiteUrl = decoded;
+                }
+              } catch (e) {
+                // Nếu decode lỗi, thử thêm https://
+                websiteUrl = `https://${websiteStr}`;
+              }
+            } else {
+              // Mặc định thêm https://
+              websiteUrl = `https://${websiteStr}`;
+            }
+          }
+          
+          return (
+            <div className={styles.metaItem}>
+              <FaGlobe />
+              <a 
+                href={websiteUrl}
+                target="_blank" 
+                rel="noopener noreferrer"
+                className={styles.websiteLink}
+              >
+                {websiteStr}
+              </a>
+            </div>
+          );
+        })()}
         <p className={styles.description}>{description}</p>
       </section>
+
+      {/* Section - Opening Hours */}
+      {restaurant.opening_hours && (
+        <section className={styles.openingHoursSection}>
+          <OpeningHours 
+            openingHours={restaurant.opening_hours} 
+            isOpen={restaurant.isOpen}
+          />
+        </section>
+      )}
 
       {/* Section - Menu */}
       {/* Section - Menu */}

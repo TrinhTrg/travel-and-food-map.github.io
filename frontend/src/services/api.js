@@ -66,6 +66,20 @@ export const authAPI = {
       method: 'GET',
     });
   },
+
+  updateProfile: async (profileData) => {
+    return apiCall('/users/profile', {
+      method: 'PUT',
+      body: profileData,
+    });
+  },
+
+  loginWithFirebase: async (idToken) => {
+    return apiCall('/auth/firebase-login', {
+      method: 'POST',
+      body: { idToken },
+    });
+  },
 };
 
 // Admin API
@@ -185,6 +199,20 @@ export const reviewAPI = {
   // Lấy review của user cho restaurant cụ thể
   getUserReview: async (restaurantId) => {
     return apiCall(`/reviews/user/${restaurantId}`, {
+      method: 'GET',
+    });
+  },
+
+  // Lấy số lượng reviews của user hiện tại
+  getUserReviewCount: async () => {
+    return apiCall('/reviews/user-count', {
+      method: 'GET',
+    });
+  },
+
+  // Lấy tất cả reviews của user hiện tại (với thông tin restaurant)
+  getUserReviews: async () => {
+    return apiCall('/reviews/user', {
       method: 'GET',
     });
   },
@@ -331,6 +359,23 @@ export const menuItemAPI = {
     return apiCall(`/menu-items/${id}/reject`, {
       method: 'PATCH',
       body: { reason },
+    });
+  },
+};
+
+// Restaurant API
+export const restaurantAPI = {
+  // Lấy tất cả nhà hàng (dùng cho admin)
+  getAllRestaurants: async () => {
+    return apiCall('/restaurants', {
+      method: 'GET',
+    });
+  },
+
+  // Lấy danh sách nhà hàng của owner
+  getOwnerRestaurants: async () => {
+    return apiCall('/restaurants/owner', {
+      method: 'GET',
     });
   },
 };

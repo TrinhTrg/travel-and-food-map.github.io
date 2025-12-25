@@ -1,4 +1,4 @@
-const { Review, ImageReview, Restaurant, User } = require('../models');
+const { Review, ImageReview, Restaurant, User, Category } = require('../models');
 const path = require('path');
 const fs = require('fs');
 
@@ -100,41 +100,21 @@ const createOrUpdateReview = async (req, res, next) => {
             });
         }
 
-        // Tìm review hiện có hoặc tạo mới
-        let [review, created] = await Review.findOrCreate({
-            where: {
+        // Luôn tạo review mới (không update review cũ)
+        const review = await Review.create({
                 user_id: userId,
-                restaurant_id: restaurantId
-            },
-            defaults: {
+            restaurant_id: restaurantId,
                 rating,
                 content: content || ''
-            }
         });
 
-        // Nếu đã tồn tại, cập nhật
-        if (!created) {
-            await review.update({
-                rating,
-                content: content || ''
-            });
-        }
-
-        // Xử lý ảnh - xóa ảnh cũ và thêm ảnh mới
-        if (imageUrls && Array.isArray(imageUrls)) {
-            // Xóa ảnh cũ
-            await ImageReview.destroy({
-                where: { review_id: review.id }
-            });
-
-            // Thêm ảnh mới
-            if (imageUrls.length > 0) {
+        // Xử lý ảnh - thêm ảnh mới cho review mới
+        if (imageUrls && Array.isArray(imageUrls) && imageUrls.length > 0) {
                 const imageRecords = imageUrls.map(url => ({
                     review_id: review.id,
                     image_url: url
                 }));
                 await ImageReview.bulkCreate(imageRecords);
-            }
         }
 
         // Cập nhật rating trung bình của restaurant
@@ -156,9 +136,9 @@ const createOrUpdateReview = async (req, res, next) => {
             ]
         });
 
-        res.status(created ? 201 : 200).json({
+        res.status(201).json({
             success: true,
-            message: created ? 'Đánh giá đã được tạo' : 'Đánh giá đã được cập nhật',
+            message: 'Đánh giá đã được tạo',
             data: {
                 id: updatedReview.id,
                 userId: updatedReview.user_id,
@@ -291,6 +271,89 @@ const getUserReview = async (req, res, next) => {
     }
 };
 
+// Lấy số lượng reviews của user hiện tại
+const getUserReviewCount = async (req, res, next) => {
+    try {
+        const userId = req.userId;
+
+        const count = await Review.count({
+            where: { user_id: userId }
+        });
+
+        res.json({
+            success: true,
+            data: {
+                count: count
+            }
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
+// Lấy tất cả reviews của user hiện tại (với thông tin restaurant)
+const getUserReviews = async (req, res, next) => {
+    try {
+        const userId = req.userId;
+
+        const reviews = await Review.findAll({
+            where: { user_id: userId },
+            include: [
+                {
+                    model: Restaurant,
+                    as: 'restaurant',
+                    attributes: ['id', 'name', 'address', 'image_url', 'average_rating', 'review_count'],
+                    include: [
+                        {
+                            model: Category,
+                            as: 'category',
+                            attributes: ['id', 'name'],
+                            required: false
+                        }
+                    ]
+                },
+                {
+                    model: ImageReview,
+                    as: 'images',
+                    attributes: ['id', 'image_url']
+                }
+            ],
+            order: [['createdAt', 'DESC']]
+        });
+
+        const formattedReviews = reviews
+            .filter(review => review.restaurant !== null) // Filter out reviews with deleted restaurants
+            .map(review => ({
+                id: review.id,
+                restaurant: {
+                    id: review.restaurant.id,
+                    name: review.restaurant.name,
+                    address: review.restaurant.address,
+                    image_url: review.restaurant.image_url,
+                    average_rating: review.restaurant.average_rating,
+                    review_count: review.restaurant.review_count,
+                    category: review.restaurant.category
+                },
+                rating: review.rating,
+                content: review.content,
+                images: (review.images || []).map(img => ({
+                    id: img.id,
+                    url: img.image_url
+                })),
+                createdAt: review.createdAt,
+                relativeTime: formatRelativeTime(review.createdAt)
+            }));
+
+        res.json({
+            success: true,
+            data: formattedReviews,
+            total: formattedReviews.length
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+
 // Helper function để cập nhật rating trung bình của restaurant
 const updateRestaurantRating = async (restaurantId) => {
     try {
@@ -325,5 +388,7 @@ module.exports = {
     createOrUpdateReview,
     uploadReviewImages,
     deleteReview,
-    getUserReview
+    getUserReview,
+    getUserReviewCount,
+    getUserReviews
 };

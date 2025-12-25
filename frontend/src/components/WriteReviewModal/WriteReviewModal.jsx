@@ -91,15 +91,13 @@ const WriteReviewModal = ({ isOpen, onClose }) => {
                         latitude: restaurant.latitude,
                         longitude: restaurant.longitude,
                         restaurantId: restaurant.id,
-                        scrollToReview: true, // Flag đặc biệt để scroll đến phần review
                     },
                 })
             );
         }
 
-        // Navigate đến DiscoverPage với restaurant id và flag scroll
-        // preventScrollReset: true để ngăn React Router tự động scroll
-        navigate(`/kham-pha?restaurant=${restaurant.id}&scrollToReview=true`, {
+        // Navigate đến DiscoverPage với restaurant id
+        navigate(`/kham-pha?restaurant=${restaurant.id}`, {
             preventScrollReset: true,
         });
     };

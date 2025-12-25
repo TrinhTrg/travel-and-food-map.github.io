@@ -79,14 +79,15 @@ const distanceFromPoint = (baseLat, baseLng, restaurant) => {
   }
   return haversineDistanceKm(baseLat, baseLng, lat, lng);
 };
-
+  
 const DiscoverPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // --- GIỮ NGUYÊN LOGIC CŨ ---
   const [activeFilter, setActiveFilter] = useState(FILTERS[0].key);
   const [selectedRestaurantId, setSelectedRestaurantId] = useState(null);
-  const [restaurants, setRestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]); // Restaurants cho section "Nhà hàng gần bạn" (có thể bị filter bởi search)
+  const [allRestaurants, setAllRestaurants] = useState([]); // Tất cả restaurants (không bị ảnh hưởng bởi search) - dùng cho Top Rated và All
   const [userPosition, setUserPosition] = useState(null);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -102,6 +103,16 @@ const DiscoverPage = () => {
 
   const API_BASE_URL =
     import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api';
+
+  // Tạo hoặc lấy session_id từ sessionStorage (cho anonymous users)
+  const getOrCreateSessionId = () => {
+    let sessionId = sessionStorage.getItem('session_id');
+    if (!sessionId) {
+      sessionId = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      sessionStorage.setItem('session_id', sessionId);
+    }
+    return sessionId;
+  };
 
   // Luôn scroll window lên top khi component mount hoặc searchParams thay đổi
   // Scroll trong popup là riêng biệt và không ảnh hưởng đến window scroll
@@ -143,24 +154,64 @@ const DiscoverPage = () => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isFilterDropdownOpen]);
 
+  // Fetch tất cả restaurants một lần (không bị ảnh hưởng bởi search) - dùng cho Top Rated và All
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchAllRestaurants = async () => {
+      try {
+        const restaurantRes = await fetch(`${API_BASE_URL}/restaurants`, { signal: controller.signal });
+        if (!restaurantRes.ok) throw new Error('Không thể lấy danh sách nhà hàng');
+        const restaurantJson = await restaurantRes.json();
+        const restaurantData = Array.isArray(restaurantJson.data) ? restaurantJson.data : [];
+        setAllRestaurants(restaurantData);
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          console.error('Error fetching all restaurants:', err);
+        }
+      }
+    };
+    fetchAllRestaurants();
+    return () => controller.abort();
+  }, [API_BASE_URL]);
+
+  // Fetch data dựa trên search params hoặc viewed restaurants (chỉ cho section "Nhà hàng gần bạn")
   useEffect(() => {
     const controller = new AbortController();
     const fetchData = async () => {
       try {
         setLoading(true);
-        const [categoryRes, restaurantRes] = await Promise.all([
-          fetch(`${API_BASE_URL}/categories`, { signal: controller.signal }),
-          fetch(`${API_BASE_URL}/restaurants`, { signal: controller.signal }),
-        ]);
+        const searchQuery = searchParams.get('q');
+        const categoryId = searchParams.get('category');
 
+        // Fetch categories luôn
+        const categoryRes = await fetch(`${API_BASE_URL}/categories`, { signal: controller.signal });
         if (!categoryRes.ok) throw new Error('Không thể lấy danh sách categories');
-        if (!restaurantRes.ok) throw new Error('Không thể lấy danh sách nhà hàng');
-
         const categoryJson = await categoryRes.json();
+        setCategories(Array.isArray(categoryJson.data) ? categoryJson.data : []);
+
+        // Fetch restaurants dựa trên search hoặc category
+        let restaurantRes;
+        if (searchQuery || categoryId) {
+          // Có search query hoặc category - gọi search API
+          const searchParamsObj = new URLSearchParams();
+          if (searchQuery) {
+            searchParamsObj.append('q', searchQuery);
+            // Thử search theo category name
+            searchParamsObj.append('category_name', searchQuery);
+          }
+          if (categoryId) {
+            searchParamsObj.append('category_id', categoryId);
+          }
+          restaurantRes = await fetch(`${API_BASE_URL}/search?${searchParamsObj.toString()}`, { signal: controller.signal });
+        } else {
+          // Không có search - lấy tất cả restaurants (sẽ sort theo khoảng cách và reviews sau)
+          restaurantRes = await fetch(`${API_BASE_URL}/restaurants`, { signal: controller.signal });
+        }
+
+        if (!restaurantRes.ok) throw new Error('Không thể lấy danh sách nhà hàng');
         const restaurantJson = await restaurantRes.json();
         const restaurantData = Array.isArray(restaurantJson.data) ? restaurantJson.data : [];
 
-        setCategories(Array.isArray(categoryJson.data) ? categoryJson.data : []);
         setRestaurants(restaurantData);
       } catch (err) {
         if (err.name !== 'AbortError') {
@@ -173,7 +224,7 @@ const DiscoverPage = () => {
     };
     fetchData();
     return () => controller.abort();
-  }, []);
+  }, [searchParams, API_BASE_URL]);
 
   // Xử lý query parameter restaurant từ URL
   useEffect(() => {
@@ -185,6 +236,34 @@ const DiscoverPage = () => {
       setSearchParams(searchParams, { replace: true });
     }
   }, [searchParams, setSearchParams]);
+
+  // Track restaurant view khi user click vào restaurant
+  useEffect(() => {
+    if (!selectedRestaurantId) return;
+
+    const trackView = async () => {
+      try {
+        const sessionId = getOrCreateSessionId();
+        const token = localStorage.getItem('token');
+        const headers = {
+          'Content-Type': 'application/json'
+        };
+        if (token) {
+          headers['Authorization'] = `Bearer ${token}`;
+        }
+
+        await fetch(`${API_BASE_URL}/restaurants/${selectedRestaurantId}/view`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ session_id: sessionId })
+        });
+      } catch (err) {
+        console.error('Error tracking view:', err);
+      }
+    };
+
+    trackView();
+  }, [selectedRestaurantId, API_BASE_URL]);
 
   // Fetch restaurant detail nếu không có trong list
   useEffect(() => {
@@ -231,6 +310,12 @@ const DiscoverPage = () => {
               price: restaurantData.price || '$$',
               latitude: parseCoordinate(restaurantData.latitude),
               longitude: parseCoordinate(restaurantData.longitude),
+              // Thêm các field mới
+              phone_number: restaurantData.phone_number,
+              website: restaurantData.website,
+              opening_hours: restaurantData.opening_hours,
+              owner_id: restaurantData.owner_id,
+              categories: restaurantData.categories || [],
             };
 
             // Thêm restaurant vào list
@@ -267,11 +352,20 @@ const DiscoverPage = () => {
     };
   }, []);
 
+  // Logic cho "Nhà hàng gần bạn": hiển thị địa điểm gần user và có nhiều reviews
+  const restaurantsForNearby = useMemo(() => {
+    // Nếu có search/category, dùng restaurants từ search
+    // Nếu không có search, dùng allRestaurants
+    const searchQuery = searchParams.get('q');
+    const categoryId = searchParams.get('category');
+    return (searchQuery || categoryId) ? restaurants : allRestaurants;
+  }, [restaurants, allRestaurants, searchParams]);
+
   const filteredNearbyRestaurants = useMemo(() => {
     const currentFilter = FILTERS.find((filter) => filter.key === activeFilter);
-    if (!currentFilter) return restaurants;
-    return [...restaurants].sort(currentFilter.sortFn);
-  }, [activeFilter, restaurants]);
+    if (!currentFilter) return restaurantsForNearby;
+    return [...restaurantsForNearby].sort(currentFilter.sortFn);
+  }, [activeFilter, restaurantsForNearby]);
 
   const sortedNearbyRestaurants = useMemo(() => {
     let list = filteredNearbyRestaurants.map((restaurant) => {
@@ -285,6 +379,7 @@ const DiscoverPage = () => {
         : null;
       return { ...restaurant, distanceKm };
     });
+
     const hasDistance = advancedFilters.includes('distance');
     const hasPrice = advancedFilters.includes('price');
 
@@ -300,29 +395,51 @@ const DiscoverPage = () => {
       list = list.sort(
         (a, b) => (a.distanceKm ?? Number.MAX_VALUE) - (b.distanceKm ?? Number.MAX_VALUE)
       );
+    } else {
+      // Mặc định: sắp xếp theo khoảng cách gần + nhiều reviews
+      // Ưu tiên gần hơn, nhưng nếu khoảng cách tương đương thì ưu tiên nhiều reviews hơn
+      list = list.sort((a, b) => {
+        const distA = a.distanceKm ?? Number.MAX_VALUE;
+        const distB = b.distanceKm ?? Number.MAX_VALUE;
+        
+        // Nếu khoảng cách chênh lệch < 5km, ưu tiên reviews nhiều hơn
+        if (Math.abs(distA - distB) < 5) {
+          return (b.reviews || 0) - (a.reviews || 0);
+        }
+        // Nếu khoảng cách chênh lệch lớn, ưu tiên gần hơn
+        return distA - distB;
+      });
     }
 
     return list;
   }, [filteredNearbyRestaurants, advancedFilters, userPosition]);
 
-  const mapRestaurants = useMemo(() => restaurants, [restaurants]);
+  // Map hiển thị restaurants: nếu có search/category thì hiển thị kết quả search, không thì hiển thị tất cả
+  const mapRestaurants = useMemo(() => {
+    const searchQuery = searchParams.get('q');
+    const categoryId = searchParams.get('category');
+    return (searchQuery || categoryId) ? restaurants : allRestaurants;
+  }, [restaurants, allRestaurants, searchParams]);
 
+  // Top restaurants - chỉ lấy 10 nhà hàng được đánh giá cao nhất
   const topRestaurants = useMemo(() => {
-    return [...restaurants]
+    return [...allRestaurants]
       .sort((a, b) => {
+        // Sắp xếp theo rating cao nhất
         if (b.rating === a.rating) {
+          // Nếu rating bằng nhau, ưu tiên nhiều reviews hơn
           return (b.reviews || 0) - (a.reviews || 0);
         }
         return b.rating - a.rating;
       })
-      // Bỏ slice(0, 3) cứng ở đây, để UI quyết định hiển thị bao nhiêu
+      .slice(0, 10) // Chỉ lấy 10 nhà hàng đầu tiên
       .map((restaurant, index) => ({
         ...restaurant,
         rank: index + 1,
         image: restaurant.image || restaurant.image_url || restaurant.bannerImage,
         price: restaurant.price || '$$',
       }));
-  }, [restaurants]);
+  }, [allRestaurants]);
 
   const handleRestaurantSelect = (restaurantOrId) => {
     if (!restaurantOrId) {
@@ -526,8 +643,8 @@ const DiscoverPage = () => {
               <section className={styles.section}>
                 <SectionHeader title="Tất cả nhà hàng" targetMode="all" />
                 <div className={styles.restaurantList}>
-                  {/* Chỉ hiển thị 3 items */}
-                  {renderRestaurantList(restaurants.slice(0, 3))}
+                  {/* Chỉ hiển thị 3 items - dùng allRestaurants */}
+                  {renderRestaurantList(allRestaurants.slice(0, 3))}
                 </div>
               </section>
             </>
@@ -542,7 +659,7 @@ const DiscoverPage = () => {
               </div>
 
               <p className={styles.subtitle}>
-                {categories.length} loại hình ẩm thực · {restaurants.length} điểm đến
+                {categories.length} loại hình ẩm thực · {restaurantsForNearby.length} điểm đến
               </p>
 
               {/* Hàng: Tabs phổ biến/đánh giá cao + nút Filter (góc phải) */}
@@ -599,8 +716,8 @@ const DiscoverPage = () => {
                 <h2 className={styles.title}>Tất cả nhà hàng</h2>
               </div>
               <div className={styles.restaurantList}>
-                {/* Hiển thị Full list */}
-                {renderRestaurantList(restaurants)}
+                {/* Hiển thị Full list - dùng allRestaurants (không bị ảnh hưởng bởi search) */}
+                {renderRestaurantList(allRestaurants)}
               </div>
             </section>
           )}
@@ -610,9 +727,11 @@ const DiscoverPage = () => {
         {/* Cột 2: Bản đồ */}
         <section className={styles.mapContainer}>
           <MapView
+            key="main-map" // Key ổn định để tránh remount khi chuyển trang
             restaurants={mapRestaurants}
             selectedRestaurantId={selectedRestaurantId}
             onRestaurantSelect={handleRestaurantSelect}
+            autoFitBounds={!!(searchParams.get('q') || searchParams.get('category'))} // Bật auto fit bounds khi có search
           />
         </section>
 

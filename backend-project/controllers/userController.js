@@ -38,7 +38,7 @@ const validateRegisterInput = (name, email, password) => {
 
 const register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, phone_number } = req.body;
 
     // 1. Validate đầu vào
     const errorMsg = validateRegisterInput(name, email, password);
@@ -63,7 +63,8 @@ const register = async (req, res, next) => {
       name, 
       email, 
       password, 
-      role: finalRole 
+      role: finalRole,
+      phone_number: phone_number || null
     });
 
     // 5. Tạo Token trả về luôn để user đăng nhập ngay
@@ -77,7 +78,8 @@ const register = async (req, res, next) => {
           id: user.id,
           name: user.name,
           email: user.email,
-          role: user.role
+          role: user.role,
+          phone_number: user.phone_number
         },
         token
       }
@@ -118,7 +120,8 @@ const login = async (req, res, next) => {
           id: user.id,
           name: user.name,
           email: user.email,
-          role: user.role
+          role: user.role,
+          phone_number: user.phone_number
         },
         token
       }
@@ -178,6 +181,65 @@ const forgotPassword = async (req, res, next) => {
   }
 };
 
+const updateProfile = async (req, res, next) => {
+  try {
+    const userId = req.userId || (req.user && req.user.id);
+    const { name, phone_number } = req.body;
+
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Chưa đăng nhập' });
+    }
+
+    const user = await User.findByPk(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: 'User không tồn tại' });
+    }
+
+    // Validate và cập nhật
+    const updateData = {};
+    if (name !== undefined) {
+      if (!name || !name.trim()) {
+        return res.status(400).json({ success: false, message: 'Tên không được để trống' });
+      }
+      updateData.name = name.trim();
+    }
+
+    if (phone_number !== undefined) {
+      // Validate phone number format (optional, có thể để null)
+      if (phone_number && phone_number.trim()) {
+        // Basic validation: chỉ cho phép số, dấu +, dấu cách, dấu gạch ngang
+        const phoneRegex = /^[\d\s\+\-\(\)]+$/;
+        if (!phoneRegex.test(phone_number.trim())) {
+          return res.status(400).json({ 
+            success: false, 
+            message: 'Số điện thoại không hợp lệ' 
+          });
+        }
+        updateData.phone_number = phone_number.trim();
+      } else {
+        updateData.phone_number = null;
+      }
+    }
+
+    // Cập nhật user
+    await user.update(updateData);
+
+    // Lấy lại user với phone_number
+    const updatedUser = await User.findById(userId);
+
+    res.json({
+      success: true,
+      message: 'Cập nhật thông tin thành công',
+      data: {
+        user: updatedUser
+      }
+    });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    next(error);
+  }
+};
+
 const healthCheck = (req, res) => {
   res.json({ success: true, message: 'Users API is working' });
 };
@@ -187,6 +249,7 @@ module.exports = {
   register,
   login,
   getProfile,
+  updateProfile,
   logout,
   forgotPassword,
   healthCheck

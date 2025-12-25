@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { useNotification } from '../../context/NotificationContext';
 import { adminAPI, menuItemAPI } from '../../services/api';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
+import ConfirmModal from '../../components/ConfirmModal/ConfirmModal';
 import styles from './AdminDashboard.module.css';
 import {
   FaStore,
@@ -15,11 +17,13 @@ import {
   FaCheck,
   FaTimes,
   FaEdit,
-  FaUtensils
+  FaUtensils,
+  FaArrowLeft
 } from 'react-icons/fa';
 
 const AdminDashboard = () => {
   const { isAuthenticated, isAdmin } = useAuth();
+  const { showSuccess, showError } = useNotification();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState(null);
@@ -31,6 +35,21 @@ const AdminDashboard = () => {
   const [newRole, setNewRole] = useState('');
   const [rejectReason, setRejectReason] = useState('');
   const [rejectingItemId, setRejectingItemId] = useState(null);
+  
+  // Confirm modal states
+  const [confirmModal, setConfirmModal] = useState({
+    isOpen: false,
+    title: '',
+    message: '',
+    type: 'warning',
+    confirmText: 'OK',
+    cancelText: 'Hủy',
+    confirmButtonStyle: 'primary',
+    onConfirm: null,
+  });
+  
+  // Prevent double-click on action buttons
+  const [processingAction, setProcessingAction] = useState(null);
 
   const BACKEND_URL = 'http://localhost:3000';
 
@@ -77,119 +96,202 @@ const AdminDashboard = () => {
   };
 
   const handleApproveRestaurant = async (id) => {
-    try {
-      const response = await adminAPI.approveRestaurant(id);
-      if (response.success) {
-        setPendingRestaurants(pendingRestaurants.filter(r => r.id !== id));
-        // Update stats
-        if (stats) {
-          setStats({
-            ...stats,
-            restaurants: {
-              ...stats.restaurants,
-              approved: stats.restaurants.approved + 1,
-              pending: stats.restaurants.pending - 1
+    if (processingAction === `approve-restaurant-${id}`) return;
+    setProcessingAction(`approve-restaurant-${id}`);
+    
+    setConfirmModal({
+      isOpen: true,
+      title: 'Xác nhận duyệt',
+      message: 'Bạn có chắc chắn muốn duyệt nhà hàng này?',
+      type: 'info',
+      confirmText: 'Xác nhận',
+      cancelText: 'Hủy',
+      confirmButtonStyle: 'primary',
+      onConfirm: async () => {
+        try {
+          const response = await adminAPI.approveRestaurant(id);
+          if (response.success) {
+            setPendingRestaurants(pendingRestaurants.filter(r => r.id !== id));
+            // Update stats
+            if (stats) {
+              setStats({
+                ...stats,
+                restaurants: {
+                  ...stats.restaurants,
+                  approved: stats.restaurants.approved + 1,
+                  pending: stats.restaurants.pending - 1
+                }
+              });
             }
-          });
+            showSuccess('Thành công', 'Đã duyệt nhà hàng thành công');
+          }
+        } catch (error) {
+          showError('Lỗi', 'Lỗi khi duyệt nhà hàng: ' + error.message);
+        } finally {
+          setProcessingAction(null);
         }
-      }
-    } catch (error) {
-      alert('Lỗi khi duyệt nhà hàng: ' + error.message);
-    }
+      },
+    });
   };
 
   const handleRejectRestaurant = async (id) => {
-    if (!confirm('Bạn có chắc chắn muốn từ chối nhà hàng này?')) return;
-
-    try {
-      const response = await adminAPI.rejectRestaurant(id);
-      if (response.success) {
-        setPendingRestaurants(pendingRestaurants.filter(r => r.id !== id));
-        // Update stats
-        if (stats) {
-          setStats({
-            ...stats,
-            restaurants: {
-              ...stats.restaurants,
-              pending: stats.restaurants.pending - 1
+    if (processingAction === `reject-restaurant-${id}`) return; // Prevent double-click
+    setProcessingAction(`reject-restaurant-${id}`);
+    
+    setConfirmModal({
+      isOpen: true,
+      title: 'Xác nhận từ chối',
+      message: 'Bạn có chắc chắn muốn từ chối nhà hàng này?',
+      type: 'warning',
+      confirmText: 'Xác nhận',
+      cancelText: 'Hủy',
+      confirmButtonStyle: 'danger',
+      onConfirm: async () => {
+        try {
+          const response = await adminAPI.rejectRestaurant(id);
+          if (response.success) {
+            setPendingRestaurants(pendingRestaurants.filter(r => r.id !== id));
+            // Update stats
+            if (stats) {
+              setStats({
+                ...stats,
+                restaurants: {
+                  ...stats.restaurants,
+                  pending: stats.restaurants.pending - 1
+                }
+              });
             }
-          });
+            showSuccess('Thành công', 'Đã từ chối nhà hàng thành công');
+          }
+        } catch (error) {
+          showError('Lỗi', 'Lỗi khi từ chối nhà hàng: ' + error.message);
+        } finally {
+          setProcessingAction(null);
         }
-      }
-    } catch (error) {
-      alert('Lỗi khi từ chối nhà hàng: ' + error.message);
-    }
+      },
+    });
   };
 
   const handleUpdateUserRole = async (userId) => {
     if (!newRole) return;
+    if (processingAction === `update-role-${userId}`) return;
+    setProcessingAction(`update-role-${userId}`);
 
     const user = users.find(u => u.id === userId);
     const oldRole = user?.role;
 
     // Confirmation dialog chi tiết
+    let confirmTitle = 'Xác nhận thay đổi role';
     let confirmMessage = '';
+    let confirmType = 'warning';
+    let confirmButtonStyle = 'primary';
+
     if (newRole === 'owner' && oldRole !== 'owner') {
-      confirmMessage = `🎉 Bạn có chắc muốn phong "${user?.name}" (${user?.email}) làm Owner?\n\nSau khi xác nhận:\n• User sẽ có quyền tạo và quản lý nhà hàng\n• User sẽ có quyền thêm/sửa/xóa menu\n• Email thông báo sẽ được gửi đến ${user?.email}`;
+      confirmTitle = 'Phong làm Owner';
+      confirmMessage = `Bạn có chắc muốn phong "${user?.name}" (${user?.email}) làm Owner?\n\nSau khi xác nhận:\n• User sẽ có quyền tạo và quản lý nhà hàng\n• User sẽ có quyền thêm/sửa/xóa menu\n• Email thông báo sẽ được gửi đến ${user?.email}`;
+      confirmType = 'info';
     } else if (oldRole === 'owner' && newRole !== 'owner') {
-      confirmMessage = `⚠️ Bạn có chắc muốn hạ cấp "${user?.name}" từ Owner xuống ${newRole}?\n\nSau khi xác nhận:\n• User sẽ mất quyền quản lý nhà hàng\n• Các nhà hàng hiện tại vẫn được giữ\n• Email thông báo sẽ được gửi`;
+      confirmTitle = 'Hạ cấp từ Owner';
+      confirmMessage = `Bạn có chắc muốn hạ cấp "${user?.name}" từ Owner xuống ${newRole}?\n\nSau khi xác nhận:\n• User sẽ mất quyền quản lý nhà hàng\n• Các nhà hàng hiện tại vẫn được giữ\n• Email thông báo sẽ được gửi`;
+      confirmType = 'warning';
     } else if (newRole === 'admin') {
-      confirmMessage = `🛡️ Bạn có chắc muốn phong "${user?.name}" làm Admin?\n\n⚠️ Admin có toàn quyền trên hệ thống!`;
+      confirmTitle = 'Phong làm Admin';
+      confirmMessage = `Bạn có chắc muốn phong "${user?.name}" làm Admin?\n\n⚠️ Admin có toàn quyền trên hệ thống!`;
+      confirmType = 'danger';
+      confirmButtonStyle = 'danger';
     } else {
       confirmMessage = `Bạn có chắc muốn đổi role của "${user?.name}" thành ${newRole}?`;
     }
 
-    if (!confirm(confirmMessage)) {
-      return;
-    }
+    setConfirmModal({
+      isOpen: true,
+      title: confirmTitle,
+      message: confirmMessage,
+      type: confirmType,
+      confirmText: 'Xác nhận',
+      cancelText: 'Hủy',
+      confirmButtonStyle: confirmButtonStyle,
+      onConfirm: async () => {
+        try {
+          const response = await adminAPI.updateUserRole(userId, newRole);
+          if (response.success) {
+            setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
+            setEditingUser(null);
+            setNewRole('');
 
-    try {
-      const response = await adminAPI.updateUserRole(userId, newRole);
-      if (response.success) {
-        setUsers(users.map(u => u.id === userId ? { ...u, role: newRole } : u));
-        setEditingUser(null);
-        setNewRole('');
-
-        // Hiển thị thông báo chi tiết
-        let successMessage = `✅ Đã cập nhật role thành ${newRole}`;
-        if (response.emailSent) {
-          successMessage += `\n📧 Email thông báo đã được gửi đến ${user?.email}`;
+            // Hiển thị thông báo chi tiết
+            let successTitle = 'Thành công';
+            let successMessage = `Đã cập nhật role thành ${newRole}`;
+            if (response.emailSent) {
+              successMessage += `. Email thông báo đã được gửi đến ${user?.email}`;
+            }
+            if (newRole === 'owner') {
+              successMessage += '. User giờ đã có thể tạo và quản lý nhà hàng!';
+            }
+            showSuccess(successTitle, successMessage);
+          }
+        } catch (error) {
+          showError('Lỗi', 'Lỗi khi cập nhật role: ' + error.message);
         }
-        if (newRole === 'owner') {
-          successMessage += '\n\n🎉 User giờ đã có thể tạo và quản lý nhà hàng!';
-        }
-        alert(successMessage);
-      }
-    } catch (error) {
-      alert('Lỗi khi cập nhật role: ' + error.message);
-    }
+      },
+    });
   };
 
   // Menu Item handlers
   const handleApproveMenuItem = async (id) => {
-    try {
-      const response = await menuItemAPI.approveMenuItem(id);
-      if (response.success) {
-        setPendingMenuItems(pendingMenuItems.filter(m => m.id !== id));
-        alert('Đã duyệt món ăn');
-      }
-    } catch (error) {
-      alert('Lỗi khi duyệt món: ' + error.message);
-    }
+    if (processingAction === `approve-menu-${id}`) return;
+    setProcessingAction(`approve-menu-${id}`);
+    
+    setConfirmModal({
+      isOpen: true,
+      title: 'Xác nhận duyệt',
+      message: 'Bạn có chắc chắn muốn duyệt món ăn này?',
+      type: 'info',
+      confirmText: 'Xác nhận',
+      cancelText: 'Hủy',
+      confirmButtonStyle: 'primary',
+      onConfirm: async () => {
+        try {
+          const response = await menuItemAPI.approveMenuItem(id);
+          if (response.success) {
+            setPendingMenuItems(pendingMenuItems.filter(m => m.id !== id));
+            showSuccess('Thành công', 'Đã duyệt món ăn');
+          }
+        } catch (error) {
+          showError('Lỗi', 'Lỗi khi duyệt món: ' + error.message);
+        }
+      },
+    });
   };
 
   const handleRejectMenuItem = async (id) => {
-    try {
-      const response = await menuItemAPI.rejectMenuItem(id, rejectReason);
-      if (response.success) {
-        setPendingMenuItems(pendingMenuItems.filter(m => m.id !== id));
-        setRejectingItemId(null);
-        setRejectReason('');
-        alert('Đã từ chối món ăn');
-      }
-    } catch (error) {
-      alert('Lỗi khi từ chối món: ' + error.message);
-    }
+    if (processingAction === `reject-menu-${id}`) return; // Prevent double-click
+    setProcessingAction(`reject-menu-${id}`);
+    
+    setConfirmModal({
+      isOpen: true,
+      title: 'Xác nhận từ chối',
+      message: 'Bạn có chắc chắn muốn từ chối món ăn này?',
+      type: 'warning',
+      confirmText: 'Xác nhận',
+      cancelText: 'Hủy',
+      confirmButtonStyle: 'danger',
+      onConfirm: async () => {
+        try {
+          const response = await menuItemAPI.rejectMenuItem(id, rejectReason);
+          if (response.success) {
+            setPendingMenuItems(pendingMenuItems.filter(m => m.id !== id));
+            setRejectingItemId(null);
+            setRejectReason('');
+            showSuccess('Thành công', 'Đã từ chối món ăn');
+          }
+        } catch (error) {
+          showError('Lỗi', 'Lỗi khi từ chối món: ' + error.message);
+        } finally {
+          setProcessingAction(null);
+        }
+      },
+    });
   };
 
   if (!isAuthenticated || !isAdmin) {
@@ -204,6 +306,19 @@ const AdminDashboard = () => {
           <div className={styles.loading}>Đang tải...</div>
         </main>
         <Footer />
+        
+        {/* Confirm Modal */}
+        <ConfirmModal
+          isOpen={confirmModal.isOpen}
+          onClose={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+          onConfirm={confirmModal.onConfirm || (() => {})}
+          title={confirmModal.title}
+          message={confirmModal.message}
+          type={confirmModal.type}
+          confirmText={confirmModal.confirmText}
+          cancelText={confirmModal.cancelText}
+          confirmButtonStyle={confirmModal.confirmButtonStyle}
+        />
       </div>
     );
   }
@@ -212,6 +327,17 @@ const AdminDashboard = () => {
     <div className={styles.pageContainer}>
       <Navbar />
       <main className={styles.mainContent}>
+        {/* Back Button */}
+        <div className={styles.backButtonWrapper}>
+          <button 
+            className={styles.backButton}
+            onClick={() => navigate(-1)}
+            title="Quay lại"
+          >
+            <FaArrowLeft /> Quay lại
+          </button>
+        </div>
+        
         <div className={styles.dashboard}>
           <h1 className={styles.title}>Admin Dashboard</h1>
 
@@ -510,6 +636,19 @@ const AdminDashboard = () => {
         </div>
       </main>
       <Footer />
+      
+      {/* Confirm Modal */}
+      <ConfirmModal
+        isOpen={confirmModal.isOpen}
+        onClose={() => setConfirmModal({ ...confirmModal, isOpen: false })}
+        onConfirm={confirmModal.onConfirm || (() => {})}
+        title={confirmModal.title}
+        message={confirmModal.message}
+        type={confirmModal.type}
+        confirmText={confirmModal.confirmText}
+        cancelText={confirmModal.cancelText}
+        confirmButtonStyle={confirmModal.confirmButtonStyle}
+      />
     </div>
   );
 };

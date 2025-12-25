@@ -52,7 +52,9 @@ module.exports = (sequelize, DataTypes) => {
         sequelize,
         modelName: 'MenuItem',
         tableName: 'menu_items',
-        underscored: true,
+        timestamps: true,
+        createdAt: 'createdAt',
+        updatedAt: 'updatedAt'
     });
     return MenuItem;
 };

@@ -15,6 +15,39 @@
     margin: 0 auto;
 }
 
+/* Back Button */
+.backButtonWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: #374151;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: fit-content;
+}
+
+.backButton:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    color: #111827;
+}
+
+.backButton svg {
+    font-size: 1rem;
+}
+
 .dashboard {
     background: white;
     border-radius: 12px;
@@ -356,4 +389,13 @@
     background: #f8fafc;
     border-radius: 8px;
     border: 2px dashed #e2e8f0;
+}
+
+/* Responsive for Back Button */
+@media (max-width: 768px) {
+    .backButton {
+        margin-bottom: 0.75rem;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+    }
 }

@@ -145,17 +145,58 @@ export const CollectionProvider = ({ children }) => {
         }
     }, [isAuthenticated]);
 
+    // Refresh favorites từ API
+    const refreshFavorites = useCallback(async () => {
+        if (!isAuthenticated) return;
+
+        try {
+            setLoading(true);
+            const response = await favoriteAPI.getFavorites();
+            if (response.success) {
+                setFavorites(response.data || []);
+                const ids = new Set((response.data || []).map(fav => fav.id));
+                setFavoriteIds(ids);
+            }
+        } catch (error) {
+            console.error('Error refreshing favorites:', error);
+        } finally {
+            setLoading(false);
+        }
+    }, [isAuthenticated]);
+
     // Toggle yêu thích
     const toggleFavorite = useCallback(async (restaurant) => {
         const restaurantId = typeof restaurant === 'object' ? restaurant.id : restaurant;
+        
+        // Convert ID để so sánh chính xác
+        const id = typeof restaurantId === 'string' ? parseInt(restaurantId, 10) : restaurantId;
+        const idStr = String(restaurantId);
+        
+        // Kiểm tra xem đã có trong favoriteIds chưa
+        const isCurrentlyFavorite = favoriteIds.has(id) || favoriteIds.has(idStr);
 
-        if (isFavorite(restaurantId)) {
+        if (isCurrentlyFavorite) {
             return await removeFavorite(restaurantId);
         } else {
             const restaurantData = typeof restaurant === 'object' ? restaurant : { id: restaurantId };
-            return await addFavorite(restaurantData);
+            try {
+                const result = await addFavorite(restaurantData);
+                // Nếu API trả về lỗi "đã được thêm", refresh favorites từ server
+                if (!result.success && result.message && result.message.includes('đã được thêm')) {
+                    await refreshFavorites();
+                    return { success: true, message: 'Đã có trong yêu thích' };
+                }
+                return result;
+            } catch (error) {
+                // Nếu lỗi là "đã được thêm", refresh favorites
+                if (error.message && error.message.includes('đã được thêm')) {
+                    await refreshFavorites();
+                    return { success: true, message: 'Đã có trong yêu thích' };
+                }
+                throw error;
+            }
         }
-    }, [addFavorite, removeFavorite]);
+    }, [addFavorite, removeFavorite, favoriteIds, refreshFavorites]);
 
     // Kiểm tra địa điểm có trong yêu thích không
     const isFavorite = useCallback((restaurantId) => {
@@ -202,25 +243,6 @@ export const CollectionProvider = ({ children }) => {
     const clearRecentSearches = useCallback(() => {
         setRecentSearches([]);
     }, []);
-
-    // Refresh favorites từ API
-    const refreshFavorites = useCallback(async () => {
-        if (!isAuthenticated) return;
-
-        try {
-            setLoading(true);
-            const response = await favoriteAPI.getFavorites();
-            if (response.success) {
-                setFavorites(response.data || []);
-                const ids = new Set((response.data || []).map(fav => fav.id));
-                setFavoriteIds(ids);
-            }
-        } catch (error) {
-            console.error('Error refreshing favorites:', error);
-        } finally {
-            setLoading(false);
-        }
-    }, [isAuthenticated]);
 
     const value = {
         // State

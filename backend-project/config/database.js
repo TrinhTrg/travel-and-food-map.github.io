@@ -7,7 +7,7 @@ const rootConnection = new Sequelize({
   host: process.env.DB_HOST,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  logging: false, // Tắt logging để tránh spam console
+  logging: false, 
 });
 
 // Kết nối đến database chính
@@ -24,7 +24,6 @@ const sequelize = new Sequelize(
 
 const createDatabase = async () => {
   try {
-    // Tạo database nếu chưa tồn tại
     await rootConnection.query(
       `CREATE DATABASE IF NOT EXISTS \`${process.env.DB_NAME}\`;`
     );
@@ -37,8 +36,7 @@ const createDatabase = async () => {
 
 const createUsersTable = async () => {
   try {
-    // Đồng bộ hóa tất cả models (tạo bảng)
-    await sequelize.sync({ force: false }); // force: false = không xóa bảng cũ
+    await sequelize.sync({ force: false });
     console.log('All tables created or already exist');
   } catch (err) {
     console.error('Cannot create tables:', err.message);
@@ -47,7 +45,7 @@ const createUsersTable = async () => {
 };
 
 module.exports = {
-  sequelize,          // Export để dùng trong models
+  sequelize,         
   createDatabase,
   createUsersTable
 };

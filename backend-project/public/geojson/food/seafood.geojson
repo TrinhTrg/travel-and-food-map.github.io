@@ -1,0 +1,139 @@
+{
+  "type": "FeatureCollection",
+  "generator": "overpass-turbo",
+  "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.",
+  "timestamp": "2025-12-23T11:07:40Z",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5485483822",
+        "addr:street": "Lô 14-15 Hồ Nghinh, Phước Mỹ, Sơn Trà, Đà Nẵng, 베트남",
+        "amenity": "restaurant",
+        "cuisine": "seafood",
+        "name": "Nhà hàng hải sản Bé Anh",
+        "name:en": "Bé Anh",
+        "name:ko": "베안",
+        "opening_hours": "Mo-Su 09:00-23:00",
+        "phone": "+84 90 551 67 26"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2429913,
+          16.0692319
+        ]
+      },
+      "id": "node/5485483822"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5485496021",
+        "addr:housenumber": "202",
+        "addr:street": "Đường Võ Nguyên Giáp",
+        "amenity": "restaurant",
+        "check_date": "2025-05-24",
+        "cuisine": "seafood",
+        "name": "Hải Sản Đà Nẵng Bé Biển",
+        "opening_hours": "Mo-Su 07:30-02:00",
+        "phone": "+84 935 618 949"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.244962,
+          16.0686243
+        ]
+      },
+      "id": "node/5485496021"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5911447385",
+        "addr:housenumber": "145",
+        "addr:street": "Nguyễn Đăng Giai",
+        "amenity": "restaurant",
+        "internet_access": "wlan",
+        "name": "Quán Hải Sản A Trí",
+        "opening_hours": "Mo-Su 14:00-23:00",
+        "phone": "+84 905 868 627"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2578211,
+          16.1033816
+        ]
+      },
+      "id": "node/5911447385"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/4352303490",
+        "addr:housenumber": "94",
+        "addr:street": "Đường Võ Nguyên Giáp",
+        "amenity": "restaurant",
+        "name": "Quán Hải Sản ÔNG MINH",
+        "opening_hours": "Mo-Su 10:00-02:00",
+        "phone": "+84 932 777 703"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2466261,
+          16.0803548
+        ]
+      },
+      "id": "node/4352303490"
+    },
+    
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5552095626",
+        "addr:street": "Võ Nguyên Giáp",
+        "amenity": "restaurant",
+        "check_date": "2022-12-30",
+        "cuisine": "vietnamese;seafood",
+        "name:en": "Hải sản Thanh Hiền 2",
+        "image_url":"https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyi--MtE9cBOSEIRHJ8iq7iRJJLm5T7dfeWB7BBoKDEJyU31gphkHzvFqUk5DyrjeHs7o5lHcfp3_kfqMvBBp7mW2gzYD36QKj6YT0arlGqspGMIFGCQaqoWBLdNF2I83WjG-1oDg=w408-h306-k-no",
+        "phone": "+84 905 959 469"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2462089,
+          16.0598778
+        ]
+      },
+      "id": "node/5552095626"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "@id": "node/5485483822",
+        "addr:city": "Đà Nẵng",
+        "addr:housenumber": "Lô 14-15 ",
+        "addr:street": "Hồ Nghinh, Phước Mỹ, Sơn Trà, Đà Nẵng, Vietnam",
+        "amenity": "restaurant",
+        "cuisine": "seafood",
+        "name": "Nhà hàng hải sản Bé Anh",
+        "name:en": "Bé Anh",
+        "name:ko": "베안",
+        "opening_hours": "Mo-Su 09:00-23:00",
+        "phone": "+84 90 551 67 26"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          108.2429913,
+          16.0692319
+        ]
+      },
+      "id": "node/5485483822"
+    }
+  ]
+}

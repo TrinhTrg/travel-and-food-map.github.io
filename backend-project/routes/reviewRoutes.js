@@ -27,7 +27,6 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-    // Chỉ cho phép upload ảnh
     const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
     if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
@@ -45,15 +44,17 @@ const upload = multer({
     }
 });
 
-// === PUBLIC ROUTES ===
-
 // Lấy tất cả reviews của một restaurant
 router.get('/restaurant/:restaurantId', reviewController.getReviewsByRestaurant);
 
-// === PROTECTED ROUTES (yêu cầu đăng nhập) ===
-
 // Lấy review của user cho restaurant cụ thể
 router.get('/user/:restaurantId', requireAuth, reviewController.getUserReview);
+
+// Lấy số lượng reviews của user hiện tại
+router.get('/user-count', requireAuth, reviewController.getUserReviewCount);
+
+// Lấy tất cả reviews của user hiện tại (với thông tin restaurant)
+router.get('/user', requireAuth, reviewController.getUserReviews);
 
 // Tạo hoặc cập nhật review
 router.post('/', requireAuth, reviewController.createOrUpdateReview);
