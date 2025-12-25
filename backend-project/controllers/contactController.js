@@ -6,8 +6,8 @@ const createTransporter = () => {
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER || 'truongtrinhttt147@gmail.com',
-      pass: process.env.EMAIL_PASSWORD || '', // Cần set App Password trong .env
+      user: process.env.ADMIN_EMAIL || 'truongtrinhttt147@gmail.com',
+      pass: process.env.ADMIN_PASSWORD || '123456',
     },
   });
 };
@@ -40,19 +40,18 @@ const sendContactEmail = async (req, res, next) => {
       console.error('EMAIL_PASSWORD chưa được cấu hình trong .env file');
       return res.status(500).json({
         success: false,
-        message: 'Cấu hình email chưa đầy đủ. Vui lòng liên hệ quản trị viên.',
+        message: 'Cấu hình email chưa đầy đủ',
       });
     }
 
     // Tạo transporter
     const transporter = createTransporter();
 
-    // Email gửi đến bạn (truongtrinhttt147@gmail.com)
-    // Đặt Reply-To là email của user để có thể reply lại
+    // Email gửi đến bạn
     const mailOptions = {
       from: process.env.EMAIL_USER || 'truongtrinhttt147@gmail.com',
       to: 'truongtrinhttt147@gmail.com',
-      replyTo: email, // Đặt reply-to là email của user để có thể reply
+      replyTo: email,
       subject: `[Contact Form] ${subject}`,
       html: `
         <h2>Tin nhắn mới từ form liên hệ</h2>
@@ -89,11 +88,10 @@ ${message}
     if (error.code === 'EAUTH') {
       return res.status(500).json({
         success: false,
-        message: 'Lỗi xác thực email. Vui lòng kiểm tra cấu hình App Password trong file .env',
+        message: 'Lỗi xác thực email',
       });
     }
     
-    // Lỗi khác
     return res.status(500).json({
       success: false,
       message: 'Không thể gửi email. Vui lòng thử lại sau.',

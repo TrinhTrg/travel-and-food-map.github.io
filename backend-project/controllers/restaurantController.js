@@ -4,19 +4,19 @@ const { Op } = require('sequelize');
 const getAllRestaurants = async (req, res) => {
   try {
     const { category_id, status, is_open, viewed_only, session_id } = req.query;
-    const userId = req.userId || null; // Có thể null nếu user chưa đăng nhập
+    const userId = req.userId || null;
 
     const whereClause = {};
 
-    // Filter by status (default: only approved)
+    // Filter by status
     whereClause.status = status || 'approved';
 
-    // Filter by is_open if provided
+    // Filter by is_open 
     if (is_open !== undefined) {
       whereClause.is_open = is_open === 'true';
     }
 
-    // Nếu chỉ lấy restaurants đã xem (viewed_only=true)
+    // Nếu chỉ lấy restaurants đã xem
     let viewedRestaurantIds = null;
     if (viewed_only === 'true') {
       const viewWhere = {};
@@ -25,7 +25,7 @@ const getAllRestaurants = async (req, res) => {
       } else if (session_id) {
         viewWhere.session_id = session_id;
       } else {
-        // Không có user_id hoặc session_id, trả về empty
+        // Không có user_id hoặc session_id trả về empty
         return res.json({
           success: true,
           data: [],
@@ -52,7 +52,7 @@ const getAllRestaurants = async (req, res) => {
       whereClause.id = { [Op.in]: viewedRestaurantIds };
     }
 
-    // Build include options
+    // include options là các model cần join 
     const includeOptions = [
         {
           model: Category,
@@ -69,7 +69,7 @@ const getAllRestaurants = async (req, res) => {
         }
     ];
 
-    // If filtering by category_id, use many-to-many relationship
+    // NẾU CÓ CATEGORY_ID THÌ FILTER THEO CATEGORY_ID
     if (category_id) {
       // Filter through many-to-many relationship
       includeOptions[1].where = { id: category_id };

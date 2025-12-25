@@ -1,5 +1,5 @@
 .env
 serviceAccountKey.json
 package-lock.json
-fix-categories.js
 node_modules
+

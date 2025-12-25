@@ -1,12 +1,11 @@
 const { Restaurant, Category } = require('../models');
 const { Op } = require('sequelize');
 
-// Search autocomplete - trả về suggestions giống Shopee
 const searchAutocomplete = async (req, res) => {
   try {
     const { q, limit = 10 } = req.query;
 
-    // Nếu không có query, trả về empty
+    // Nếu không có query trả về empty
     if (!q || q.trim().length === 0) {
       return res.json({
         success: true,
@@ -20,10 +19,10 @@ const searchAutocomplete = async (req, res) => {
     const searchTerm = q.trim();
     const searchLimit = Math.min(parseInt(limit) || 10, 20); // Tối đa 20 kết quả
 
-    // Search restaurants - tìm theo name, address, description
+    // Tìm theo name, address, description
     const restaurants = await Restaurant.findAll({
       where: {
-        status: 'approved', // Chỉ lấy restaurants đã được approve
+        status: 'approved',
         [Op.or]: [
           { name: { [Op.like]: `%${searchTerm}%` } },
           { address: { [Op.like]: `%${searchTerm}%` } },
@@ -55,16 +54,15 @@ const searchAutocomplete = async (req, res) => {
       ],
     });
 
-    // Search categories - tìm categories có chứa keyword
+    // Tìm categories có chứa keyword
     const categories = await Category.findAll({
       where: {
         name: { [Op.like]: `%${searchTerm}%` },
       },
       attributes: ['id', 'name'],
-      limit: 5, // Giới hạn 5 categories
+      limit: 5,
     });
 
-    // Format response
     const formattedRestaurants = restaurants.map((restaurant) => {
       const restaurantData = restaurant.toJSON();
       return {
@@ -103,7 +101,6 @@ const searchAutocomplete = async (req, res) => {
   }
 };
 
-// Full search - tìm kiếm đầy đủ (dùng cho trang kết quả)
 const searchRestaurants = async (req, res) => {
   try {
     const { q, category_id, category_name, limit = 50, offset = 0 } = req.query;
@@ -122,11 +119,10 @@ const searchRestaurants = async (req, res) => {
       ];
     }
 
-    // Tìm kiếm theo category name (ví dụ: "chè")
+    // Tìm kiếm theo category name
     let categoryIdToFilter = category_id;
     if (category_name && !category_id) {
-      // Tìm category theo tên (case-insensitive, partial match)
-      // Thử exact match trước, sau đó partial match
+      // Tìm category theo tên
       const categoryNameTrimmed = category_name.trim();
       let category = await Category.findOne({
         where: {
